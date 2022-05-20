@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="bar">
+    <ion-button (click)='goToPage("history")' fill="outline">
+      <ion-icon name="time" slot="start"></ion-icon>
+      History
+    </ion-button>
+    <ion-button (click)='goToPage("trade")' fill="outline">
+      <ion-icon name="swap-horizontal" slot="start"></ion-icon>
+      Trade
+    </ion-button>
+    <ion-button (click)='goToPage("deposit")' fill="outline">
+      <ion-icon name="enter" slot="start"></ion-icon>
+      Deposit
+    </ion-button>
+    <ion-button (click)='goToPage("withdraw")' fill="outline">
+      <ion-icon name="exit" slot="start" class="flip"></ion-icon>
+      Withdraw
+    </ion-button>
+    <ion-button (click)='goToPage("transfer")' fill="outline">
+      <ion-icon name="navigate" slot="start"></ion-icon>
+      Transfer
+    </ion-button>
+  </div>
+  <router-outlet></router-outlet>
+</ion-content>
