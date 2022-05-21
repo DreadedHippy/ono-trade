@@ -1,3 +1,71 @@
 <ion-content>
-  <h1>The Deposit Page!</h1>
+  <ion-card>
+    <ion-item style="width: 75%; margin: 0px auto;">
+      <ion-button (click)="swapCardLeft()" color="secondary" fill="" size="large" shape="round">
+        <ion-icon slot="start" name="chevron-back-circle" color="secondary" size="large">
+        </ion-icon>
+      </ion-button>
+      <ion-button  size="large" expand="full" class="centeredCardSelector">
+        <div style="font-size: 16px">{{ wallets[this.cardIndex].name}}</div>
+      </ion-button>
+      <ion-button color="secondary" (click)="swapCardRight()" fill="" slot="end" size="large" shape="round">
+        <ion-icon slot="end" name="chevron-forward-circle" color="secondary" size="large">
+        </ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+          <ion-item >
+            <ion-label position="floating" class="weak">Adress:</ion-label>
+            <ion-input [value]="this.receivedAdress"
+            readonly="true"
+            id="cardAdress"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="3">
+            <ion-button color="tertiary" class="weakBtn" (click)="copyCardAdress()">Copy</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item style="margin: 0px auto;">
+            <ion-card-subtitle>
+              <ul>
+                <li>Send only 'currency' to this deposit adress, sending any other
+                  'currency' or token may to this adress may result in the loss of your
+                  deposit.
+                </li><br>
+                <li>
+                  'Currency' will be deposited after 1 network confirmation.
+                </li><br>
+                <li>
+                  Until 2 confirmations are made, an equivalent amount of your assets
+                  will be temporarily unavailable for withdrawal
+                </li>
+              </ul>
+              <p></p>
+            </ion-card-subtitle>
+
+            <!-- <ion-textarea rows="15" cols="10"
+              disabled
+              readonly
+              value="Important
+
+            Send only 'currency' to this deposit adress, sending any other
+          'currency' or token may to this adress may result in the loss of your
+          deposit.
+           'Currency will be deposited after
+           Ionic enables developers to build performant, high-quality mobile apps.
+          Ionic enables developers to build performant, high-quality mobile apps.
+          Ionic enables developers to build performant, high-quality mobile apps.
+          Ionic enables developers to build performant, high-quality mobile apps.
+              ">
+            </ion-textarea> -->
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <br>
+  </ion-card>
 </ion-content>
