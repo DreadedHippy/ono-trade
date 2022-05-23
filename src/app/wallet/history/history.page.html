@@ -1,5 +1,65 @@
 
 <ion-content>
-    <h1>The History Page!</h1>
+    <ion-card>
+      <ion-card-title  style="text-align: center; padding-bottom: 2rem;">TRANSACTION HISTORY</ion-card-title>
+      <ion-accordion-group *ngFor="let transaction of this.transactions">
+        <ion-accordion [value]="transaction.date">
+          <!-- Accordion header -->
+          <ion-item slot="header">
+            <ion-label slot="start"
+            style="font-weight: bold;"
+            [ngStyle]="{'color': transaction.type === 'WITHDRAW'? 'orangered' :
+            transaction.type === 'DEPOSIT'? 'green': ''}">
+            {{transaction.type}}</ion-label>
+            <ion-label
+            slot="end"
+            style="color: gold;">
+            {{transaction.amount.toLocaleString()}} {{transaction.currency}}</ion-label>
+          </ion-item>
+
+          <!-- Details -->
+          <ion-list slot="content">
+
+            <!-- Transaction Id -->
+            <ion-item>
+              <ion-label slot="start" class="transactionInfoKey">ID: </ion-label>
+              <ion-label slot="end" class="transactionInfoValue">{{transaction.transactionId}} </ion-label>
+            </ion-item>
+
+            <!-- Transacation currency -->
+            <ion-item>
+              <ion-label slot="start" class="transactionInfoKey">Currency: </ion-label>
+              <ion-label slot="end" class="transactionInfoValue">{{transaction.currency}}</ion-label>
+            </ion-item>
+
+            <!-- Transaction from address -->
+            <ion-item class="transactionInfoValue">
+              <ion-label
+              slot="start"
+              class="transactionInfoKey">From: </ion-label>
+              {{transaction.fromAdress}}
+            </ion-item>
+
+            <!-- Transaction to address -->
+            <ion-item class="transactionInfoValue">
+              <ion-label
+              slot="start"
+              class="transactionInfoKey">To: </ion-label>
+              {{transaction.toAdress}}
+              <!-- Implement adress copy buttton -->
+
+              <!-- <ion-button color="tertiary"
+              class="weakBtn" (click)="copyCardAdress()">Copy</ion-button> -->
+            </ion-item>
+
+            <!-- Transaction Date -->
+            <ion-item>
+              <ion-label slot="start" class="transactionInfoKey">Date: </ion-label>
+              <ion-label slot="end" class="transactionInfoValue">{{transaction.date}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </ion-accordion-group>
+    </ion-card>
 </ion-content>
 

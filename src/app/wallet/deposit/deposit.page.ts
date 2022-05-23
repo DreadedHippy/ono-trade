@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-deposit',
@@ -8,45 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class DepositPage implements OnInit {
 
   cardIndex = 1;
-  wallets= [];
+  wallets = [];
   adress: string;
   receivedAdress = 'Adress/Account Number of card 1 (received from backend)';
-  constructor() { }
+
+
+  constructor(
+    private transactionsService: TransactionsService
+  ) { }
 
   ngOnInit() {
-    this.getWallets();
+
+    this.wallets = this.transactionsService.getWallets();
     this.updateCardAdress();
   }
 
-  getWallets(){
-    //Get list of user's wallets from database
-    this.wallets = [
-      {
-        id: 'ID Number(from db)',
-        name: 'Name 1', //User Generated Name
-        currency: 'Currency',
-        icon: 'Icon of currency',
-        provider: 'Provider(Mastercard, etc)',
-        adress: 'Adress/Account Number of card 1 (received from backend)'
-      },
-      {
-        id: 'ID Number 2',
-        name: 'Name 2', //User Generated Name
-        currency: 'Currency',
-        icon: 'Icon of currency',
-        provider: 'Provider',
-        adress: 'Adress/Account Number of card 2 (received from backend)'
-      },
-      {
-        id: 'ID Number 3',
-        name: 'Name 3', //User Generated Name
-        currency: 'Currency',
-        icon: 'Icon of currency',
-        provider: 'Provider',
-        adress: 'Adress/Account Number of card 3 (received from backend)'
-      },
-    ];
-  }
 
   // Unimportant code to test button click
   buttonClickTest(){
@@ -60,7 +37,7 @@ export class DepositPage implements OnInit {
   }
 
   updateCardAdress(){
-    this.receivedAdress = this.wallets[this.cardIndex].adress;
+    this.receivedAdress = this.wallets[this.cardIndex].address;
   }
 
   swapCardLeft(){

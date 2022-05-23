@@ -9,27 +9,35 @@
 
 
 <ion-content>
-  <div class="bar">
-    <ion-button (click)='goToPage("history")' fill="outline">
-      <ion-icon name="time" slot="start"></ion-icon>
-      History
-    </ion-button>
-    <ion-button (click)='goToPage("trade")' fill="outline">
-      <ion-icon name="swap-horizontal" slot="start"></ion-icon>
-      Trade
-    </ion-button>
-    <ion-button (click)='goToPage("deposit")' fill="outline">
-      <ion-icon name="enter" slot="start"></ion-icon>
-      Deposit
-    </ion-button>
-    <ion-button (click)='goToPage("withdraw")' fill="outline">
-      <ion-icon name="exit" slot="start" class="flip"></ion-icon>
-      Withdraw
-    </ion-button>
-    <ion-button (click)='goToPage("transfer")' fill="outline">
-      <ion-icon name="navigate" slot="start"></ion-icon>
-      Transfer
-    </ion-button>
-  </div>
+  <ion-segment value="transactions">
+
+    <ion-segment-button value="history" (click)='goToPage("history")'>
+      <ion-label><ion-icon name="time" slot="start" size="large"></ion-icon></ion-label>
+      <ion-label>
+        History
+      </ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="trade"(click)='goToPage("trade")'>
+      <ion-label><ion-icon name="swap-horizontal" size="large" slot="start"></ion-icon></ion-label>
+      <ion-label>Trade</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="deposit" (click)='goToPage("deposit")'>
+      <ion-label><ion-icon name="enter" size="large" slot="start"></ion-icon></ion-label>
+      <ion-label>Deposit</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="withdraw" (click)='goToPage("withdraw")'>
+      <ion-label><ion-icon name="exit" class="flip" size="large"></ion-icon></ion-label>
+      <ion-label>Withdraw</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="transfer" (click)='goToPage("transfer")'>
+      <ion-label><ion-icon name="navigate" size="large" slot="start"></ion-icon></ion-label>
+      <ion-label>Transfer</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
   <router-outlet></router-outlet>
 </ion-content>

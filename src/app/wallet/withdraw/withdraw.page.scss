@@ -3,8 +3,29 @@
 }
 
 ion-card{
-  width: 80%;
-  margin: 32px auto;
+  // width: 80%;
+  margin: 32px auto 0px;
+  padding-top: 1rem;
+}
+
+.weakBtn{
+  margin-top: 10px;
+}
+
+.centeredCardSelector{
+  width: 100%;
+  margin-left: 16px;
+}
+
+.badge{  //for the currency badge
+  margin-top: 18px;
+  font-size: 20px;
+  width: 12%;
+  border-radius: 20px;
+}
+
+.downText{
+  font-size: 20px;
 }
 
 

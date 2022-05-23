@@ -1,3 +1,30 @@
 ion-menu-button {
   color: var(--ion-color-primary);
 }
+
+.weak{
+  color: darkgray;
+}
+
+ion-card{
+  // width: 100%;
+  padding-top: 1rem;
+  margin: 32px auto;
+}
+
+.weakBtn{
+  margin-top: 10px;
+}
+
+.centeredCardSelector{
+  width: 100%;
+  margin-left: 16px;
+}
+
+.transactionInfoKey {
+  color: darkorchid;
+}
+
+.transactionInfoValue {
+  color:aquamarine;
+}

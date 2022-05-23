@@ -5,7 +5,7 @@ import { Transaction } from '../models/transaction.model';
   providedIn: 'root'
 })
 export class TransactionsService {
-  private transactions: Transaction[];
+  private transactions: Transaction[] = [];
 
   constructor() { }
 
@@ -13,12 +13,48 @@ export class TransactionsService {
     return [...this.transactions];
   }
 
-  makeTransaction(type){
+  makeTransaction(data: Transaction){
     const transaction: Transaction = {
-      type,
-      date: Date.now(),
-      id: null
+      type: data.type.toUpperCase(),
+      date: data.date ,
+      transactionId: data.transactionId,
+      currency: data.currency,
+      fromAdress: data.fromAdress,
+      toAdress: data.toAdress,
+      amount: data.amount
+
     };
+    console.log(transaction);
     this.transactions.unshift(transaction);
+  }
+
+  getWallets(){
+    //Get list of user's wallets from database
+    return [
+      {
+        id: 'ID Number(from db)',
+        name: 'Name 1', //User Generated Name
+        currency: 'CUR1',
+        icon: 'Icon of currency',
+        provider: 'Provider(Mastercard, etc)',
+        address: 'Adress/Account Number of card 1 (received from backend)'
+      },
+      {
+        id: 'ID Number 2',
+        name: 'Name 2', //User Generated Name
+        currency: 'CUR2',
+        icon: 'Icon of currency',
+        provider: 'Provider',
+        address: 'Adress/Account Number of card 2 (received from backend)'
+      },
+      {
+        id: 'ID Number 3',
+        name: 'Name 3', //User Generated Name
+        currency: 'CUR3',
+        icon: 'Icon of currency',
+        provider: 'Provider',
+        address: 'Adress/Account Number of card 3 (received from backend)'
+      },
+    ];
   }
 }

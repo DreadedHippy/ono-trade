@@ -1,36 +1,58 @@
 <ion-content>
   <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="9">
-          <ion-item>
-            <ion-label position="floating" class="weak">Adress</ion-label>
-            <ion-input placeholder="Receiver Adress"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="9">
-          <ion-item>
-            <ion-label position="floating" class="weak">Withdrawal Amount</ion-label>
-            <ion-input type="number" placeholder="0.00"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size="3">
-          <ion-item>
-            <ion-select placeholder="Wallet">
-              <ion-select-option value="dollar">USD</ion-select-option>
-              <ion-select-option value="naira">NGN</ion-select-option>
-              <ion-select-option value="euro">EUR</ion-select-option>
-              <ion-select-option value="bitcoin">BTC</ion-select-option>
-              <ion-select-option value="usdCoin">USDC</ion-select-option>
-              <ion-select-option value="canadaDollars">CAD</ion-select-option>
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <br>
+    <ion-card-title  style="text-align: center; padding-bottom: 2rem;">WITHDRAWALS</ion-card-title>
+    <form  #form="ngForm" (ngSubmit)="makeWithdrawal(form)">
+      <!-- Cardswitcher -->
+      <ion-item style=" margin: 0px auto;">
+        <ion-button (click)="swapCardLeft()" color="secondary" fill="" size="large" shape="round">
+          <ion-icon slot="start" name="chevron-back-circle" color="secondary" size="large">
+          </ion-icon>
+        </ion-button>
+        <ion-button  size="large" expand="full" class="centeredCardSelector">
+          <div style="font-size: 16px">{{ wallets[this.cardIndex].name}}</div>
+        </ion-button>
+        <ion-button color="secondary" (click)="swapCardRight()" fill="" slot="end" size="large" shape="round">
+          <ion-icon slot="end" name="chevron-forward-circle" color="secondary" size="large">
+          </ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <!-- Transaction Form -->
+      <ion-grid>
+        <ion-row>
+          <ion-col size="9">
+            <ion-item>
+              <ion-label position="floating" class="weak">Adress / Card No.</ion-label>
+              <ion-input placeholder="Receiver Adress"
+              ngModel
+              minlength="16"
+              class="downText"
+              name="addressTo"
+              required="true"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating" class="weak">Withdrawal Amount</ion-label>
+              <ion-input type="number"
+                placeholder="0.00"
+                class="downText"
+                name="amount"
+                ngModel
+                #amount="ngModel"
+                required="true"
+                minlength="16"></ion-input>
+              <ion-badge slot="end" color="tertiary" class="badge">{{ wallets[this.cardIndex].currency}}</ion-badge>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-button expand="block" [color]="ionicNamedColor" type="submit" size="large">
+        WITHDRAW
+      </ion-button>
+    </form>
   </ion-card>
 </ion-content>
 
