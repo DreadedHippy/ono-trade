@@ -59,7 +59,11 @@ export class WithdrawPage implements OnInit {
     }
     const data: Transaction = {
       type: 'withdraw',
-      date: this.today.getFullYear()+'-'+(this.today.getMonth()+1)+'-'+ this.today.getDate(),
+      date: this.today.getFullYear()+'-'+
+      (this.today.getMonth()+1)+'-'+ this.today.getDate() +
+      ':' + this.today.getHours()+
+      ':' + this.today.getMinutes()+
+      ':'+ this.today.getSeconds(),
       transactionId: null,
       currency: this.wallets[this.cardIndex].currency,
       fromAdress: this.wallets[this.cardIndex].address,

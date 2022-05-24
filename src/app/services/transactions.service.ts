@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transaction } from '../models/transaction.model';
+import { Transaction, CryptoBuy } from '../models/transaction.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,12 +28,25 @@ export class TransactionsService {
     this.transactions.unshift(transaction);
   }
 
+  buyCrypto( data: CryptoBuy){
+    const cryptoPurchase: CryptoBuy = {
+    type: data.type.toUpperCase(),
+    date: data.date,
+    transactionId: data.transactionId,
+    amount: data.amount,
+    currency: data.currency,
+    paymentAdress: data.paymentAdress
+    };
+    console.log(cryptoPurchase);
+
+  }
+
   getWallets(){
     //Get list of user's wallets from database
     return [
       {
         id: 'ID Number(from db)',
-        name: 'Name 1', //User Generated Name
+        name: 'Wallet 1', //User Generated Name
         currency: 'CUR1',
         icon: 'Icon of currency',
         provider: 'Provider(Mastercard, etc)',
@@ -41,7 +54,7 @@ export class TransactionsService {
       },
       {
         id: 'ID Number 2',
-        name: 'Name 2', //User Generated Name
+        name: 'Wallet 2', //User Generated Name
         currency: 'CUR2',
         icon: 'Icon of currency',
         provider: 'Provider',
@@ -49,7 +62,7 @@ export class TransactionsService {
       },
       {
         id: 'ID Number 3',
-        name: 'Name 3', //User Generated Name
+        name: 'Wallet 3', //User Generated Name
         currency: 'CUR3',
         icon: 'Icon of currency',
         provider: 'Provider',

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-wallet',
@@ -7,11 +8,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./wallet.page.scss'],
 })
 export class WalletPage implements OnInit {
-  title = 'Wallet';
 
-  constructor( private route: Router) { }
+  title = 'Wallet';
+  ios: boolean;
+  android: boolean;
+
+  constructor(
+    private route: Router,
+    public platform: Platform) {}
 
   ngOnInit() {
+    this.ios = this.platform.is('ios');
+    this.android = this.platform.is('android');
   }
 
   goToPage(page){

@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'wallet',
     loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
+  },
+  {
+    path: 'trade',
+    loadChildren: () => import('./trade/trade.module').then( m => m.TradePageModule)
   }
 ];
 

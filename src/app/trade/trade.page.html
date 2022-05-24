@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment value="transactions">
+    <ion-segment-button value="withdraw" (click)='goToPage("buy")'>
+      <ion-label class="bigText">Buy</ion-label>
+    </ion-segment-button>
+
+    <ion-segment-button value="transfer" (click)='goToPage("transfer")'>
+      <ion-label class="bigText">Sell</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+  <router-outlet></router-outlet>
+
+</ion-content>

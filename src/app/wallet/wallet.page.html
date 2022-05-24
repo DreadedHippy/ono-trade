@@ -13,29 +13,22 @@
 
     <ion-segment-button value="history" (click)='goToPage("history")'>
       <ion-label><ion-icon name="time" slot="start" size="large"></ion-icon></ion-label>
-      <ion-label>
-        History
-      </ion-label>
-    </ion-segment-button>
-
-    <ion-segment-button value="trade"(click)='goToPage("trade")'>
-      <ion-label><ion-icon name="swap-horizontal" size="large" slot="start"></ion-icon></ion-label>
-      <ion-label>Trade</ion-label>
+      <ion-label *ngIf="!ios">History</ion-label>
     </ion-segment-button>
 
     <ion-segment-button value="deposit" (click)='goToPage("deposit")'>
       <ion-label><ion-icon name="enter" size="large" slot="start"></ion-icon></ion-label>
-      <ion-label>Deposit</ion-label>
+      <ion-label *ngIf="!ios">Deposit</ion-label>
     </ion-segment-button>
 
     <ion-segment-button value="withdraw" (click)='goToPage("withdraw")'>
       <ion-label><ion-icon name="exit" class="flip" size="large"></ion-icon></ion-label>
-      <ion-label>Withdraw</ion-label>
+      <ion-label *ngIf="!ios">Withdraw</ion-label>
     </ion-segment-button>
 
     <ion-segment-button value="transfer" (click)='goToPage("transfer")'>
       <ion-label><ion-icon name="navigate" size="large" slot="start"></ion-icon></ion-label>
-      <ion-label>Transfer</ion-label>
+      <ion-label *ngIf="!ios">Transfer</ion-label>
     </ion-segment-button>
 
   </ion-segment>

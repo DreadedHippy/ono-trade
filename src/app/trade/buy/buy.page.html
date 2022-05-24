@@ -1,0 +1,91 @@
+
+<ion-content>
+  <ion-grid>
+    <ion-card class="outerCard">
+      <ion-row>
+        <ion-col size="6">
+          <ion-card color="primary" style="padding-bottom: 1rem;">
+            <ion-card-title
+            style="padding-left: 10%; text-decoration: underline;">{{ coin }} Graph</ion-card-title>
+            <br>
+            <!-- Crypto graph goes here -->
+            <div
+            style="display: flex; align-items: center;justify-content: center;">
+              <img src="../../../assets/images/Line Chart.png"
+              width="90%" height="90%" style="border: black 5px solid;"/>
+            </div>
+          </ion-card>
+        </ion-col>
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-title style="text-align: center;">Buy Crypto</ion-card-title>
+            <br>
+
+            <form #form="ngForm" (ngSubmit)="buyCrypto(form)">
+              <ion-item>
+                <ion-input type="number"
+                  placeholder="0.00"
+                  class="downText"
+                  name="paymentAmount"
+                  ngModel
+                  required="true"
+                  required="true">
+                </ion-input>
+
+                <ion-select placeholder="USD"
+                [interfaceOptions]="customCurrencyOptions"
+                name="paymentCurrency"
+                ngModel
+                required="true"
+                interface="popover">
+                  <ion-select-option value="NGN">NGN</ion-select-option>
+                  <ion-select-option value="CAD">CAD</ion-select-option>
+                  <ion-select-option value="USD">USD</ion-select-option>
+                  <ion-select-option value="JPY">JPY</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <br *ngIf="!ios && !android">
+              <br *ngIf="!ios && !android">
+              <br *ngIf="!ios && !android">
+              <ion-item>
+                <ion-label *ngIf="!ios && !android">Coin: </ion-label>
+                <ion-select placeholder="Select"
+                [interfaceOptions]="customCoinOptions"
+                [(ngModel)]="coin"
+                name="coin"
+                required="true"
+                interface="popover">
+                  <ion-select-option value="Bitcoin">BTC</ion-select-option>
+                  <ion-select-option value="USDCoin">USDC</ion-select-option>
+                  <ion-select-option value="Ethereum">ETH</ion-select-option>
+                  <ion-select-option value="Celo">CELO</ion-select-option>
+                  <ion-select-option value="Solana">SOL</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <br *ngIf="!ios && !android">
+              <br *ngIf="!ios && !android">
+              <ion-item>
+                <ion-label *ngIf="!ios && !android">Payment method: </ion-label>
+                <ion-select placeholder="Select one"
+                [interfaceOptions]="customCoinOptions"
+                name="wallet"
+                ngModel
+                required="true"
+                interface="popover">
+                  <ion-select-option
+                  *ngFor="let wallet of this.wallets"
+                  [value]="wallet.id">{{wallet.name}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <div style="padding-top: 20%;">
+                <ion-button type="submit" expand="block">
+                  BUY
+                </ion-button>
+              </div>
+            </form>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+</ion-content>
