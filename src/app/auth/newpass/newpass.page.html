@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>newpass</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card padding>
+    <ion-card-title style="margin-left: 45%;">Password Reset Form</ion-card-title>
+    <ion-card-content>
+      <form #form="ngForm" (ngSubmit)="onLogin(form)">
+
+        <ion-item>
+          <ion-input type="password" ngModel name="password1" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
+          <p *ngIf=passwordInput.invalid>Input at leat 8 chars</p>
+        </ion-item><hr>
+
+        <ion-item>
+          <ion-input type="password" ngModel name="password2" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
+          <p *ngIf=passwordInput.invalid>Input at leat 8 chars</p>
+        </ion-item><hr>
+
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button ion-padding type="submit" expand="full" fill="outline" color="primary" shape="round">Change My Password</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

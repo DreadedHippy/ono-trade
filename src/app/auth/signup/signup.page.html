@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-title style="text-align: center;">Signup</ion-title> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-title style="text-align: center; font-weight: 700; padding-bottom: 35px; padding-top: 10px;">CREATE AN ACCOUNT</ion-card-title>
+    <ion-card-content>
+      <form #form="ngForm" (ngSubmit)="signup(form)">
+
+        <ion-item>
+          <ion-input ngModel name="username"  #nameInput="ngModel" placeholder="Username" required="true"></ion-input>
+          <p *ngIf=nameInput.invalid class="inputwarnings" style="margin-left: 11px;">This field is required</p>
+          <hr><hr>
+        </ion-item>
+
+        <ion-item>
+          <ion-input type="email"ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" email></ion-input>
+          <p *ngIf=emailInput.invalid class="inputwarnings" style="margin-left: 11px;"> Please enter a valid email address</p>
+          <hr><hr>
+        </ion-item>
+
+        <ion-item>
+          <ion-input  type="password" ngModel name="password" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
+          <p *ngIf=passwordInput.invalid class="inputwarnings" style="margin-left: 11px;">Input at leat 8 chars</p>
+          <hr><hr>
+        </ion-item>
+
+        <!-- Buttons -->
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button ion-padding type="submit" expand="full" class="btn1" color="primary" shape="round">Sign up</ion-button>
+            </ion-col>
+            <ion-col size="3"></ion-col>
+
+            <ion-col size="3">
+              <ion-button ion-padding size="small"
+              fill="outline"
+              color="primary"
+              shape="round"
+              class="btn2"
+              (click)="login()"
+              >Log in</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

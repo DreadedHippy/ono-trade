@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Reset</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card padding>
+    <ion-card-title style="margin-left: 45%;">Input your password recovery email</ion-card-title>
+    <ion-card-content>
+      <form #form="ngForm" (ngSubmit)="Onrequest(form)">
+       
+        <ion-item>
+          <ion-input type="email" ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" email></ion-input>
+          <p *ngIf=emailInput.invalid>Not a recognized email address</p>
+        </ion-item><hr>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button ion-padding type="submit" expand="full" fill="outline" color="firey" shape="round">Submit</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

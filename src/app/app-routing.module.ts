@@ -18,6 +18,22 @@ const routes: Routes = [
   {
     path: 'trade',
     loadChildren: () => import('./trade/trade.module').then( m => m.TradePageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./auth/signup/signup.module').then( m => m.SignupPageModule)
+  },
+  {
+    path: 'newpass',
+    loadChildren: () => import('./auth/newpass/newpass.module').then( m => m.NewpassPageModule)
+  },
+  {
+    path: 'reset',
+    loadChildren: () => import('./auth/reset/reset.module').then( m => m.ResetPageModule)
   }
 ];
 

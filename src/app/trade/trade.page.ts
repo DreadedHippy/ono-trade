@@ -24,15 +24,15 @@ export class TradePage implements OnInit {
   }
 
   goToPage(page){
+
     switch(page){
       case 'buy':
-        this.router.navigate(['/trade/' + page]);
+        this.router.navigate(['/trade/'+page]);
         break;
       case 'sell':
-        this.router.navigate(['/trade' + page]);
+        this.router.navigate(['/trade/' + page]);
         break;
     }
-
   }
 
 }

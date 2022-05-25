@@ -1,0 +1,51 @@
+<!-- <head>
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="489910404758-jjls30d2sim080n8koh4n4817acsb8g5.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<meta name="google-signin-client_id" content={{id}}> -->
+
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-title style="text-align: center;">{{title}}</ion-card-title>
+    <ion-card-content>
+
+      <!-- Login Form -->
+      <form #form="ngForm" (ngSubmit)="onLogin(form)">
+
+          <ion-input type="email"ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" ionFocus="focus()" email></ion-input>
+          <p *ngIf=emailInput.invalid class="inputwarnings">Not a recognized email address</p><hr><hr>
+
+          <ion-input type="password" ngModel name="password" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
+          <p *ngIf=passwordInput.invalid class="inputwarnings">Input at leat 8 chars</p>
+          <a href='/reset' style="padding-left: 11px; text-align: right;">Forgotten Password?</a><hr><hr>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button ion-padding type="submit" expand="full" color="primary" class="btn1" shape="round">Log in</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button ion-padding expand="full" fill="outline" color="tertiary" shape="round" class="btn2"(click)="signup()">Signup</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<!--
+<script src="https://apis.google.com/js/platform.js"></script> -->
+

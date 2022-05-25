@@ -1,0 +1,39 @@
+
+// ion-content {
+//   --background: #181818f8;
+// }
+.inputwarnings{
+  font-size: 10px;
+  font-style: italic;
+  color: rgba(129, 50, 50, 0.979);
+  padding-left: 11px;
+}
+
+ion-card{
+  // width: 100%;
+  padding-top: 1rem;
+  margin: 32px auto;
+}
+
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+
+
+
+.btn1 {
+  font-weight: 550;
+}
+
+.btn2 {
+  font-weight: 550;
+}
+
+.card{
+  background-color: #1b1a24;
+  padding-top: 40px;
+  width: 55%;
+  margin:auto;
+  margin-top: 8%;
+  border-radius: 20px;
+}
