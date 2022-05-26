@@ -6,9 +6,6 @@ const jwt = require('jsonwebtoken');
 
 
 
-
-
-let oof = 'oof'
 let log = false
 let loggedUser = {};
 
