@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const dotenv = require('dotenv').config();
 const user = require('../models/user');
 const User = require('../models/user')
@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 
 
-let log = false
+let log = false;
 let loggedUser = {};
 
 // USER LOGIN
