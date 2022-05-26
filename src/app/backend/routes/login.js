@@ -3,7 +3,6 @@ const dotenv = require('dotenv').config();
 const user = require('../models/user');
 const User = require('../models/user')
 const jwt = require('jsonwebtoken');
-const { response } = require('../app');
 
 
 
@@ -11,7 +10,7 @@ const { response } = require('../app');
 
 let oof = 'oof'
 let log = false
-let loggedUser = {oof};
+let loggedUser = {};
 
 // USER LOGIN
 exports.login = function(req, res, next) {

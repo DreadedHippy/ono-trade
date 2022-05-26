@@ -72,8 +72,7 @@ app.post('/api/users/login', login.login)
 app.get('/api/users/login', login.logaccess)
 
 
-// USER PROFILE DISPLAY
-
+//  CURRENT USER PROFILE DISPLAY
 app.get('/api/currentuser', login.profile)
 
 // USERNAME MODIFICATION
