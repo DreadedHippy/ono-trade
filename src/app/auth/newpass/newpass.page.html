@@ -8,7 +8,7 @@
   <ion-card padding>
     <ion-card-title style="margin-left: 45%;">Password Reset Form</ion-card-title>
     <ion-card-content>
-      <form #form="ngForm" (ngSubmit)="onLogin(form)">
+      <form #form="ngForm" (ngSubmit)="onReset(form)">
 
         <ion-item>
           <ion-input type="password" ngModel name="password1" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>

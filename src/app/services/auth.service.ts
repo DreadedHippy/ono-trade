@@ -72,8 +72,8 @@ export class AuthService {
 
 
   // User Login
-  login(userdata){
-    this.http.post<{token: string; status: string; message: string}>( baseUrl + '/users/login', userdata)
+  login(userData){
+    this.http.post<{token: string; status: string; message: string}>( baseUrl + '/users/login', userData)
       .subscribe(response => {
         window.alert(response.message);
         console.log(response);
@@ -87,9 +87,8 @@ export class AuthService {
         this.alertSrv.toast(error.error.message);
         // this.errorCode = error;
         this.returnError();
-        return;
       });
-    this.data = userdata;
+    this.data = userData;
   }
 
   userLogmsg(){
@@ -133,6 +132,7 @@ export class AuthService {
     });
   }
 
+  // VERIFY USER
   userverify(key){
     this.http.get<{message: string; status: string}>(this.baseUrl + '/users/verify?key=' + key)
     .subscribe(response =>  {
@@ -141,6 +141,7 @@ export class AuthService {
         this.goHome();
       }
       }, error => {
+        this.alertSrv.toast(error.error.message);
         console.log(error);
       }
     );
@@ -157,19 +158,18 @@ export class AuthService {
     );
   }
 
-  passwordReset(key, email, password){
-    this.http.get<{message: string; passkey: string}>(this.baseUrl + '/users/passreset?key=' + key +
-    '&email=' + email +
-    '&password=' + password)
+  passwordReset(passData){
+    this.http.post<{message: string; passkey: string}>(baseUrl + '/users/passreset', passData)
     .subscribe(response =>  {
-      window.alert(response.message);
+      console.log(response.message);
       if (response.passkey === 'changed'){
+        window.alert('Password changed');
+        this.goHome();
       }
-      this.goHome();
-      }, error => {
-        console.log(error);
-      }
-    );
+    }, error => {
+      console.log(error);
+      this.alertSrv.toast(error.error.message);
+    });
   }
 
 

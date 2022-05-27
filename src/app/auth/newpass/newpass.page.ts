@@ -24,9 +24,7 @@ export class NewpassPage implements OnInit {
 
   ngOnInit() {
     const token = this.route.snapshot.queryParamMap.get('token');
-    console.log(token);
     const email = this.route.snapshot.queryParamMap.get('mail');
-    console.log(email);
     if (!email || !token){
       this.navCtrl.navigateRoot('/wallet');
     }
@@ -34,21 +32,31 @@ export class NewpassPage implements OnInit {
     this.passmail = email;
   }
 
-  onLogin(form: NgForm){
+  onReset(form: NgForm){
     const data = {
       password1: form.value.password1,
       password2: form.value.password2
     };
-    if (data.password1 !== data.password2 ) {
-      this.error();
+    if (form.invalid){
+      this.error('Invalid password');
       return;
+    }else if(!form.invalid){
+      if (data.password1 !== data.password2 ) {
+        this.error('Make sure your passwords match');
+        return;
+      }
     }
-    this.authservice.passwordReset(this.passkey, this.passmail, data.password1);
+    const passData = {
+      passkey: this.passkey,
+      passmail: this.passmail,
+      pass: data.password1
+    };
+    this.authservice.passwordReset(passData);
   }
 
-  async error() {
+  async error(errorMessage) {
     const toast = await this.toastCtrl.create({
-      message: 'Make sure your passwords match',
+      message: errorMessage,
       duration: 4000,
       position: 'middle'
     });

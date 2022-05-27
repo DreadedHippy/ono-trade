@@ -8,8 +8,8 @@
   <ion-card padding>
     <ion-card-title style="margin-left: 45%;">Input your password recovery email</ion-card-title>
     <ion-card-content>
-      <form #form="ngForm" (ngSubmit)="Onrequest(form)">
-       
+      <form #form="ngForm" (ngSubmit)="onRequest(form)">
+
         <ion-item>
           <ion-input type="email" ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" email></ion-input>
           <p *ngIf=emailInput.invalid>Not a recognized email address</p>

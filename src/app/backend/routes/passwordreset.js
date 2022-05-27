@@ -17,13 +17,9 @@ let passman = false
 // PASSWORD RESET REQUEST
 exports.passwordresetrequest = async function (req, res, next) {
   const passreqToken = jwt.sign(
-    {
-      email: req.body.email,
-    },
-    process.env.PASSWORD,
+    {email: req.body.email},process.env.JWTPASSWORD,
     { expiresIn: 2000 * 60 } // 2 mins
   );
-  console.log('Password reset request sent')
   passwordmail = req.body.email
   passman = true
   passtoken = passreqToken
@@ -34,15 +30,14 @@ exports.passwordresetrequest = async function (req, res, next) {
     })
   }
   const upd = await User.findByIdAndUpdate(user._id, {password_token: passreqToken})
-  console.log(upd)
-  passtokenmail(); 
+  passtokenmail();
   return res.status(201).json({
     message: "Password change request sent, Further instructions in mail."
   })
-  // console.log(passtoken) 
+  // console.log(passtoken)
 };
 
-// PASSWORD RESET EMAIL
+// PASSWORD RESET EXECUTION
 let resetLink = ""
 function passtokenmail(){
   try {
@@ -61,7 +56,7 @@ function passtokenmail(){
       to: passwordmail,
       subject: 'Password Reset for Aizon inc.',
       html: '<h3>This email has requested a password reset</h3><br>'
-        + '<p>Reset your password <a href='+ resetLink + ' target="_blank">Here</a></p>' 
+        + '<p>Reset your password <a href='+ resetLink + ' target="_blank">Here</a></p>'
     };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -74,27 +69,23 @@ function passtokenmail(){
       }
     });
   }
-
   catch (err) {
     console.log({message: 'verify error '+ err})
-  } 
+  }
 }
 
 exports.passwordreset = async function (req, res, next) {
-  const key = req.query.key
-  console.log(key)
+  const key = req.body.passkey
   const email = req.query.email
-  console.log(email)
   const user = await User.findOne({password_token: key})
-  console.log(user, 'user')
   if(!user){
     return res.status(500).json({
       message: 'The user did not request a password change'});
   }
-  bcrypt.hash(req.query.password, 10).then(async hash => {
+  bcrypt.hash(req.body.pass, 10).then(async hash => {
     const upd = await User.findByIdAndUpdate(
       user._id, {
-        password: hash, 
+        password: hash,
         password_token: ''
       }
     )

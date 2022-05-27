@@ -19,7 +19,7 @@ exports.signup = function(req, res, next) {
       email: req.body.email,
       name: req.body.name,
     },
-    process.env.PASSWORD,
+    process.env.JWTPASSWORD,
     { expiresIn: 2000 * 60 } // 2 mins
   );
   bcrypt.hash(req.body.password, 10).then(hash => {
@@ -119,9 +119,9 @@ exports.verify = async function(req, res, next) {
     console.log(upd)
 
     return res.status(201).json({
-        status: 'verified',
-        message : 'Your E-mail has been verified.'
-        });
+      status: 'verified',
+      message : 'Your E-mail has been verified.'
+      });
 
   }
   catch (err) {

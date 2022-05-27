@@ -54,7 +54,7 @@ app.get('/api/users/verify', signup.verify);
 app.post('/api/users/passresetrequest', passwordreset.passwordresetrequest)
 
 // PASSWORD RESET
-app.get('/api/users/passreset', passwordreset.passwordreset)
+app.post('/api/users/passreset', passwordreset.passwordreset)
 
 // Signup Confirmation
 app.get('/api/users/signup',signup.signupmsg)

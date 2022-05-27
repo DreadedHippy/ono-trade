@@ -69,6 +69,6 @@ export class LoginPage implements OnInit {
 
 
   async error() {
-    this.alertSrv.toast('Email Invalid', 3000);
+    this.alertSrv.toast('Invalid Email/Password', 3000);
   }
 }

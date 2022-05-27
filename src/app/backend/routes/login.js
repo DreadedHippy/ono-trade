@@ -17,22 +17,32 @@ exports.login = function(req, res, next) {
       return res.status(401).json({
         message: 'Email not recognized'
       });
-    } else if (user.status != 'verified'){
-      return res.status(401).json({
-        message: 'User Not Verified'
-      });
     }
+    // if (user.status !== 'verified'){
+    //   console.log(user.status)
+    //   return res.status(401).json({
+    //     message: 'User Not Verified'
+    //   });
+    // }
     loggedUser = user
     return bcrypt.compare(req.body.password, user.password);
   })
   .then (result => {
     if(!result){
       return res.status(401).json({
-        message: 'Password Does Not Match'});
+        message: 'Password Does Not Match'
+      });
+    }
+    if (loggedUser.status !== 'verified'){
+      return res.status(401).json({
+        message: 'User Not Verified. Please verify with the email link'
+      });
     }
     const token = jwt.sign({email: loggedUser.email, userId: loggedUser._id},
-      process.env.PASSWORD,
-      {expiresIn:'1h'})
+      process.env.JWTPASSWORD,
+      {expiresIn:'1h'
+    })
+    console.log(token)
     res.status(200).json({
       token: token,
       status: 'verified',
@@ -42,7 +52,10 @@ exports.login = function(req, res, next) {
     console.log('Logged in')
   })
   .catch(err => {
-      message: err;
+    console.log(err)
+    return res.status(401).json({
+      message: 'Password Does Not Match'
+    });
   })
 }
 

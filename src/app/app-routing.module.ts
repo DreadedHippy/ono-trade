@@ -34,6 +34,10 @@ const routes: Routes = [
   {
     path: 'reset',
     loadChildren: () => import('./auth/reset/reset.module').then( m => m.ResetPageModule)
+  },
+  {
+    path: 'verification',
+    loadChildren: () => import('./auth/verification/verification.module').then( m => m.VerificationPageModule)
   }
 ];
 
