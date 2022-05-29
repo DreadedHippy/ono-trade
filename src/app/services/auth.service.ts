@@ -76,12 +76,11 @@ export class AuthService {
     this.http.post<{token: string; status: string; message: string}>( baseUrl + '/users/login', userData)
       .subscribe(response => {
         window.alert(response.message);
-        console.log(response);
-        const token = response.token;
-        this.token = token;
+          const token = response.token;
+          this.token = token;
         if (status === 'verified'){
         this.userLogmsg();
-        }
+      }
         this.navCtrl.navigateRoot('/wallet/history');
       }, error => {
         this.alertSrv.toast(error.error.message);
