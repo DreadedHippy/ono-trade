@@ -28,9 +28,8 @@ exports.signup = function(req, res, next) {
       email: req.body.email,
       password: hash,
       friends: req.body.friends,
-      token: verifyToken
+      verifyToken: verifyToken
     });
-    console.log('User created! Please Verify with E-mail Link')
     reg = true
     newman = true
     mail = user.email
@@ -50,7 +49,8 @@ exports.signup = function(req, res, next) {
       })
       .catch(err => {
         res.status(500).json({
-          error: err
+          error: err,
+          message: err.message
         });
       });
   });

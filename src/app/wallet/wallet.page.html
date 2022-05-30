@@ -4,6 +4,17 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ title }}</ion-title>
+    <ion-button slot="end"
+    *ngIf="this.userData"
+    color="tertiary"
+    size="small"
+    shape="round">Logout</ion-button>
+
+    <ion-button slot="end"
+    *ngIf="!this.userData"
+    color="secondary"
+    size="small"
+    shape="round">Login</ion-button>
   </ion-toolbar>
 </ion-header>
 

@@ -8,9 +8,6 @@
 
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
     <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -22,12 +19,16 @@
 
       <!-- Login Form -->
       <form #form="ngForm" (ngSubmit)="onLogin(form)">
-
+        <ion-item>
           <ion-input type="email"ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" ionFocus="focus()" email></ion-input>
           <p *ngIf=emailInput.invalid class="inputwarnings">Not a recognized email address</p><hr><hr>
+        </ion-item>
 
+        <ion-item>
           <ion-input type="password" ngModel name="password" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
           <p *ngIf=passwordInput.invalid class="inputwarnings">Input at leat 8 chars</p>
+        </ion-item>
+          <br><br>
           <a href='/reset' style="padding-left: 11px; text-align: right;">Forgotten Password?</a><hr><hr>
 
         <ion-grid>

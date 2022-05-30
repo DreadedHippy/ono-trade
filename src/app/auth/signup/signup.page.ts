@@ -25,7 +25,7 @@ export class SignupPage implements OnInit {
       username: form.value.username,
       email: form.value.email,
       password: form.value.password,
-      token: '',
+      verifyToken: '',
       passwordToken: ''
     };
     if (form.invalid){

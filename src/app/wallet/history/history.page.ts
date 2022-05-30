@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from 'src/app/models/transaction.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
@@ -12,10 +13,12 @@ export class HistoryPage implements OnInit {
   transactions: Transaction[] = this.transactionsService.getTransactions();
 
   constructor(
-    private transactionsService: TransactionsService
+    private transactionsService: TransactionsService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.authService.getUsers();
   }
 
   //TO BE IMPLEMENTED LATER

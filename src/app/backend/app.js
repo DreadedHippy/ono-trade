@@ -3,11 +3,10 @@ const cors = require('cors')
 const app = express()
 const bodyParser = require('body-parser')
 const mongoose = require("mongoose");
-const User = require('./models/user')
+const User = require('./models/user');
+const checkAuth = require('./middleware/check-auth')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
-// const multer = require('multer')
-// const io = require('socket.io')(http);
 const nml = require('nodemailer');
 const mailer = require('./mailer');
 const user = require('./models/user');
@@ -15,6 +14,8 @@ const dotenv = require('dotenv').config();
 const signup = require('./routes/signup')
 const login = require('./routes/login')
 const passwordreset = require('./routes/passwordreset')
+// const multer = require('multer')
+// const io = require('socket.io')(http);
 // const { buildSchema } = require('graphql');
 // const  { composeMongoose } = require('graphql-compose-mongoose');
 // const { schemaComposer } = require('graphql-compose');
@@ -60,20 +61,20 @@ app.post('/api/users/passreset', passwordreset.passwordreset)
 app.get('/api/users/signup',signup.signupmsg)
 
 
-let oof = 'oof'
+app.get('/api/users/list', checkAuth, login.users);
 
 // USER LOGIN
 let log = false
-let loggedUser = {oof};
+let loggedUser = {};
 app.post('/api/users/login', login.login)
 
 
 // Login Confirmation
-app.get('/api/users/login', login.logaccess)
+app.get('/api/users/login', login.logaccess);
 
 
 //  CURRENT USER PROFILE DISPLAY
-app.get('/api/currentuser', login.profile)
+app.get('/api/currentuser',checkAuth, login.profile);
 
 // USERNAME MODIFICATION
 app.post('/api/users/usermod', (req, res, next) => {

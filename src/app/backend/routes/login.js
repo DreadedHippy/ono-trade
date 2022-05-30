@@ -3,6 +3,7 @@ const dotenv = require('dotenv').config();
 const user = require('../models/user');
 const User = require('../models/user')
 const jwt = require('jsonwebtoken');
+const checkAuth = require('../middleware/check-auth')
 
 
 
@@ -46,7 +47,8 @@ exports.login = function(req, res, next) {
     res.status(200).json({
       token: token,
       status: 'verified',
-      message: 'Logged in'
+      message: 'Logged in',
+      user: loggedUser
     })
     log = true
     console.log('Logged in')
@@ -80,6 +82,18 @@ exports.profile = function(req, res, next){
 }
 
 exports.google = async function(req, res, next){
-
 }
+
+exports.users = function(req, res, next){
+  User.find().then(documents => {
+    res.status(200).json({
+      message: "Users fetched successfully!",
+      users: documents
+    });
+  }).catch(err => {
+    res.status(500).json({
+      CaughtError: err
+    })
+  });
+};
 

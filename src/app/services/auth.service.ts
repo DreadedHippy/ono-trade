@@ -6,6 +6,8 @@ import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { MailService } from './mail.service';
 import { AlertService } from './alert.service';
+import { map } from 'rxjs/operators';
+import { toastController } from '@ionic/core';
 // If you enabled Analytics in your project, add the Firebase SDK for Analytics
 
 /* eslint no-underscore-dangle: 0 */
@@ -18,12 +20,13 @@ const user = null;
   providedIn: 'root'
 })
 export class AuthService {
-  token: string;
   data: string;
   baseUrl = environment.baseUrl;
   errorCode: any;
   client = null;
   firebaseConfig = environment.firebaseConfig;
+  users: any;
+  private token: string;
 
   constructor(
     private http: HttpClient,
@@ -47,13 +50,19 @@ export class AuthService {
     },
     error => {
       console.log(error);
-      this.errorCode = error;
+      this.errorCode = error.error.message;
       this.returnError();
       return;
     });
   }
 
   returnError(){
+    const duplicateEmailError = this.errorCode.includes(
+      'expected `email` to be unique.'
+    );
+    if(duplicateEmailError){
+      this.alertSrv.toast('Email already in use');
+    }
     return this.errorCode;
   }
 
@@ -73,21 +82,23 @@ export class AuthService {
 
   // User Login
   login(userData){
-    this.http.post<{token: string; status: string; message: string}>( baseUrl + '/users/login', userData)
+    this.http.post<{
+      token: string;
+       status: string;
+       message: string;
+       user: any;}>( baseUrl + '/users/login', userData)
       .subscribe(response => {
         window.alert(response.message);
-          const token = response.token;
-          this.token = token;
+          this.data = response.user;
+          this.token = response.token;
         if (status === 'verified'){
         this.userLogmsg();
       }
         this.navCtrl.navigateRoot('/wallet/history');
       }, error => {
         this.alertSrv.toast(error.error.message);
-        // this.errorCode = error;
         this.returnError();
-      });
-    this.data = userData;
+    });
   }
 
   userLogmsg(){
@@ -169,6 +180,18 @@ export class AuthService {
       console.log(error);
       this.alertSrv.toast(error.error.message);
     });
+  }
+
+  getUsers() {
+    this.http
+      .get<{ message: string; users: any }>('http://localhost:3000/api/users/list')
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
+  getCurrentUser(){
+    return this.data;
   }
 
 
