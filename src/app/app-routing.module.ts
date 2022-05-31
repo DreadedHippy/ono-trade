@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services/auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'wallet/history',
     pathMatch: 'full'
   },
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'wallet',
-    loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
+    loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'trade',
-    loadChildren: () => import('./trade/trade.module').then( m => m.TradePageModule)
+    loadChildren: () => import('./trade/trade.module').then( m => m.TradePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -38,13 +41,14 @@ const routes: Routes = [
   {
     path: 'verification',
     loadChildren: () => import('./auth/verification/verification.module').then( m => m.VerificationPageModule)
-  }
+  },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}

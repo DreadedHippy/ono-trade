@@ -1,47 +1,62 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-menu-button *ngIf="userIsAuthenticated"></ion-menu-button>
     </ion-buttons>
+
     <ion-title>{{ title }}</ion-title>
     <ion-button slot="end"
-    *ngIf="this.userData"
-    color="tertiary"
-    size="small"
-    shape="round">Logout</ion-button>
+    (click)="onLogin()"
+    *ngIf="!userIsAuthenticated"
+    style="font-size: large;"
+    color="secondary"
+    shape="round">Login</ion-button>
 
     <ion-button slot="end"
-    *ngIf="!this.userData"
-    color="secondary"
-    size="small"
-    shape="round">Login</ion-button>
+    (click)="onLogout()"
+    *ngIf="userIsAuthenticated"
+    style="font-size: 13px;"
+    size="medium"
+    color="tertiary"
+    shape="round">Logout</ion-button>
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <ion-segment value="transactions">
+  <ion-segment value="transactions" *ngIf="userIsAuthenticated">
 
-    <ion-segment-button value="history" (click)='goToPage("history")'>
+    <ion-segment-button value="history" (click)='goToPage("history")' style="padding-top: 10px;">
       <ion-label><ion-icon name="time" slot="start" size="large"></ion-icon></ion-label>
       <ion-label *ngIf="!ios">History</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button value="deposit" (click)='goToPage("deposit")'>
+    <ion-segment-button value="deposit" (click)='goToPage("deposit")' style="padding-top: 10px;">
       <ion-label><ion-icon name="enter" size="large" slot="start"></ion-icon></ion-label>
       <ion-label *ngIf="!ios">Deposit</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button value="withdraw" (click)='goToPage("withdraw")'>
+    <ion-segment-button value="withdraw" (click)='goToPage("withdraw")' style="padding-top: 10px;">
       <ion-label><ion-icon name="exit" class="flip" size="large"></ion-icon></ion-label>
       <ion-label *ngIf="!ios">Withdraw</ion-label>
     </ion-segment-button>
 
-    <ion-segment-button value="transfer" (click)='goToPage("transfer")'>
+    <ion-segment-button value="transfer" (click)='goToPage("transfer")' style="padding-top: 10px;">
       <ion-label><ion-icon name="navigate" size="large" slot="start"></ion-icon></ion-label>
       <ion-label *ngIf="!ios">Transfer</ion-label>
     </ion-segment-button>
 
   </ion-segment>
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="userIsAuthenticated"></router-outlet>
+
+  <div class="centered">
+    <p>
+      <ion-icon name="person-circle-outline" style="font-size: 130px;"
+      color="medium"></ion-icon>
+    </p>
+  </div>
+  <div class="centered2">
+    <ion-note *ngIf="!userIsAuthenticated"
+      style="font-size: 30px;">PLEASE LOG IN
+    </ion-note>
+  </div>
 </ion-content>

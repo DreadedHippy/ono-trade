@@ -18,3 +18,18 @@ ion-icon {
   font-size: 25px;
 }
 
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding-top: 200px;
+}
+.centered2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding-top: 30px;
+}
+

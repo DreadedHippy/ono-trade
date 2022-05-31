@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   userData: User[] = [];
   id: any;
   user: boolean;
+  isLoading = false;
   // firebaseConfig = environment.firebaseConfig;
 
 
@@ -46,6 +47,7 @@ export class LoginPage implements OnInit {
       return;
     }
     this.authservice.login(data);
+    this.isLoading = true;
   }
 
   continue(){

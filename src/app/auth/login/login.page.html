@@ -18,7 +18,7 @@
     <ion-card-content>
 
       <!-- Login Form -->
-      <form #form="ngForm" (ngSubmit)="onLogin(form)">
+      <form #form="ngForm" (ngSubmit)="onLogin(form)" *ngIf="!isLoading">
         <ion-item>
           <ion-input type="email"ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" ionFocus="focus()" email></ion-input>
           <p *ngIf=emailInput.invalid class="inputwarnings">Not a recognized email address</p><hr><hr>
@@ -44,6 +44,7 @@
           </ion-row>
         </ion-grid>
       </form>
+      <ion-spinner *ngIf="isLoading"></ion-spinner>
     </ion-card-content>
   </ion-card>
 </ion-content>

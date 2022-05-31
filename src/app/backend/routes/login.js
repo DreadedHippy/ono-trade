@@ -41,11 +41,11 @@ exports.login = function(req, res, next) {
     }
     const token = jwt.sign({email: loggedUser.email, userId: loggedUser._id},
       process.env.JWTPASSWORD,
-      {expiresIn:'1h'
-    })
+      {expiresIn:'1h'})
     console.log(token)
     res.status(200).json({
       token: token,
+      expiresIn: 3600,
       status: 'verified',
       message: 'Logged in',
       user: loggedUser
