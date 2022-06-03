@@ -89,7 +89,6 @@ function validation(){
       }
     });
   }
-
   catch (err) {
     console.log({message: 'verify error '+ err})
   }
@@ -105,26 +104,21 @@ exports.signupmsg = function(req, res, next) {
 }
 
 // VERIFICATION CHECK
-exports.verify = async function(req, res, next) {
-  try {
-    const key = req.query.key
-    console.log(key, 'key')
-    const user = await User.findOne({token: key})
-    console.log(user, 'user')
+exports.verify = function(req, res, next) {
+  const key = req.query.key;
+  User.findOne({verifyToken: key})
+  .then(user => {
     if(!user){
-      return res.status(500).json({
-        message: 'The user does not exist'});
+      res.status(401).json({
+        message: 'This user is not recognized'
+      })
+    }else if(user){
+      console.log('Email Verified')
+      User.findByIdAndUpdate(user._id, {token: '', isVerified: true})
+      res.status(200).json({
+        message: 'Your email has been verified',
+        status: 'verified'
+      })
     }
-    const upd = await User.findByIdAndUpdate(user._id, {token: '', status: 'verified'})
-    console.log(upd)
-
-    return res.status(201).json({
-      status: 'verified',
-      message : 'Your E-mail has been verified.'
-      });
-
-  }
-  catch (err) {
-    return res.status(500).json({message: 'verify error '+ err})
-  }
+  })
 }

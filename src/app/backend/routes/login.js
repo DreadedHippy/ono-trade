@@ -34,7 +34,7 @@ exports.login = function(req, res, next) {
         message: 'Password Does Not Match'
       });
     }
-    if (loggedUser.status !== 'verified'){
+    if (loggedUser.isVerified !== true){
       return res.status(401).json({
         message: 'User Not Verified. Please verify with the email link'
       });
@@ -43,6 +43,7 @@ exports.login = function(req, res, next) {
       process.env.JWTPASSWORD,
       {expiresIn:'1h'})
     console.log(token)
+    console.log(loggedUser)
     res.status(200).json({
       token: token,
       expiresIn: 3600,

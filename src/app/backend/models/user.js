@@ -6,12 +6,9 @@ const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true},
   friends: { type: Array},
-  token: {type: String},
+  verifyToken: {type: String},
   password_token: {type: String},
-  status: {
-    type: String,
-    default: "pending",
-},
+  isVerified: {type: Boolean, default: false}
 });
 
 userSchema.plugin(uniqueValidator);
