@@ -14,6 +14,7 @@ let loggedUser = {};
 exports.login = function(req, res, next) {
   User.findOne({email: req.body.email})
   .then( user => {
+    console.log(user)
     if (!user){
       return res.status(401).json({
         message: 'Email not recognized'

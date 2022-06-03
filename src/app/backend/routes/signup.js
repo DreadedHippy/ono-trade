@@ -28,7 +28,7 @@ exports.signup = function(req, res, next) {
       email: req.body.email,
       password: hash,
       friends: req.body.friends,
-      verifyToken: verifyToken
+      verifyToken: verifyToken,
     });
     reg = true
     newman = true
@@ -89,6 +89,7 @@ function validation(){
       }
     });
   }
+
   catch (err) {
     console.log({message: 'verify error '+ err})
   }
@@ -112,13 +113,13 @@ exports.verify = function(req, res, next) {
       res.status(401).json({
         message: 'This user is not recognized'
       })
-    }else if(user){
-      console.log('Email Verified')
-      User.findByIdAndUpdate(user._id, {token: '', isVerified: true})
+    }
+    User.findByIdAndUpdate(user._id, {isVerified: 'true'})
+    .then( result => {
       res.status(200).json({
         message: 'Your email has been verified',
         status: 'verified'
       })
-    }
+    })
   })
 }

@@ -71,12 +71,12 @@ export class AuthService {
   }
 
   returnError(){
-    const duplicateEmailError = this.errorCode.includes(
-      'expected `email` to be unique.'
-    );
-    if(duplicateEmailError){
-      this.alertSrv.toast('Email already in use');
-    }
+    // const duplicateEmailError = this.errorCode.includes(
+    //   'expected `email` to be unique.'
+    // );
+    // if(duplicateEmailError){
+    //   this.alertSrv.toast('Email already in use');
+    // }
     return this.errorCode;
   }
 
