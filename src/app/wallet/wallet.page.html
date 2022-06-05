@@ -1,26 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button *ngIf="userIsAuthenticated"></ion-menu-button>
-    </ion-buttons>
-
-    <ion-title>{{ title }}</ion-title>
-    <ion-button slot="end"
-    (click)="onLogin()"
-    *ngIf="!userIsAuthenticated"
-    style="font-size: large;"
-    color="secondary"
-    shape="round">Login</ion-button>
-
-    <ion-button slot="end"
-    (click)="onLogout()"
-    *ngIf="userIsAuthenticated"
-    style="font-size: 13px;"
-    size="medium"
-    color="tertiary"
-    shape="round">Logout</ion-button>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 
 <ion-content>
   <ion-segment value="transactions" *ngIf="userIsAuthenticated">
@@ -47,13 +25,6 @@
 
   </ion-segment>
   <router-outlet *ngIf="userIsAuthenticated"></router-outlet>
-
-  <div class="centered">
-    <p>
-      <ion-icon name="person-circle-outline" style="font-size: 130px;"
-      color="medium"></ion-icon>
-    </p>
-  </div>
   <div class="centered2">
     <ion-note *ngIf="!userIsAuthenticated"
       style="font-size: 30px;">PLEASE LOG IN

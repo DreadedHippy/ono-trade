@@ -8,6 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { componentOnReady } from '@ionic/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
