@@ -19,7 +19,7 @@ export class SignupPage implements OnInit {
               public toastCtrl: ToastController ) { }
 
 
-  signup(form: NgForm){
+  onSignup(form: NgForm){
     const data: User = {
       id: null,
       username: form.value.username,

@@ -7,11 +7,44 @@
   color: rgba(129, 50, 50, 0.979);
 }
 
+
 .btn1 {
-  font-weight: 550;
+  font-weight: 700;
+  --background: var(--ion-color-primary);
+  --transition: 0.3s;
+}
+
+.btn1:hover {
+  --background: var(--ion-color-danger);
 }
 
 .btn2 {
   font-weight: 550;
+  padding-bottom: 10px;
 }
+.reset-text {
+  display: block;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.5s;
+  padding-right: 10px;
+}
+
+.reset-text:hover{
+  color: rgba(157, 54, 54, 0.979);
+}
+
+.centered{
+  display: block;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+ion-input{
+  --border-radius: 30px;
+}
+
 

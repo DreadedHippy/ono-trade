@@ -41,3 +41,9 @@ ion-card{
   padding-top: 10px;
   padding-right: 10px;
 }
+
+.triangle {
+  background-image: linear-gradient(to bottom right, var(--ion-color-card) 80%,#b479d4 50%);
+  border-radius: 5px;
+}
+

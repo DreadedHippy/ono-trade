@@ -13,40 +13,53 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-title style="text-align: center;">{{title}}</ion-card-title>
-    <ion-card-content>
+  <img src="../../../assets/images/logoicon.svg" width="50px" height="50px"
+  class="centered"/>
 
-      <!-- Login Form -->
-      <form #form="ngForm" (ngSubmit)="onLogin(form)" *ngIf="!isLoading">
-        <ion-item>
-          <ion-input type="email"ngModel name="email" placeholder="E-mail" #emailInput="ngModel" required="true" ionFocus="focus()" email></ion-input>
-          <p *ngIf=emailInput.invalid class="inputwarnings">Not a recognized email address</p><hr><hr>
-        </ion-item>
+  <h2 style="text-align: center;">Sign in</h2>
 
-        <ion-item>
-          <ion-input type="password" ngModel name="password" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
-          <p *ngIf=passwordInput.invalid class="inputwarnings">Input at leat 8 chars</p>
-        </ion-item>
-          <br><br>
-          <a href='/reset' style="padding-left: 11px; text-align: right;">Forgotten Password?</a><hr><hr>
+  <form #form="ngForm" (ngSubmit)="onLogin(form)" *ngIf="!isLoading">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="centered">
+            <ion-input type="email"ngModel style="background-color: rgba(73, 73, 99, 0.755); border-radius: 30px;" name="email" placeholder="E-mail" #emailInput="ngModel" required="true" ionFocus="focus()" email></ion-input>
+            <ion-label *ngIf=emailInput.invalid class="inputwarnings">Not a recognized email address</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
 
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-button ion-padding type="submit" expand="full" color="primary" class="btn1" shape="round">Log in</ion-button>
-            </ion-col>
-            <ion-col>
-              <ion-button ion-padding expand="full" fill="outline" color="tertiary" shape="round" class="btn2"(click)="signup()">Signup</ion-button>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-          </ion-row>
-        </ion-grid>
-      </form>
-      <ion-spinner *ngIf="isLoading"></ion-spinner>
-    </ion-card-content>
-  </ion-card>
+      <ion-row>
+        <ion-col>
+          <div class="centered">
+            <ion-input type="password" style="background-color: rgba(73, 73, 99, 0.755); border-radius: 30px;" ngModel name="password" placeholder="Password" #passwordInput="ngModel" required="true" minlength="8"></ion-input>
+            <ion-label><p *ngIf=passwordInput.invalid class="inputwarnings">Input at leat 8 chars</ion-label>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="5"></ion-col>
+        <ion-col>
+          <ion-button
+          style="text-align:center; margin-top: 32px;"
+          type="submit"class="btn1" shape="round">Log in</ion-button>
+        </ion-col>
+        <ion-col size="5"></ion-col>
+      </ion-row>
+      <ion-row>
+        <a href='/reset' class="reset-text" style="text-decoration: none;">Forgotten Password?</a>
+      </ion-row>
+      <br><br>
+      <ion-row>
+        <ion-col style="text-align: center; margin-top: 10px;">
+            Don't have an account?
+            <ion-button ion-padding fill="outline" color="tertiary" size="small" shape="round" class="btn2"(click)="signup()">Signup</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <ion-spinner *ngIf="isLoading"></ion-spinner>
 </ion-content>
 <!--
 <script src="https://apis.google.com/js/platform.js"></script> -->

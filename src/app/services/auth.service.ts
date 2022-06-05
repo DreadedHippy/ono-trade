@@ -102,27 +102,27 @@ export class AuthService {
       message: string;
       expiresIn: number;
       user: any;}>( baseUrl + '/users/login', userData)
-      .subscribe(response => {
-        const token = response.token;
-        this.data = response.user;
-        this.token = token;
-        if(token){
-          if (response.status === 'verified'){
-          this.userLogmsg();
-          const expiresInDuration = response.expiresIn;
-          this.setAuthTimer(expiresInDuration);
-          this.isAuthenticated = true;
-          this.authStatusListener.next(true);
-          const now = new Date();
-          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData(token, expirationDate);
-          console.log(expirationDate);
-          this.navCtrl.navigateRoot('/wallet/history');
-          }
+    .subscribe(response => {
+      const token = response.token;
+      this.data = response.user;
+      this.token = token;
+      if(token){
+        if (response.status === 'verified'){
+        this.userLogmsg();
+        const expiresInDuration = response.expiresIn;
+        this.setAuthTimer(expiresInDuration);
+        this.isAuthenticated = true;
+        this.authStatusListener.next(true);
+        const now = new Date();
+        const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+        this.saveAuthData(token, expirationDate);
+        console.log(expirationDate);
+        this.navCtrl.navigateRoot('/wallet/history');
         }
-      }, error => {
-        this.alertSrv.toast(error.error.message);
-        this.returnError();
+      }
+    }, error => {
+      this.alertSrv.toast(error.error.message);
+
     });
   }
 

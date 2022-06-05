@@ -14,7 +14,6 @@ let loggedUser = {};
 exports.login = function(req, res, next) {
   User.findOne({email: req.body.email})
   .then( user => {
-    console.log(user)
     if (!user){
       return res.status(401).json({
         message: 'Email not recognized'
@@ -32,7 +31,8 @@ exports.login = function(req, res, next) {
   .then (result => {
     if(!result){
       return res.status(401).json({
-        message: 'Password Does Not Match'
+        message: 'Password Does Not Match',
+        badPwd: 'True'
       });
     }
     if (loggedUser.isVerified !== true){
@@ -44,7 +44,7 @@ exports.login = function(req, res, next) {
       process.env.JWTPASSWORD,
       {expiresIn:'1h'})
     console.log(token)
-    console.log(loggedUser)
+    // console.log(loggedUser)
     res.status(200).json({
       token: token,
       expiresIn: 3600,
@@ -58,7 +58,7 @@ exports.login = function(req, res, next) {
   .catch(err => {
     console.log(err)
     return res.status(401).json({
-      message: 'Password Does Not Match'
+      message: err,
     });
   })
 }
