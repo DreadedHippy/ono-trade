@@ -1,0 +1,66 @@
+<ion-content class="mainbackground">
+  <div class="form-box">
+    <div class="logo">
+      <img src="../../../assets/images/logoicon.svg" class="w-100" />
+    </div>
+    <div class="title">Sign Up With Social</div>
+
+    <ul class="social">
+      <li>
+        <a><i class="fab fa-facebook-f"></i></a>
+      </li>
+      <li>
+        <a><i class="fab fa-twitter"></i></a>
+      </li>
+      <li>
+        <a><i class="fab fa-linkedin-in"></i></a>
+      </li>
+    </ul>
+    <div class="or">OR</div>
+
+
+    <form #form="ngForm" (ngSubmit)="onSignup(form)">
+      <div class="form-group">
+        <input ngModel
+          type="text"
+          class="form-control"
+          id="username"
+          #nameInput="ngModel"
+          placeholder="Username"
+          name="Username"
+          required="true"
+        />
+        <p *ngIf=nameInput.invalid class="inputwarnings" style="margin-left: 11px;">This field is required</p>
+      </div>
+      <div class="form-group">
+        <input ngModel
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="Email"
+          name="Email"
+          #emailInput = "ngModel"
+          required="true"
+        />
+        <p *ngIf=emailInput.invalid class="inputwarnings" style="margin-left: 11px;"> Please enter a valid email address</p>
+      </div>
+      <div class="form-group">
+        <input ngModel
+          type="password"
+          class="form-control"
+          id="password"
+          #passwordInput="ngModel"
+          placeholder="Password"
+          name="Password"
+          required="true"
+          minlength="8"
+        />
+        <p *ngIf=passwordInput.invalid class="inputwarnings" style="margin-left: 11px;">Input at leat 8 characters</p>
+      </div>
+      <button type="submit" class="theme btn btn-primary">Sign Up</button>
+    </form>
+  </div>
+  <div class="footer-link">
+    You have account? <a (click)="loginPage()">Sign In</a>
+  </div>
+</ion-content>
