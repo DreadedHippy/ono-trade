@@ -1,0 +1,129 @@
+<app-sidebar></app-sidebar>
+<ion-content class="mainbackground">
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <div class="title">
+            <a (click)="dashboardPage()" class="back-btn"
+              ><i class="fas fa-angle-left"></i
+            ></a>
+            Transfer
+          </div>
+        </div>
+        <div class="col-4 text-right">
+          <a
+            class="pulse-animation notification-btn"
+            (click)="notificationsPage()"
+            ><i class="far fa-bell"></i
+          ></a>
+          <div class="profile-pic" (click)="profilePage()">
+            <img
+              src="../../../assets/images/user-profile.jpg"
+              class="width-100"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <!-- <div class="container">
+      <div class="scan-btn" (click)="scanCode()">
+        <div class="icon">
+          <img src="../../../assets/images/qrcode.png" class="w-100" />
+        </div>
+      </div>
+      <div class="or-text">OR</div>
+      <div class="paymentoptions">
+        <ul>
+          <li>
+            <div class="form-group flexContainer">
+              <input
+                class="form-control inputField"
+                [value]="'Wallet Adress/Card number'"
+                name="Username" onFocus="focus()">
+            <ion-button class="ion-btn">Copy</ion-button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div> -->
+
+    <div class="container">
+      <div class="form-box">
+        <form #form="ngForm" (ngSubmit)="onTransfer(form)" *ngIf="!isLoading">
+          <div class="form-group flexContainer">
+            <input type="text"
+              class="form-control inputField"
+              id="senderAdress" placeholder="Sender's wallet Adress"
+              ngModel name="senderAdress" #senderAdressInput="ngModel" required="true" ionFocus="focus()">
+
+            <input type="number" name="SenderAmount"
+            [value]="(receiverAmountInput.value * marketPrices[receiverCurrency.value] * 1/marketPrices[senderCurrency.value]).toFixed(2)"
+            class="form-control inputFieldTwo"
+            id="senderAmount" placeholder="Amount to send"
+            ngModel name="senderAmount" #senderAmountInput="ngModel" required="true" ionFocus="focus()">
+
+            <ion-select interface="popover" value="usd"
+            ngModel #senderCurrency="ngModel" [(ngModel)]="sentCurr"
+            name="senderCurrency" style="color: white;">
+              <ion-select-option value="usd" selected="true">USD</ion-select-option>
+              <ion-select-option value="ngn">NGN</ion-select-option>
+              <ion-select-option value="cad">CAD</ion-select-option>
+              <ion-select-option value="eur">EUR</ion-select-option>
+            </ion-select>
+
+          </div>
+
+          <!-- Receiver Info -->
+          <div class="form-group flexContainer">
+            <input type="text"
+              class="form-control inputField"
+              id="receiverAdress" placeholder="Receiver's wallet Adress"
+              ngModel name="receiverAdress" #receiverAdressInput="ngModel" required="true" ionFocus="focus()">
+
+            <input type="number"
+            class="form-control inputFieldTwo"
+            [value]="(senderAmountInput.value * marketPrices[senderCurrency.value] * 1/marketPrices[receiverCurrency.value]).toFixed(2)"
+            id="receiverAmount" placeholder="Amount to be received"
+            ngModel name="receiverAmount" #receiverAmountInput="ngModel" required="true" ionFocus="focus()">
+
+            <ion-select interface="popover"
+            ngModel #receiverCurrency="ngModel" value="ngn" [(ngModel)]="receivedCurr"
+            name="receiverCurrency" style="color: white;">
+              <ion-select-option value="usd">USD</ion-select-option>
+              <ion-select-option value="ngn">NGN</ion-select-option>
+              <ion-select-option value="cad">CAD</ion-select-option>
+              <ion-select-option value="eur">EUR</ion-select-option>
+            </ion-select>
+
+          </div>
+            <button type="submit" class="theme btn btn-primary">Transfer</button>
+        </form>
+      </div>
+    </div>
+    <div class="head-title">
+      <div class="container">Recent Transfers</div>
+    </div>
+    <div class="transactionlist">
+      <div class="container">
+        <div class="transactions-box" *ngFor="let transfer of transfers">
+          <div class="left">
+            <div class="icon bg-success">
+              <img src="../../../assets/images/card.svg" class="w-100 card-icon" />
+            </div>
+          </div>
+          <div class="middle">
+            <div class="title">{{transfer.to}}</div>
+            <div class="time">{{transfer.date}}</div>
+          </div>
+          <div class="right">
+            <div class="price text-success">{{transfer.amount}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>
