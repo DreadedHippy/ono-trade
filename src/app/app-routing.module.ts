@@ -74,6 +74,14 @@ const routes: Routes = [
     path: 'verification',
     loadChildren: () => import('./pages/verification/verification.module').then( m => m.VerificationPageModule)
   },
+  {
+    path: 'deposit',
+    loadChildren: () => import('./pages/transaction/deposit/deposit.module').then( m => m.DepositPageModule)
+  },
+  {
+    path: 'transfer',
+    loadChildren: () => import('./pages/transaction/transfer/transfer.module').then( m => m.TransferPageModule)
+  },
 ];
 
 @NgModule({

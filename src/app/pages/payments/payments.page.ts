@@ -12,15 +12,15 @@ export class PaymentsPage implements OnInit {
   constructor(private barcodeScanner: BarcodeScanner, private router: Router) { }
   dashboardPage()
   {
-   this.router.navigate(['dashboard'])
+   this.router.navigate(['dashboard']);
   }
    notificationsPage()
   {
-  this.router.navigate(['notifications'])
+  this.router.navigate(['notifications']);
   }
   profilePage()
   {
-	  this.router.navigate(['profile'])
+	  this.router.navigate(['profile']);
   }
   ngOnInit() {
 
