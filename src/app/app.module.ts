@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { OwlModule } from 'ngx-owl-carousel';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     OwlModule,
     IonicModule.forRoot(),
     HttpClientModule,
+    ReactiveFormsModule,
     AppRoutingModule],
   providers: [Camera, BarcodeScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -7,27 +7,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-public url1: string = "";
+
+public url1 = '';
   constructor(private router: Router) { }
-  dashboardPage()
-  {
+  dashboardPage(){
   this.router.navigate(['dashboard']);
   }
-  paymentsPage()
-  {
+
+  paymentsPage(){
   this.router.navigate(['payments']);
   }
-  historyPage()
-  {
+
+  historyPage(){
   this.router.navigate(['history']);
   }
-  settingsPage()
-  {
+
+  settingsPage(){
   this.router.navigate(['settings']);
   }
+
+  walletsPage(){
+    this.router.navigate(['wallets']);
+  }
   ngOnInit() {
-	  
-	  this.url1 = this.router.url;  
+	  this.url1 = this.router.url;
   }
 
 }

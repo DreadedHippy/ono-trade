@@ -82,6 +82,10 @@ const routes: Routes = [
     path: 'transfer',
     loadChildren: () => import('./pages/transaction/transfer/transfer.module').then( m => m.TransferPageModule)
   },
+  {
+    path: 'wallets',
+    loadChildren: () => import('./pages/transaction/wallets/wallets.module').then( m => m.WalletsPageModule)
+  },
 ];
 
 @NgModule({
