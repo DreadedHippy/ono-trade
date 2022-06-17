@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
+import { IonicModule } from '@ionic/angular';
 
 
 @NgModule({
@@ -10,8 +11,9 @@ import { FooterComponent } from './footer/footer.component';
    exports: [ FooterComponent, SidebarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule
   ]
- 
+
 })
 export class ComponentsModule { }

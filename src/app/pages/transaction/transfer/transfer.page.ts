@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
@@ -34,11 +35,25 @@ export class TransferPage implements OnInit {
     }
   ];
 
+  transactionInfo = new FormGroup({
+    senderAddress: new FormControl('', Validators.required),
+    senderAmount: new FormControl('', Validators.required),
+    senderCurr: new FormControl('ngn', Validators.required),
+    receiverAddress: new FormControl('', Validators.required),
+    receiverAmount: new FormControl('', Validators.required),
+    receiverCurr: new FormControl('ngn', Validators.required)
+  });
+
+  form: FormGroup;
+
   isLoading = false;
   sentCurr = 'usd';
   receivedCurr = 'usd';
 
-  constructor( private router: Router, private barcodeScanner: BarcodeScanner) { }
+
+  constructor( private router: Router, private fb: FormBuilder,
+    private barcodeScanner: BarcodeScanner
+  ) { }
 
   ngOnInit() {
   }
@@ -56,8 +71,10 @@ export class TransferPage implements OnInit {
 	  this.router.navigate(['profile']);
   }
 
-  onTransfer(form){
-    console.log('test');
+  onTransfer(){
+    console.log(this.transactionInfo.valid);
+    console.warn(this.transactionInfo.value);
+    console.log(this.transactionInfo.get('senderAddress').value);
   }
 
   scanCode(){
@@ -70,6 +87,8 @@ export class TransferPage implements OnInit {
 
   toCurrency(num){
     return num.toFixed(2);
+    // [value]="(receiverAmountInput.value * marketPrices[receiverCurrency.value] * 1/marketPrices[senderCurrency.value]).toFixed(2)
   }
+
 
 }

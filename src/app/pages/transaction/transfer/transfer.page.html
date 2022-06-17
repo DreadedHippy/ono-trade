@@ -52,22 +52,17 @@
 
     <div class="container">
       <div class="form-box">
-        <form #form="ngForm" (ngSubmit)="onTransfer(form)" *ngIf="!isLoading">
+        <form (ngSubmit)="onTransfer()" *ngIf="!isLoading" [formGroup]="transactionInfo">
           <div class="form-group flexContainer">
-            <input type="text"
-              class="form-control inputField"
-              id="senderAdress" placeholder="Sender's wallet Adress"
-              ngModel name="senderAdress" #senderAdressInput="ngModel" required="true" ionFocus="focus()">
 
-            <input type="number" name="SenderAmount"
-            [value]="(receiverAmountInput.value * marketPrices[receiverCurrency.value] * 1/marketPrices[senderCurrency.value]).toFixed(2)"
-            class="form-control inputFieldTwo"
-            id="senderAmount" placeholder="Amount to send"
-            ngModel name="senderAmount" #senderAmountInput="ngModel" required="true" ionFocus="focus()">
+            <input type="text"  class="form-control inputField" formControlName="senderAddress" required="true" ionFocus="focus()">
+
+            <input type="number" formControlName="senderAmount" placeholder="Amount to be sent"
+            class="form-control inputFieldTwo" ionFocus="focus()">
 
             <ion-select interface="popover" value="usd"
-            ngModel #senderCurrency="ngModel" [(ngModel)]="sentCurr"
-            name="senderCurrency" style="color: white;">
+            formControlName="senderCurr" style="color: white;"
+            >
               <ion-select-option value="usd" selected="true">USD</ion-select-option>
               <ion-select-option value="ngn">NGN</ion-select-option>
               <ion-select-option value="cad">CAD</ion-select-option>
@@ -78,20 +73,15 @@
 
           <!-- Receiver Info -->
           <div class="form-group flexContainer">
-            <input type="text"
-              class="form-control inputField"
-              id="receiverAdress" placeholder="Receiver's wallet Adress"
-              ngModel name="receiverAdress" #receiverAdressInput="ngModel" required="true" ionFocus="focus()">
+            <input type="text" formControlName="receiverAddress"
+              class="form-control inputField" required="true" ionFocus="focus()">
 
-            <input type="number"
-            class="form-control inputFieldTwo"
-            [value]="(senderAmountInput.value * marketPrices[senderCurrency.value] * 1/marketPrices[receiverCurrency.value]).toFixed(2)"
-            id="receiverAmount" placeholder="Amount to be received"
-            ngModel name="receiverAmount" #receiverAmountInput="ngModel" required="true" ionFocus="focus()">
+            <input type="number" formControlName="receiverAmount"
+            class="form-control inputFieldTwo" placeholder="Amount to be received"
+            ionFocus="focus()">
 
-            <ion-select interface="popover"
-            ngModel #receiverCurrency="ngModel" value="ngn" [(ngModel)]="receivedCurr"
-            name="receiverCurrency" style="color: white;">
+            <ion-select interface="popover"value="ngn"
+            formControlName="receiverCurr" style="color: white;">
               <ion-select-option value="usd">USD</ion-select-option>
               <ion-select-option value="ngn">NGN</ion-select-option>
               <ion-select-option value="cad">CAD</ion-select-option>
