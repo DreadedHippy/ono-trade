@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,],
   entryComponents: [],
   imports: [BrowserModule,
     OwlModule,
@@ -26,3 +26,4 @@ import { ReactiveFormsModule } from '@angular/forms';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+
