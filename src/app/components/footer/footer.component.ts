@@ -18,6 +18,7 @@ public url1 = '';
   this.router.navigate(['payments']);
   }
 
+
   historyPage(){
   this.router.navigate(['history']);
   }
