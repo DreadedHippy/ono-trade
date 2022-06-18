@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Transaction, CryptoBuy } from '../models/transaction.model';
+import { environment } from 'src/environments/environment';
+import { Wallet } from '../models/wallet.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionsService {
   private transactions: Transaction[] = [];
+  baseUrl = environment.baseUrl
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+  ) { }
 
   getTransactions(){
     return [...this.transactions];
@@ -39,6 +45,20 @@ export class TransactionsService {
     };
     console.log(cryptoPurchase);
 
+  }
+
+  createWallet(walletInfo: Wallet){
+    const url = this.baseUrl + '/wallets/create'
+    const email = {email: localStorage.getItem('email')}
+    const walletData = Object.assign(walletInfo, email)
+
+    this.http.post<{wallet: Wallet[]}>(url , walletData)
+    .subscribe(response => {
+      console.log(response)
+    }, error => {
+      console.log(error)
+    }
+  )
   }
 
   getWallets(){

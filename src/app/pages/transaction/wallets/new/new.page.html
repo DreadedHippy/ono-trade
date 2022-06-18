@@ -1,0 +1,39 @@
+<app-sidebar></app-sidebar>
+<ion-content class="mainbackground">
+  <app-header></app-header>
+  <div class="body">
+
+    <div class="container">
+      <div class="form-box">
+        <form (ngSubmit)="onCreate()" [formGroup]="walletInfo">
+          <div class="form-group flexContainer">
+
+            <input type="text"  class="form-control" minlength="5"
+            formControlName="walletName"
+            placeholder="Name your wallet"
+            required="true" ionFocus="focus()">
+          </div>
+
+          <!-- Receiver Info -->
+          <div class="form-group flexContainer">
+            <input type="text" formControlName="walletAddress"
+              placeholder="Type in your wallet Adress/Card Number"
+              class="form-control inputField" required="true" ionFocus="focus()"
+            >
+            <br>
+
+            <ion-select interface="popover"placeholder="Currency"
+            formControlName="walletCurr" style="color: white;">
+              <ion-select-option value="usd">USD</ion-select-option>
+              <ion-select-option value="ngn">NGN</ion-select-option>
+              <ion-select-option value="cad">CAD</ion-select-option>
+              <ion-select-option value="eur">EUR</ion-select-option>
+            </ion-select>
+          </div>
+            <button type="submit" class="theme btn btn-primary">Create Wallet</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

@@ -5,6 +5,7 @@ export interface User {
   password: string;
   verifyToken: string;
   passwordToken: string;
+  wallets: []
 }
 
 export interface UserDataRes {

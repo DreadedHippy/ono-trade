@@ -76,15 +76,18 @@ const routes: Routes = [
   },
   {
     path: 'deposit',
-    loadChildren: () => import('./pages/transaction/deposit/deposit.module').then( m => m.DepositPageModule)
+    loadChildren: () => import('./pages/transaction/deposit/deposit.module').then( m => m.DepositPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'transfer',
-    loadChildren: () => import('./pages/transaction/transfer/transfer.module').then( m => m.TransferPageModule)
+    loadChildren: () => import('./pages/transaction/transfer/transfer.module').then( m => m.TransferPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'wallets',
-    loadChildren: () => import('./pages/transaction/wallets/wallets.module').then( m => m.WalletsPageModule)
+    loadChildren: () => import('./pages/transaction/wallets/wallets.module').then( m => m.WalletsPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 
