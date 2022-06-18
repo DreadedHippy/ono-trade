@@ -28,7 +28,8 @@ export class RegisterPage implements OnInit {
       email: form.value.Email,
       password: form.value.Password,
       verifyToken: '',
-      passwordToken: ''
+      passwordToken: '',
+      wallets: []
     };
     if (form.invalid){
       return;

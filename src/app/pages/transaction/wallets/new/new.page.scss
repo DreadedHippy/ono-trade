@@ -116,23 +116,54 @@ height: 130px;
 }
 
 .inputField {
+  flex: 3;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.inputFieldTwo {
   flex: 1;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .ion-btn {
   --background: #f79e1b
 }
 
-.balance {
-  text-align: right !important;
+
+.form-box
+{
+  width:80%;
+  margin:auto;
+  height: 200px;
+  // position:absolute;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  text-align:center;
+}
+.form-box .logo
+{
+  width:60px;
+  margin:auto;
 }
 
-// .accord{
-//   --ion-item-background: #1e1e1e;
-//   --ion-item-color: white;
-// }
-
-.depositButton{
-  text-align: right;
+.title
+{
+vertical-align: top;
+color:#FFF;
+font-size:16px;
+font-weight:600;
+position:relative;
+text-align:center;
+margin-top:15px;
+margin-bottom:20px;
 }
-

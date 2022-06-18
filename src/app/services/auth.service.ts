@@ -114,7 +114,7 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthData(token, expirationDate);
+        this.saveAuthData(token, expirationDate, response.user.email);
         console.log(expirationDate);
         this.navCtrl.navigateRoot('/dashboard');
         }
@@ -229,7 +229,7 @@ export class AuthService {
       this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.navCtrl.navigateForward('/wallet/history');
+      this.navCtrl.navigateForward('/wallets/new');
     }
   }
 
@@ -246,14 +246,16 @@ export class AuthService {
     this.route.navigate(['/login']);
   }
 
-  private saveAuthData(token: string, expirationDate: Date){
+  private saveAuthData(token: string, expirationDate: Date, email){
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('email', email)
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('email')
   }
 
   private getAuthData(){
