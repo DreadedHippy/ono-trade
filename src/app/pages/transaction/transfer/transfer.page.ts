@@ -52,7 +52,7 @@ export class TransferPage implements OnInit {
 
 
   constructor( private router: Router, private fb: FormBuilder,
-    private barcodeScanner: BarcodeScanner
+    private barcodeScanner: BarcodeScanner,
   ) { }
 
   ngOnInit() {
