@@ -113,7 +113,9 @@ export class WalletsPage implements OnInit {
     }
   ];
 
-  constructor( private router: Router, private barcodeScanner: BarcodeScanner) { }
+  constructor(
+    private router: Router, private barcodeScanner: BarcodeScanner,
+  ) { }
 
   prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 

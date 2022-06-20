@@ -28,22 +28,9 @@ export class DepositPage implements OnInit {
     }
   ];
 
-  constructor( public router: Router, private barcodeScanner: BarcodeScanner) { }
+  constructor( public router: Router, private barcodeScanner: BarcodeScanner) {}
 
   ngOnInit() {
-  }
-
-  dashboardPage()
-  {
-   this.router.navigate(['dashboard']);
-  }
-   notificationsPage()
-  {
-  this.router.navigate(['notifications']);
-  }
-  profilePage()
-  {
-	  this.router.navigate(['profile']);
   }
 
   scanCode(){

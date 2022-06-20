@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
    }
 
    checkTitle(){
-    console.log(this.router.url)
     const currentUrl = this.router.url
     switch(currentUrl){
       case '/wallets/new':
@@ -42,6 +41,27 @@ export class HeaderComponent implements OnInit {
         break;
       case '/profile':
         this.title = 'Profile'
+        break;
+      case '/history':
+        this.title = 'History'
+        break;
+      case '/dashboard':
+        this.title = 'Dashboard'
+        break;
+      case '/transfer':
+        this.title = 'Transfer'
+        break;
+      case '/deposit':
+        this.title = 'Deposit'
+        break;
+      case '/faqs':
+        this.title = 'FAQs'
+        break;
+      case '/settings':
+        this.title = 'Settings'
+        break;
+      case '/changepassword':
+        this.title = 'Change Password'
         break;
       default:
         this.title = 'Page';

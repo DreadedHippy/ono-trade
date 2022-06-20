@@ -23,7 +23,8 @@ export class NewPage implements OnInit {
 
   constructor(
     private alertSrv: AlertService,
-    private transactionsSrv: TransactionsService) { }
+    private transactionsSrv: TransactionsService
+  ) {}
 
   ngOnInit() {
   }
@@ -32,6 +33,7 @@ export class NewPage implements OnInit {
     console.log(this.walletInfo.valid)
     if(!this.walletInfo.valid){
       this.alertSrv.toast('Please fill in all details', 3000)
+      return;
     }
     const walletInfo: Wallet = {
       name: this.walletInfo.get('walletName').value,
