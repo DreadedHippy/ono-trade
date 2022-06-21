@@ -1,130 +1,43 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Wallet } from 'src/app/models/wallet.model';
+import { TransactionsService } from 'src/app/services/transactions.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-wallets',
   templateUrl: './wallets.page.html',
   styleUrls: ['./wallets.page.scss'],
 })
-export class WalletsPage implements OnInit {
+export class WalletsPage implements OnInit, OnDestroy {
 
-  wallets = [
-    {
-      name: 'user-generated name',
-      address: 'wallet address',
-      currency: 'usd',
-      iconSrc: 'url of the  currency icon',
-      balance: 350000000000.00,
-
-      transactions: [
-        {
-          type: 'from', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '40.00',
-          date: '20-11-2021', //Date to string
-          time: '03:30 pm', //time in 12 hr format
-          remark: '' //Empty string if Null
-        },
-        {
-          type: 'to', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '67.19',
-          date: '25-03-2021', //Date to string
-          time: '03:14 am', //time in 12 hr format
-          remark: 'Shoprite Purchase' //Empty string if Null
-        },
-        {
-          type: 'from', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '25.00',
-          date: '20-01-2022', //Date to string (dd-mm-yyyy)
-          time: '04:12 pm', //time in 12 hr format
-          remark: '' //Empty string if Null
-        },
-      ]
-    },
-    {
-      name: 'user-generated name 2',
-      address: 'wallet address222',
-      currency: 'btc',
-      iconSrc: 'url of the  currency icon',
-      balance: 13.00,
-      transactions: [
-        {
-          type: 'from', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '40.00',
-          date: '20-11-2021', //Date to string
-          time: '03:30 pm', //time in 12 hr format
-          remark: '' //Empty string if Null
-        },
-        {
-          type: 'to', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '67.19',
-          date: '25-03-2021', //Date to string
-          time: '03:14 am', //time in 12 hr format
-          remark: 'Shoprite Purchase' //Empty string if Null
-        },
-        {
-          type: 'from', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '25.00',
-          date: '20-01-2022', //Date to string (dd-mm-yyyy)
-          time: '04:12 pm', //time in 12 hr format
-          remark: '' //Empty string if Null
-        },
-      ]
-    },
-    {
-      name: 'user-generated name 3',
-      address: 'wallet address 333',
-      currency: 'ngn',
-      iconSrc: 'url of the  currency icon',
-      balance: 4.39,
-
-      transactions: [
-        {
-          type: 'from', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '40.00',
-          date: '20-11-2021', //Date to string
-          time: '03:30 pm', //time in 12 hr format
-          remark: '' //Empty string if Null
-        },
-        {
-          type: 'to', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '67.19',
-          date: '25-03-2021', //Date to string
-          time: '03:14 am', //time in 12 hr format
-          remark: 'Shoprite Purchase' //Empty string if Null
-        },
-        {
-          type: 'from', //could be from or to
-          adress: 'from-or-toAddress',
-          amount: '25.00',
-          date: '20-01-2022', //Date to string (dd-mm-yyyy)
-          time: '04:12 pm', //time in 12 hr format
-          remark: '' //Empty string if Null
-        },
-      ]
-    }
-  ];
+  wallets: Wallet[] = [];
+  private walletsSub: Subscription;
 
   constructor(
     private router: Router, private barcodeScanner: BarcodeScanner,
+    public transSrv: TransactionsService
   ) { }
 
   prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 
   ngOnInit() {
-   document.body.classList.toggle('dark', true);
+    this.wallets = this.transSrv.getWallets()
+    this.walletsSub = this.transSrv.getWalletsUpdateListener()
+    .subscribe((wallet: Wallet[]) => {
+      this.wallets = wallet
+    });
   }
 
+  depositPage(wallet){
+    this.transSrv.useWallet(wallet, 'deposit')
+  }
 
+  transferPage(wallet){
+    this.transSrv.useWallet(wallet, 'transfer')
+  }
 
   dashboardPage(){
    this.router.navigate(['dashboard']);
@@ -147,6 +60,10 @@ export class WalletsPage implements OnInit {
 
   newWallet(){
     this.router.navigate(['wallets/new'])
+  }
+
+  ngOnDestroy(){
+    this.walletsSub.unsubscribe();
   }
 
 }

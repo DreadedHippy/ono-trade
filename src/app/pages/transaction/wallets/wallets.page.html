@@ -31,7 +31,7 @@
                   </ion-col>
                   <ion-col size="4">
                     <div class="ion-text-end">
-                      <div class="price text-success">{{wallet.balance}}</div>
+                      <div class="price text-success">{{(wallet.balance).toFixed(2)}}</div>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -39,10 +39,6 @@
             </div>
 
             <ion-list slot="content" inset="true" lines=" none">
-              <ion-item>
-                <img height="100px" width="100px" src="../../../../assets/images/icons8-naira-64.png" >
-                <!-- <ion-label>Red</ion-label> -->
-              </ion-item>
               <ion-item>
                 <ion-label>Currency:</ion-label>
                 <span>{{wallet.currency.toUpperCase()}}</span>
@@ -53,14 +49,30 @@
               </ion-item>
               <ion-item>
                 <ion-label>Last Transaction:</ion-label>
-                <span>
-                  <p>{{wallet.transactions[wallet.transactions.length - 1].date}}</p>
+                <span *ngIf="wallet.transactions.length > 0">
+                  <!-- <p>{{wallet.transactions[wallet.transactions.length - 1].date}}</p>
                   <p>{{wallet.transactions[wallet.transactions.length - 1].amount}}</p>
-                  <p style="color: yellow;">{{wallet.transactions[wallet.transactions.length - 1].type}}</p>
+                  <p style="color: yellow;">{{wallet.transactions[wallet.transactions.length - 1].type}}</p> -->
                 </span>
               </ion-item>
               <ion-item>
-                <ion-button expand="block" color="success">DEPOSIT</ion-button>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="3">
+                        <ion-button expand="block" color="success" (click)="depositPage(wallet)">DEPOSIT</ion-button>
+                    </ion-col>
+                    <ion-col size="3">
+                      <ion-button expand="block" color="primary" (click)="transferPage(wallet)">TRANSFER</ion-button>
+                    </ion-col>
+                    <ion-col size="3">
+                      <ion-button expand="block" color="tertiary">BUY</ion-button>
+                    </ion-col>
+                    <ion-col size="3">
+                      <ion-button expand="block" color="warning">SELL</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+
               </ion-item>
             </ion-list>
           </ion-accordion>

@@ -4,13 +4,16 @@ import { environment } from 'src/environments/environment';
 import { Wallet } from '../models/wallet.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionsService {
-  private transactions: Transaction[] = [];
   baseUrl = environment.baseUrl
+  private transactions: Transaction[] = [];
+  private wallets: Wallet[] = []
+  private walletsUpd = new Subject<Wallet[]>()
 
   constructor(
     private http: HttpClient,
@@ -57,19 +60,39 @@ export class TransactionsService {
     .subscribe(response => {
       window.alert(response.message);
       console.log(response)
+      this.wallets.push(walletInfo)
     }, error => {
       console.log(error)
     })
-
+    this.wallets.push(walletInfo);
+    this.walletsUpd.next([...this.wallets]);
     this.route.navigate(['/wallets'])
   }
 
   getWallets(){
-    const url = this.baseUrl + '/wallets'
     const email = localStorage.getItem('email')
-    this.http.get<{ message: string; wallets: any }>(url)
+    const url = this.baseUrl + '/wallets?email=' + email
+    this.http.get<{ message: string; wallets: [] }>(url)
     .subscribe(response => {
-      return response;
+      console.log(response, response.message);
+      this.wallets = response.wallets
+    }, error => {
+      console.log(error)
     })
+    return [...this.wallets]
   }
+
+
+  depWallet: Wallet
+  useWallet(wallet, type){
+    this.depWallet = wallet
+    this.route.navigate([type])
+  }
+
+
+  getWalletsUpdateListener(){
+    return this.walletsUpd.asObservable();
+  }
+
+
 }

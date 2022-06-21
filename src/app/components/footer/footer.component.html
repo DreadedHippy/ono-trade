@@ -9,7 +9,7 @@
           src="../../../assets/images/menu-home-hover.svg"
           class="w-100 hover"
       /></a>
-      <ion-label color="light">Home</ion-label>
+      <ion-label color="dark">Home</ion-label>
     </li>
     <li (click)="paymentsPage()">
       <a class="icon" [ngClass]="url1 == '/payments' ? 'active ' : ''"
@@ -20,7 +20,7 @@
           class="w-100 hover"
         />
       </a>
-      <ion-label color="light">Explore</ion-label>
+      <ion-label color="dark">Explore</ion-label>
     </li>
 
     <li (click)="historyPage()">
@@ -32,21 +32,21 @@
           class="w-100 hover"
         />
       </a>
-      <ion-label color="light">Market</ion-label>
+      <ion-label color="dark">Market</ion-label>
     </li>
     <li (click)="walletsPage()">
       <a class="icon" [ngClass]="url1 == '/wallets' ? 'active ' : ''">
         <img src="../../../assets/images/wallet-outline.svg" class="w-100 normal" />
         <img src="../../../assets/images/wallet-outline-hover.svg" class="w-100 hover"/>
       </a>
-      <ion-label color="light">Wallets</ion-label>
+      <ion-label color="dark">Wallets</ion-label>
     </li>
-    <li>
+    <li class="footer-label">
       <a class="icon menu-btn">
         <img src="../../../assets/images/menu-more.svg"class="w-100 normal" />
         <img src="../../../assets/images/menu-more-hover.svg" class="w-100 hover"/>
       </a>
-      <ion-label color="light">Menu</ion-label>
+      <ion-label color="dark">Menu</ion-label>
     </li>
   </ul>
 

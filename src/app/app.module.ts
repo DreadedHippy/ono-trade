@@ -12,6 +12,7 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './services/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent,],
@@ -22,7 +23,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule],
-  providers: [Camera, BarcodeScanner, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [Camera, BarcodeScanner,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
