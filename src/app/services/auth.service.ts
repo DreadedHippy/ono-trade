@@ -229,15 +229,11 @@ export class AuthService {
       this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.navCtrl.navigateForward('/wallets/new');
+      this.navCtrl.navigateForward('/dashboard');
     }
   }
 
   logout(){
-    this.http.get<{message: string}>(this.baseUrl + '/users/logout')
-    .subscribe(response => {
-      console.log(response.message);
-    });
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
@@ -246,10 +242,10 @@ export class AuthService {
     this.route.navigate(['/login']);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, email){
+  private saveAuthData(token: string, expirationDate: Date, email: string ){
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
-    localStorage.setItem('email', email)
+    localStorage.setItem('email', email);
   }
 
   private clearAuthData(){
@@ -276,7 +272,6 @@ export class AuthService {
       this.logout();
     }, duration * 1000);
   }
-
 
 
 }

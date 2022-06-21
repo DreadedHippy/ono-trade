@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Wallet } from 'src/app/models/wallet.model';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 
 @Component({
@@ -9,6 +11,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
   styleUrls: ['./deposit.page.scss'],
 })
 export class DepositPage implements OnInit {
+  wallet: Wallet
 
   deposits = [
     {
@@ -28,9 +31,13 @@ export class DepositPage implements OnInit {
     }
   ];
 
-  constructor( public router: Router, private barcodeScanner: BarcodeScanner) {}
+  constructor( public router: Router, private barcodeScanner: BarcodeScanner,
+    private transSrv: TransactionsService
+    ) {}
 
   ngOnInit() {
+    this.wallet = this.transSrv.depWallet
+    console.log(this.wallet)
   }
 
   scanCode(){
