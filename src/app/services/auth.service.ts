@@ -167,17 +167,7 @@ export class AuthService {
 
   // VERIFY USER
   userverify(key){
-    this.http.get<{message: string; status: string}>(this.baseUrl + '/users/verify?key=' + key)
-    .subscribe(response =>  {
-      window.alert(response.message);
-      if (response.status === 'verified'){
-        this.goHome();
-      }
-      }, error => {
-        this.alertSrv.toast(error.error.message);
-        console.log(error);
-      }
-    );
+    return this.http.get<{message: string; status: string}>(this.baseUrl + '/users/verify?key=' + key)
   }
 
   resetPasswordRequest(email){
