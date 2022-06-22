@@ -14,7 +14,9 @@
         <div class="spinner" *ngIf="isLoading">
           <ion-spinner color="gold-primary" name="bubbles"></ion-spinner>
         </div>
-
+        <div style="text-align: center;">
+          <ion-note *ngIf="slowNetwork && isLoading"> Wallets not loading? Try checking your internet connection</ion-note>
+        </div>
         <ion-card *ngIf="wallets.length < 1 && !isLoading" style="text-align: center;">
           <ion-card-header>
             No wallets found!

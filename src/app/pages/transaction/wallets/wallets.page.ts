@@ -14,8 +14,8 @@ export class WalletsPage implements OnInit {
 
   wallets: Wallet[] = [];
   fetchedWallets: any;
-  private walletsSub: Subscription;
-  isLoading = true
+  isLoading = true;
+  slowNetwork = false;
 
   constructor(
     private router: Router, private barcodeScanner: BarcodeScanner,
@@ -26,6 +26,7 @@ export class WalletsPage implements OnInit {
 
 
   ngOnInit() {
+    this.slowConnect()
     this.loadWallets()
   }
 
@@ -50,10 +51,17 @@ export class WalletsPage implements OnInit {
   loadWallets() {
     this.transSrv.fetchWallets().subscribe( data => {
       console.log(data);
+      this.slowNetwork = false
       this.isLoading = false
       this.fetchedWallets = data;
       this.wallets = this.fetchedWallets.wallets
     })
+  }
+
+  slowConnect(){
+    setTimeout(() => {
+      this.slowNetwork = true
+    }, 5000);
   }
 
 
