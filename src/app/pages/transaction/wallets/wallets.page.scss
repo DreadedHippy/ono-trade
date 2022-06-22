@@ -136,3 +136,20 @@ height: 130px;
   text-align: right;
 }
 
+ion-accordion{
+  cursor: pointer;
+}
+
+.warnicon{
+  font-size: 100px;
+}
+
+.spinner{
+  text-align: center;
+  padding-bottom: 40px;
+  padding-top: 50px;
+}
+
+ion-spinner {
+  transform: scale(6);
+}

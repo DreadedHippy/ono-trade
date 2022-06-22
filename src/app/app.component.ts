@@ -12,6 +12,5 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     this.authSrv.autoAuthUser();
-    this.transSrv.getWallets();
   }
 }

@@ -11,8 +11,21 @@
 
     <div class="transactionslist">
       <div class="container">
+        <div class="spinner" *ngIf="isLoading">
+          <ion-spinner color="gold-primary" name="bubbles"></ion-spinner>
+        </div>
+
+        <ion-card *ngIf="wallets.length < 1 && !isLoading" style="text-align: center;">
+          <ion-card-header>
+            No wallets found!
+          </ion-card-header>
+          <ion-card-title>Please Create a wallet with the '+' button above</ion-card-title>
+          <ion-card-content>
+            <ion-icon class="warnicon" color="warning" name="warning-outline"></ion-icon>
+          </ion-card-content>
+        </ion-card>
         <ion-accordion-group color="primary">
-        <ion-accordion *ngFor="let wallet of wallets" class="transactions-box" style="padding-top: 15px;">
+        <ion-accordion *ngFor="let wallet of this?.wallets; index as i" class="transactions-box" style="padding-top: 15px;">
             <div slot="header">
               <ion-grid>
                 <ion-row>
@@ -50,9 +63,9 @@
               <ion-item>
                 <ion-label>Last Transaction:</ion-label>
                 <span *ngIf="wallet.transactions.length > 0">
-                  <!-- <p>{{wallet.transactions[wallet.transactions.length - 1].date}}</p>
-                  <p>{{wallet.transactions[wallet.transactions.length - 1].amount}}</p>
-                  <p style="color: yellow;">{{wallet.transactions[wallet.transactions.length - 1].type}}</p> -->
+                  <p>{{wallet.transactions}}</p>
+                  <p>{{wallet.transactions}}</p>
+                  <p style="color: yellow;">{{wallet.transactions}}</p>
                 </span>
               </ion-item>
               <ion-item>

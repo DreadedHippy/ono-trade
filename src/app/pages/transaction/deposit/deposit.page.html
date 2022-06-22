@@ -3,6 +3,7 @@
   <app-header></app-header>
   <div class="body">
     <div class="container">
+      <div class="head-title name">Wallet: {{wallet.name}}</div>
       <div class="scan-btn" (click)="scanCode()">
         <div class="icon">
           <img src="../../../assets/images/qrcode.png" class="w-100" />
@@ -19,10 +20,10 @@
           <li>
             <div class="form-group flexContainer">
               <input
-                class="form-control inputField"
+                class="form-control inputField" disabled="true"
                 [value]="wallet.address"
                 name="Username" onFocus="focus()">
-            <ion-button class="ion-btn">Copy</ion-button>
+            <ion-button (click)="copyText()" class="ion-btn">Copy</ion-button>
             </div>
           </li>
         </ul>

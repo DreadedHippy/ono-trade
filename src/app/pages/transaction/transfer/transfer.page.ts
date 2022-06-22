@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-transfer',
@@ -36,9 +37,9 @@ export class TransferPage implements OnInit {
   ];
 
   transactionInfo = new FormGroup({
-    senderAddress: new FormControl('', Validators.required),
+    senderAddress: new FormControl(this.transSrv.depWallet.address, Validators.required),
     senderAmount: new FormControl('', Validators.required),
-    senderCurr: new FormControl('ngn', Validators.required),
+    senderCurr: new FormControl(this.transSrv.depWallet.currency, Validators.required),
     receiverAddress: new FormControl('', Validators.required),
     receiverAmount: new FormControl('', Validators.required),
     receiverCurr: new FormControl('ngn', Validators.required)
@@ -52,7 +53,7 @@ export class TransferPage implements OnInit {
 
 
   constructor( private router: Router, private fb: FormBuilder,
-    private barcodeScanner: BarcodeScanner,
+    private barcodeScanner: BarcodeScanner, private transSrv: TransactionsService
   ) { }
 
   ngOnInit() {
