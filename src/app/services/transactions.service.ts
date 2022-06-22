@@ -69,19 +69,6 @@ export class TransactionsService {
     this.route.navigate(['/wallets'])
   }
 
-  getWallets(){
-    const email = localStorage.getItem('email')
-    const url = this.baseUrl + '/wallets?email=' + email
-    this.http.get<{ message: string; wallets: [] }>(url)
-    .subscribe(response => {
-      console.log(response, response.message);
-      this.wallets = response.wallets
-    }, error => {
-      console.log(error)
-    })
-    return [...this.wallets]
-  }
-
 
   depWallet: Wallet
   useWallet(wallet, type){
@@ -90,8 +77,10 @@ export class TransactionsService {
   }
 
 
-  getWalletsUpdateListener(){
-    return this.walletsUpd.asObservable();
+  fetchWallets(){
+    const email = localStorage.getItem('email')
+    const url = this.baseUrl + '/wallets?email=' + email
+    return this.http.get(url)
   }
 
 

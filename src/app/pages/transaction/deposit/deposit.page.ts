@@ -48,4 +48,8 @@ export class DepositPage implements OnInit {
     });
   }
 
+  copyText(){
+    navigator.clipboard.writeText(this.wallet.address)
+  }
+
 }

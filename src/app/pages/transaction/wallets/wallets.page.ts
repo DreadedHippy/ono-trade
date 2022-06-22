@@ -10,10 +10,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './wallets.page.html',
   styleUrls: ['./wallets.page.scss'],
 })
-export class WalletsPage implements OnInit, OnDestroy {
+export class WalletsPage implements OnInit {
 
   wallets: Wallet[] = [];
+  fetchedWallets: any;
   private walletsSub: Subscription;
+  isLoading = true
 
   constructor(
     private router: Router, private barcodeScanner: BarcodeScanner,
@@ -24,11 +26,7 @@ export class WalletsPage implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.wallets = this.transSrv.getWallets()
-    this.walletsSub = this.transSrv.getWalletsUpdateListener()
-    .subscribe((wallet: Wallet[]) => {
-      this.wallets = wallet
-    });
+    this.loadWallets()
   }
 
   depositPage(wallet){
@@ -49,6 +47,15 @@ export class WalletsPage implements OnInit, OnDestroy {
 	  this.router.navigate(['profile']);
   }
 
+  loadWallets() {
+    this.transSrv.fetchWallets().subscribe( data => {
+      console.log(data);
+      this.isLoading = false
+      this.fetchedWallets = data;
+      this.wallets = this.fetchedWallets.wallets
+    })
+  }
+
 
   scanCode(){
     this.barcodeScanner.scan().then(barcodeData => {
@@ -60,10 +67,6 @@ export class WalletsPage implements OnInit, OnDestroy {
 
   newWallet(){
     this.router.navigate(['wallets/new'])
-  }
-
-  ngOnDestroy(){
-    this.walletsSub.unsubscribe();
   }
 
 }
