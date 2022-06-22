@@ -37,9 +37,9 @@ export class TransferPage implements OnInit {
   ];
 
   transactionInfo = new FormGroup({
-    senderAddress: new FormControl(this.transSrv.depWallet.address, Validators.required),
+    senderAddress: new FormControl(this.transSrv.depWallet.address, Validators.required), //Wallet adress from server
     senderAmount: new FormControl('', Validators.required),
-    senderCurr: new FormControl(this.transSrv.depWallet.currency, Validators.required),
+    senderCurr: new FormControl(this.transSrv.depWallet.currency, Validators.required), //Wallet currency from server
     receiverAddress: new FormControl('', Validators.required),
     receiverAmount: new FormControl('', Validators.required),
     receiverCurr: new FormControl('ngn', Validators.required)
