@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Transaction, CryptoBuy } from '../models/transaction.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { Wallet } from '../models/wallet.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';

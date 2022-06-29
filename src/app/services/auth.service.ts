@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { subscribeOn } from 'rxjs/operators';
 import { User, UserDataRes } from '../models/user.model';
 import { NavController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { MailService } from './mail.service';
 import { AlertService } from './alert.service';
 import { map } from 'rxjs/operators';
