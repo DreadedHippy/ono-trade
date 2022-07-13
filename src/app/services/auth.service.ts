@@ -114,7 +114,7 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthData(token, expirationDate, response.user.email);
+        this.saveAuthData(token, expirationDate, response.user.email, response.user.username);
         console.log(expirationDate);
         this.navCtrl.navigateRoot('/dashboard');
         }
@@ -232,10 +232,12 @@ export class AuthService {
     this.route.navigate(['/login']);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, email: string ){
+  private saveAuthData(token: string, expirationDate: Date, email: string, userName: string ){
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('email', email);
+    localStorage.setItem('name', userName);
+
   }
 
   private clearAuthData(){

@@ -2,37 +2,15 @@
 <ion-content class="mainbackground">
   <app-header></app-header>
   <div class="body">
-    <!-- <div class="container">
-      <div class="scan-btn" (click)="scanCode()">
-        <div class="icon">
-          <img src="../../../assets/images/qrcode.png" class="w-100" />
-        </div>
-      </div>
-      <div class="or-text">OR</div>
-      <div class="paymentoptions">
-        <ul>
-          <li>
-            <div class="form-group flexContainer">
-              <input
-                class="form-control inputField"
-                [value]="'Wallet Adress/Card number'"
-                name="Username" onFocus="focus()">
-            <ion-button class="ion-btn">Copy</ion-button>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div> -->
-
     <div class="container">
       <div class="form-box">
         <form (ngSubmit)="onTransfer()" *ngIf="!isLoading" [formGroup]="transactionInfo">
           <div class="form-group flexContainer">
 
-            <input type="text"  class="form-control inputField" formControlName="senderAddress" required="true" ionFocus="focus()">
+            <div class="ion-padding">Sender:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
 
-            <input type="number" formControlName="senderAmount" placeholder="Sending Amount"
-            class="form-control inputFieldTwo" ionFocus="focus()">
+            <input type="number" formControlName="senderAmount" placeholder="Amount"
+            class="form-control inputFieldTwo" ionFocus="focus()" [(ngModel)]="passedAmount">
 
             <ion-select interface="popover" value="usd"
             formControlName="senderCurr" style="color: white;"
@@ -47,12 +25,12 @@
 
           <!-- Receiver Info -->
           <div class="form-group flexContainer">
-            <input type="text" formControlName="receiverAddress"
+            <div class="ion-padding">Receiver:</div><input type="text" formControlName="receiverAddress"
               class="form-control inputField" required="true" ionFocus="focus()">
 
             <input type="number" formControlName="receiverAmount"
-            class="form-control inputFieldTwo" placeholder="Receiving Amount"
-            ionFocus="focus()">
+            class="form-control inputFieldTwo disabled" placeholder="Amount"
+            ionFocus="focus()" >
 
             <ion-select interface="popover"value="ngn"
             formControlName="receiverCurr" style="color: white;">

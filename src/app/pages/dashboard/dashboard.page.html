@@ -7,7 +7,7 @@
         <div class="card bg-primary">
           <div class="card-body">
             <div class="accountbalance">
-              $3,456.12
+              {{3456.12 | currency:'₦'}}
               <div class="float-right">
                 <div class="visa-icon">
                   <img
@@ -18,7 +18,7 @@
               </div>
             </div>
             <div class="balanceinfo">
-              <div class="name">Aaran doe</div>
+              <div class="name">{{name}}</div>
               <div class="cardno">1*** **** **** 7678</div>
               <div class="expiredate">13/20</div>
             </div>
@@ -30,7 +30,9 @@
       <div class="container">Market Price</div>
     </div>
     <div class="chart-box">
-      <canvas #barCanvas></canvas>
+      <div class="container">
+        <canvas #barCanvas></canvas>
+      </div>
     </div>
     <div class="head-title">
       <div class="container">Recent Transactions</div>

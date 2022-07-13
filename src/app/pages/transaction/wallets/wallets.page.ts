@@ -4,28 +4,41 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Wallet } from 'src/app/models/wallet.model';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { Subscription } from 'rxjs';
-
+import {SubSink} from 'subsink';
 @Component({
   selector: 'app-wallets',
   templateUrl: './wallets.page.html',
   styleUrls: ['./wallets.page.scss'],
 })
-export class WalletsPage implements OnInit {
+export class WalletsPage implements OnInit, OnDestroy {
 
   wallets: Wallet[] = [];
   fetchedWallets: any;
   isLoading = true;
   slowNetwork = false;
+  subs = new SubSink()
 
   constructor(
     private router: Router, private barcodeScanner: BarcodeScanner,
     public transSrv: TransactionsService
   ) { }
 
+
+
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
+
   prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
 
 
   ngOnInit() {
+    this.slowConnect()
+    this.loadWallets()
+  }
+
+  ionViewDidEnter(){
     this.slowConnect()
     this.loadWallets()
   }
@@ -49,12 +62,12 @@ export class WalletsPage implements OnInit {
   }
 
   loadWallets() {
-    this.transSrv.fetchWallets().subscribe( data => {
+    this.subs.sink = this.transSrv.fetchWallets().subscribe( (data: {wallets: Wallet []}) => {
+      this.wallets = data.wallets
       console.log(data);
       this.slowNetwork = false
       this.isLoading = false
       this.fetchedWallets = data;
-      this.wallets = this.fetchedWallets.wallets
     })
   }
 

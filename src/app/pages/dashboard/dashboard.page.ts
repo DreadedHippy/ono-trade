@@ -63,6 +63,7 @@ export class DashboardPage implements OnInit {
 
   public menustatus: any;
   private barChart: Chart;
+  name = localStorage.getItem('name')
 
 
   constructor(private router: Router, private authSrv: AuthService) {}
