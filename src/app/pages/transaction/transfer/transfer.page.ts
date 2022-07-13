@@ -18,30 +18,34 @@ export class TransferPage implements OnInit {
     cad: 0.77365
   };
 
+  passedAmount = 0
+
   transfers = [
     {
-      to: 'Adress1',
+      to: 'Address1',
       date: '13-09-2021',
       amount: 20,
     },
     {
-      to: 'Adress2',
+      to: 'Address2',
       date: '15-10-2021',
       amount: 200
     },
     {
-      to: 'Adress3',
+      to: 'Address3',
       date: '12-11-2021',
       amount: 4600
     }
   ];
 
+
   transactionInfo = new FormGroup({
-    senderAddress: new FormControl(this.transSrv.depWallet.address, Validators.required), //Wallet adress from server
-    senderAmount: new FormControl('', Validators.required),
+    senderAddress: new FormControl({value: this.transSrv.depWallet.address, disabled: true}, [Validators.required]), //Wallet adress from server
+    senderAmount: new FormControl(0, Validators.required),
+    testField: new FormControl({value: '', disabled: true}, [Validators.required]),
     senderCurr: new FormControl(this.transSrv.depWallet.currency, Validators.required), //Wallet currency from server
     receiverAddress: new FormControl('', Validators.required),
-    receiverAmount: new FormControl('', Validators.required),
+    receiverAmount: new FormControl({value: 0, disabled: true}, Validators.required),
     receiverCurr: new FormControl('ngn', Validators.required)
   });
 

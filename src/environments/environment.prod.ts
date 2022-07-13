@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   baseUrl: 'http://localhost:3000/api',
-  firebaseConfig : {
+  firebaseConfig: {
     apiKey: 'AIzaSyBo99pSXx33_J2EHblO5AtNTY1lKaU3n9Y',
     authDomain: 'newlotter-5d30c.firebaseapp.com',
     projectId: 'newlotter-5d30c',
