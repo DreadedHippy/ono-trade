@@ -3,6 +3,10 @@
   <app-header></app-header>
   <div class="body">
     <div class="container">
+
+      <div [ngClass]="(walletBal > enteredAmount)? 'balbox' : 'balboxerr'">
+        <h4 style="text-align: center;">Balance: {{(walletBal - enteredAmount).toFixed(2)}}</h4>
+      </div>
       <div class="form-box">
         <form (ngSubmit)="onTransfer()" *ngIf="!isLoading" [formGroup]="transactionInfo">
           <div class="form-group flexContainer">
@@ -10,7 +14,7 @@
             <div class="ion-padding">Sender:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
 
             <input type="number" formControlName="senderAmount" placeholder="Amount"
-            class="form-control inputFieldTwo" ionFocus="focus()" [(ngModel)]="passedAmount">
+            class="form-control inputFieldTwo" ionFocus="focus()">
 
             <ion-select interface="popover" value="usd"
             formControlName="senderCurr" style="color: white;"
@@ -41,7 +45,7 @@
             </ion-select>
 
           </div>
-            <button type="submit" class="theme btn btn-primary">Transfer</button>
+          <button type="submit" class="theme btn btn-primary">Transfer</button>
         </form>
       </div>
     </div>
