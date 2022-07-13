@@ -258,3 +258,16 @@ ul.social li:nth-child(2) a {
   color: black;
 }
 
+.balbox {
+  border: whitesmoke solid 3px;
+  margin: 40px auto;
+  width: 40%;
+}
+
+.balboxerr {
+  border: red solid 3px;
+  margin: 40px auto;
+  width: 40%;
+  color: red;
+}
+

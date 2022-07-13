@@ -13,7 +13,6 @@ import {SubSink} from 'subsink';
 export class WalletsPage implements OnInit, OnDestroy {
 
   wallets: Wallet[] = [];
-  fetchedWallets: any;
   isLoading = true;
   slowNetwork = false;
   subs = new SubSink()
@@ -67,7 +66,6 @@ export class WalletsPage implements OnInit, OnDestroy {
       console.log(data);
       this.slowNetwork = false
       this.isLoading = false
-      this.fetchedWallets = data;
     })
   }
 

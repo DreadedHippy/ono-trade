@@ -1,3 +1,4 @@
+import { AlertService } from './../../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class TransferPage implements OnInit {
     cad: 0.77365
   };
 
-  passedAmount = 0
+  walletBal: number = this.transSrv.depWallet.balance;
+  enteredAmount: number = 0;
 
   transfers = [
     {
@@ -56,30 +58,42 @@ export class TransferPage implements OnInit {
   receivedCurr = 'usd';
 
 
-  constructor( private router: Router, private fb: FormBuilder,
-    private barcodeScanner: BarcodeScanner, private transSrv: TransactionsService
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private barcodeScanner: BarcodeScanner,
+    private transSrv: TransactionsService,
+    private alertSrv: AlertService
   ) { }
 
   ngOnInit() {
+    this.transactionInfo.get('senderAmount').valueChanges.subscribe(amount => {
+      this.enteredAmount = amount;
+    })
   }
 
-  dashboardPage()
-  {
+  dashboardPage(){
    this.router.navigate(['dashboard']);
   }
-   notificationsPage()
-  {
+
+  notificationsPage(){
   this.router.navigate(['notifications']);
   }
-  profilePage()
-  {
+
+  profilePage(){
 	  this.router.navigate(['profile']);
   }
 
   onTransfer(){
+    if(this.walletBal <= this.enteredAmount){
+      this.alertSrv.toast('Invalid Amount', 3000)
+      return
+    }
+    if(!(this.transactionInfo.valid)){
+      this.alertSrv.toast('Please fill required fields');
+      return;
+    }
     console.log(this.transactionInfo.valid);
-    console.warn(this.transactionInfo.value);
-    console.log(this.transactionInfo.get('senderAddress').value);
   }
 
   scanCode(){
