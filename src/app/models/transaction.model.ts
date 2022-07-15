@@ -1,11 +1,13 @@
 export interface Transaction {
-  type: string; //Type of transaction i.e withdrawal, transfer etc.
-  date: string;
-  transactionId: string | null; //Auto-generated
-  currency: string;
-  fromAdress: string;
-  toAdress: string;
+  fromId: string; //Auto-generated
+  fromAddress: string;
+  fromName: string;
+  toAddress: string;
   amount: number;
+  currency: string;
+  date: string;
+  type: string; //Type of transaction i.e withdrawal, transfer etc.
+  remark: string;
 }
 
 export interface CryptoBuy {
@@ -14,5 +16,5 @@ export interface CryptoBuy {
   transactionId: string | null; //Auto-generated
   amount: number;
   currency: string;
-  paymentAdress: string;
+  paymentAddress: string;
 }

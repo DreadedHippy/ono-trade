@@ -25,18 +25,32 @@ export class TransactionsService {
   }
 
   makeTransaction(data: Transaction){
+    let result;
     const transaction: Transaction = {
       type: data.type.toUpperCase(),
       date: data.date ,
-      transactionId: data.transactionId,
+      fromId: data.fromId,
       currency: data.currency,
-      fromAdress: data.fromAdress,
-      toAdress: data.toAdress,
+      fromAddress: data.fromAddress,
+      fromName: data.fromName,
+      toAddress: data.toAddress,
+      remark: data.remark,
       amount: data.amount
-
     };
-    console.log(transaction);
+    const email = {email: localStorage.getItem('email')}
+    const transactionData = Object.assign(data, email)
     this.transactions.unshift(transaction);
+    const url = this.baseUrl + '/transactions/create'
+    return new Promise (resolve => {
+      this.http.post<{message: string, id: string}>(url, transactionData)
+        .subscribe(response => {
+          resolve(response);
+          return response.message;
+        }, error => {
+          console.log(error)
+          return error;
+        })
+    })
   }
 
   buyCrypto( data: CryptoBuy){
@@ -46,7 +60,7 @@ export class TransactionsService {
     transactionId: data.transactionId,
     amount: data.amount,
     currency: data.currency,
-    paymentAdress: data.paymentAdress
+    paymentAddress: data.paymentAddress
     };
     console.log(cryptoPurchase);
 
@@ -70,10 +84,26 @@ export class TransactionsService {
   }
 
 
-  depWallet: Wallet
+  depWallet: {
+    _id: string
+    name: string,
+    address: string,
+    currency: string,
+    iconSrc: string,
+    balance:number,
+    transactions: []
+  };
+
   useWallet(wallet, type){
     this.depWallet = wallet
     this.route.navigate([type])
+  }
+
+
+  fetchTransactions(){
+    const email = localStorage.getItem('email')
+    const url = this.baseUrl + '/transactions?email=' + email
+    return this.http.get(url)
   }
 
 
