@@ -45,7 +45,7 @@
             </ion-select>
 
           </div>
-          <button type="submit" class="theme btn btn-primary">Transfer</button>
+          <button type="submit" class="theme btn btn-primary" [disabled]="isButtonDisabled">Transfer</button>
         </form>
       </div>
     </div>
@@ -54,19 +54,31 @@
     </div>
     <div class="transactionlist">
       <div class="container">
-        <div class="transactions-box" *ngFor="let transfer of transfers">
-          <div class="left">
-            <div class="icon bg-success">
-              <img src="../../../assets/images/card.svg" class="w-100 card-icon" />
-            </div>
-          </div>
-          <div class="middle">
-            <div class="title">{{transfer.to}}</div>
-            <div class="time">{{transfer.date}}</div>
-          </div>
-          <div class="right">
-            <div class="price text-success">{{transfer.amount}}</div>
-          </div>
+        <div class="transactions-box" *ngFor="let transfer of transfers"><div slot="header">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="2">
+                <div class="left">
+                  <div class="icon bg-success">
+                    <img src="../../../assets/images/card.svg" class="w-100 card-icon" />
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="6">
+                <div class="middle">
+                  <div class="title">{{transfer.toAddress}}</div>
+                  <div class="time ion-padding-top">{{transfer.fromName}} - {{transfer.fromAddress}}</div>
+                </div>
+              </ion-col>
+              <ion-col size="4">
+                <div class="ion-text-end">
+                  <div class="price text-success">{{transfer.amount | currency: getCurrencyIcon(transfer.currency)}}</div>
+                  <div class ="time ion-padding-top">{{toDate(transfer.date)}}</div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
         </div>
       </div>
     </div>

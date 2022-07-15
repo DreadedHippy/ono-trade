@@ -1,46 +1,39 @@
 import { AlertService } from './../../../services/alert.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { TransactionsService } from 'src/app/services/transactions.service';
+import { Transaction } from 'src/app/models/transaction.model';
+import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-transfer',
   templateUrl: './transfer.page.html',
   styleUrls: ['./transfer.page.scss'],
 })
-export class TransferPage implements OnInit {
+export class TransferPage implements OnInit, OnDestroy {
 
+  subs = new SubSink()
   marketPrices = {
     ngn: 0.002382246,
     usd: 1,
     eur: 1.048365,
     cad: 0.77365
   };
-
   walletBal: number = this.transSrv.depWallet.balance;
   enteredAmount: number = 0;
+  transfers: Transaction [] = []
 
-  transfers = [
-    {
-      to: 'Address1',
-      date: '13-09-2021',
-      amount: 20,
-    },
-    {
-      to: 'Address2',
-      date: '15-10-2021',
-      amount: 200
-    },
-    {
-      to: 'Address3',
-      date: '12-11-2021',
-      amount: 4600
-    }
-  ];
-
-
+  timeFormat: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+  };
+  isButtonDisabled=false
   transactionInfo = new FormGroup({
     senderAddress: new FormControl({value: this.transSrv.depWallet.address, disabled: true}, [Validators.required]), //Wallet adress from server
     senderAmount: new FormControl(0, Validators.required),
@@ -70,6 +63,16 @@ export class TransferPage implements OnInit {
     this.transactionInfo.get('senderAmount').valueChanges.subscribe(amount => {
       this.enteredAmount = amount;
     })
+    this.isButtonDisabled = false;
+    this.loadTransactions()
+  }
+
+  ionViewDidEnter(){
+    this.loadTransactions()
+  }
+
+  ngOnDestroy(){
+    this.subs.unsubscribe()
   }
 
   dashboardPage(){
@@ -84,7 +87,12 @@ export class TransferPage implements OnInit {
 	  this.router.navigate(['profile']);
   }
 
-  onTransfer(){
+  toDate(arg){ //CONVERT RAW DATE TO REGULAR, UNDERSTANDABLE DATE
+    let rawDate = new Date(arg)
+    return rawDate.toLocaleDateString('en-US', this.timeFormat)
+  }
+
+  async onTransfer(){
     if(this.walletBal <= this.enteredAmount){
       this.alertSrv.toast('Invalid Amount', 3000)
       return
@@ -93,7 +101,44 @@ export class TransferPage implements OnInit {
       this.alertSrv.toast('Please fill required fields');
       return;
     }
+    let date = new Date
+    let data: Transaction= {
+      type: 'transfer',
+      date: date.toISOString(),
+      fromId: this.transSrv.depWallet._id,
+      fromAddress: this.transSrv.depWallet.address,
+      toAddress: this.transactionInfo.get('receiverAddress').value,
+      currency: this.transactionInfo.get('senderCurr').value,
+      amount: this.enteredAmount,
+      remark: '',
+      fromName: this.transSrv.depWallet.name
+    }
     console.log(this.transactionInfo.valid);
+    this.isButtonDisabled = true;
+    this.transSrv.makeTransaction(data).then( (result: {message: string}) => {
+      console.log('result', result)
+      this.alertSrv.toast(result.message, 5000)
+      this.router.navigate(['wallets'])
+    });
+  }
+
+
+  //Fetch transactions from backend
+  loadTransactions(){
+    this.subs.sink = this.transSrv.fetchTransactions().subscribe( (data: {transactions}) => {
+      console.log(data.transactions)
+      let transactions = data.transactions;
+      transactions.reverse();
+      this.transfers = transactions.filter(transaction => transaction.type == 'transfer')
+    })
+  }
+
+  getCurrencyIcon(currName) {
+    switch(currName){
+      case 'ngn':
+        return '₦'
+        break;
+    }
   }
 
   scanCode(){
@@ -104,7 +149,7 @@ export class TransferPage implements OnInit {
     });
   }
 
-  toCurrency(num){
+  toCurrency(num){ //SETS TO TWO DECIMAL PLACE
     return num.toFixed(2);
     // [value]="(receiverAmountInput.value * marketPrices[receiverCurrency.value] * 1/marketPrices[senderCurrency.value]).toFixed(2)
   }
