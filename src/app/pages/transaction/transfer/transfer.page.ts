@@ -41,7 +41,8 @@ export class TransferPage implements OnInit, OnDestroy {
     senderCurr: new FormControl(this.transSrv.depWallet.currency, Validators.required), //Wallet currency from server
     receiverAddress: new FormControl('', Validators.required),
     receiverAmount: new FormControl({value: 0, disabled: true}, Validators.required),
-    receiverCurr: new FormControl('ngn', Validators.required)
+    receiverCurr: new FormControl('ngn', Validators.required),
+    remark: new FormControl('', Validators.required)
   });
 
   form: FormGroup;
@@ -110,7 +111,7 @@ export class TransferPage implements OnInit, OnDestroy {
       toAddress: this.transactionInfo.get('receiverAddress').value,
       currency: this.transactionInfo.get('senderCurr').value,
       amount: this.enteredAmount,
-      remark: '',
+      remark: this.transactionInfo.get('remark').value,
       fromName: this.transSrv.depWallet.name
     }
     console.log(this.transactionInfo.valid);

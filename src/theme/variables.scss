@@ -83,6 +83,14 @@
 	--ion-color-gold-primary-contrast-rgb: 0,0,0;
 	--ion-color-gold-primary-shade: #e0ac30;
 	--ion-color-gold-primary-tint: #ffc94a;
+
+  /** gold secondary **/
+	--ion-color-gold-secondary: #f79e1b;
+	--ion-color-gold-secondary-rgb: 247,158,27;
+	--ion-color-gold-secondary-contrast: #000000;
+	--ion-color-gold-secondary-contrast-rgb: 0,0,0;
+	--ion-color-gold-secondary-shade: #d98b18;
+	--ion-color-gold-secondary-tint: #f8a832;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -416,4 +424,13 @@
 	--ion-color-contrast-rgb: var(--ion-color-gold-primary-contrast-rgb);
 	--ion-color-shade: var(--ion-color-gold-primary-shade);
 	--ion-color-tint: var(--ion-color-gold-primary-tint);
+}
+
+.ion-color-gold-secondary {
+	--ion-color-base: var(--ion-color-gold-secondary);
+	--ion-color-base-rgb: var(--ion-color-gold-secondary-rgb);
+	--ion-color-contrast: var(--ion-color-gold-secondary-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-gold-secondary-contrast-rgb);
+	--ion-color-shade: var(--ion-color-gold-secondary-shade);
+	--ion-color-tint: var(--ion-color-gold-secondary-tint);
 }
