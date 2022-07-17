@@ -2,16 +2,16 @@
 <ion-content class="mainbackground">
   <app-header></app-header>
   <div class="body">
-    <div class="container">
+    <div class="container" style="padding-bottom: 50px;">
 
-      <div [ngClass]="(walletBal > enteredAmount)? 'balbox' : 'balboxerr'">
+      <div [ngClass]="(walletBal > enteredAmount)? 'balbox' : 'balboxErr'">
         <h4 style="text-align: center;">Balance: {{(walletBal - enteredAmount).toFixed(2)}}</h4>
       </div>
       <div class="form-box">
         <form (ngSubmit)="onTransfer()" *ngIf="!isLoading" [formGroup]="transactionInfo">
           <div class="form-group flexContainer">
 
-            <div class="ion-padding">Sender:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
+            <div class="ion-padding">Your Address:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
 
             <input type="number" formControlName="senderAmount" placeholder="Amount"
             class="form-control inputFieldTwo" ionFocus="focus()">
@@ -24,13 +24,13 @@
               <ion-select-option value="cad">CAD</ion-select-option>
               <ion-select-option value="eur">EUR</ion-select-option>
             </ion-select>
-
           </div>
 
           <!-- Receiver Info -->
           <div class="form-group flexContainer">
-            <div class="ion-padding">Receiver:</div><input type="text" formControlName="receiverAddress"
-              class="form-control inputField" required="true" ionFocus="focus()">
+            <div class="ion-padding">Receiver:</div>
+            <input type="text" formControlName="receiverAddress"
+            class="form-control inputField" required="true" ionFocus="focus()">
 
             <input type="number" formControlName="receiverAmount"
             class="form-control inputFieldTwo disabled" placeholder="Amount"
@@ -45,6 +45,7 @@
             </ion-select>
 
           </div>
+          <ion-textarea formControlName="remark" cols="5" rows="3" placeholder="Remark" class="remark"></ion-textarea>
           <button type="submit" class="theme btn btn-primary" [disabled]="isButtonDisabled">Transfer</button>
         </form>
       </div>

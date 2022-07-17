@@ -114,7 +114,7 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthData(token, expirationDate, response.user.email, response.user.username);
+        this.saveAuthData(token, expirationDate, response.user.email, response.user.username, response.user.imageSrc);
         console.log(expirationDate);
         this.navCtrl.navigateRoot('/dashboard');
         }
@@ -131,6 +131,12 @@ export class AuthService {
     .subscribe(response => {
       console.log(response);
     });
+  }
+
+  uploadImg(file, cookieString){ //UPLOAD PROFILE PICTURE
+    console.log(file)
+    localStorage.setItem('imageSrc', cookieString)
+    return this.http.post(baseUrl + '/upload', file)
   }
 
 
@@ -232,11 +238,12 @@ export class AuthService {
     this.route.navigate(['/login']);
   }
 
-  private saveAuthData(token: string, expirationDate: Date, email: string, userName: string ){
+  private saveAuthData(token: string, expirationDate: Date, email: string, userName: string, imageSrc: string ){
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('email', email);
     localStorage.setItem('name', userName);
+    localStorage.setItem('imageSrc', imageSrc)
 
   }
 

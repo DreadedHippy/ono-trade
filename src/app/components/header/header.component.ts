@@ -1,5 +1,7 @@
+import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +11,9 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   title: string;
+  profilePicSrc = environment.staticUrl + localStorage.getItem('imageSrc')
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authSrv: AuthService) { }
 
   ngOnInit() {
     this.checkTitle()
@@ -47,6 +50,9 @@ export class HeaderComponent implements OnInit {
         break;
       case '/dashboard':
         this.title = 'Dashboard'
+        break;
+      case '/payments':
+        this.title = 'Payments'
         break;
       case '/transfer':
         this.title = 'Transfer'
