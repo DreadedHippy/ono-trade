@@ -24,14 +24,18 @@
     <div class="body">
       <div class="profile-box">
         <div class="top img-holder">
-          <div class="pic">
+          <div class="pic image-holder">
             <img [src]="profilePicSrc" width="auto" height="100%"/>
+            <label for="input" class="edit" [hidden]="isEditMode">
+              <ion-icon name="camera" size="large" color="secondary">
+                <input type="file" name="image" id="input" (change)="uploadImg($event)"/>
+              </ion-icon>
+            </label>
           </div>
           <div class="name">{{name}}</div>
           <div class="location">New york, USA</div>
         </div>
         <div class="bottom">
-          <input type="file" name="image" id="input" (change)="uploadImg($event)" />
           <div class="row">
             <div class="col-6">
               <div class="label">Income</div>

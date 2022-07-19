@@ -86,6 +86,10 @@ export class DashboardPage implements OnInit {
     this.authSrv.logout();
   }
 
+  goChartPage(){
+    this.router.navigate(['charttest'])
+  }
+
   ngOnInit() {
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'line',

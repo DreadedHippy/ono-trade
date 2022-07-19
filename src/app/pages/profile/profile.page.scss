@@ -34,6 +34,15 @@ padding-bottom:15px;
   overflow:hidden;
 }
 
+input[type="file"] {
+  display: none;
+}
+
+label{
+  cursor: pointer;
+  padding-bottom: 0px;
+}
+
 .profile-box .top .name{
   font-size:16px;
   font-weight:700;
@@ -120,7 +129,7 @@ padding-bottom:15px;
 .img-holder {position: relative;}
 .img-holder .edit {
   position: absolute;
-  bottom: 70px; /*your button position*/
+  bottom: 60px; /*your button position*/
   right: 290px; /*your button position*/
   opacity: .8;
   transition: 0.2s;
