@@ -49,6 +49,7 @@ export class ProfilePage implements OnInit {
       console.log('Response is:', response);
       this.alertSrv.toast(response.message, 2000)
       this.profilePicSrc = environment.staticUrl + localStorage.getItem('imageSrc')
+      window.location.reload();
     })
   }
 

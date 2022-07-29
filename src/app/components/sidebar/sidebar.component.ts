@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SidebarComponent implements OnInit {
   public url1 = '';
+  profilePicSrc = environment.staticUrl + localStorage.getItem('imageSrc');
+  name = localStorage.getItem("name")
 
   constructor(private router: Router, private authSrv: AuthService) {}
   dashboardPage() {

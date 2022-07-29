@@ -6,57 +6,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { Transaction } from 'src/app/models/transaction.model';
 import { SubSink } from 'subsink';
-import {
-  Chart,
-  ChartType,
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Filler,
-  Legend,
-  Title,
-  Tooltip,
-} from 'chart.js';
-
-Chart.register(
-  ArcElement,
-  LineElement,
-  BarElement,
-  PointElement,
-  BarController,
-  BubbleController,
-  DoughnutController,
-  LineController,
-  PieController,
-  PolarAreaController,
-  RadarController,
-  ScatterController,
-  CategoryScale,
-  LinearScale,
-  LogarithmicScale,
-  RadialLinearScale,
-  TimeScale,
-  TimeSeriesScale,
-  Filler,
-  Legend,
-  Title,
-  Tooltip
-);
+import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom'
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-transfer',
@@ -65,59 +16,18 @@ Chart.register(
 })
 export class TransferPage implements OnInit, OnDestroy {
 
+
+  mongoSDK = new ChartsEmbedSDK({
+    baseUrl: environment.chartUrl,
+    getUserToken: () => localStorage.getItem('token')
+  });
+  chart = this.mongoSDK.createChart({chartId: environment.chartId ,});
   subs = new SubSink()
+  email = localStorage.getItem("email");
+  walletId = this.transSrv.depWallet._id;
   chartedArray: any;
   label: any
   historyData: []
-  data = {
-    labels: this.getLabels(),
-    datasets: [
-    {
-      label: 'Transfers',
-      backgroundColor: 'rgb(72, 245, 66)',
-      pointBorderWidth: 0,
-      pointHoverRadius: 0,
-      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-      pointHoverBorderColor: 'rgba(220,220,220,1)',
-      pointHoverBorderWidth: 0,
-      pointRadius: 0,
-      pointHitRadius: 0,
-      borderColor: 'rgb(72, 245, 66)',
-      data: [0, 0,0,0,0,0,0,0,0],
-      fill: false
-    }]
-  };
-  config = {
-    type: 'bar' as ChartType,
-    data: this.data,
-    options: {
-      animation: {
-          duration: 5000,
-      },
-      responsive: true,
-      title: {
-        display: true,
-         position: 'top',
-         text: 'Line Chart',
-         fontSize: 12,
-         fontColor: 'rgb(14, 13, 13)'
-       },
-       legend: {
-        display: true,
-         position: 'bottom',
-         labels: {
-          fontColor: 'rgb(14, 13, 13)',
-           fontSize: 14
-         }
-       }
-    }
-  };
-  marketPrices = {
-    ngn: 0.002382246,
-    usd: 1,
-    eur: 1.048365,
-    cad: 0.77365
-  };
   walletBal: number = this.transSrv.depWallet.balance;
   enteredAmount: number = 0;
   transfers: Transaction [] = []
@@ -157,17 +67,17 @@ export class TransferPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    document.getElementById('mongoChart').style.display = "none"
+    this.chart.render(document.getElementById('mongoChart'))
+      .then(() => {this.chart.setFilter( {fromId: this.walletId} ).then(() => {
+        document.getElementById('mongoChart').style.display = "block"})
+      })
+      .catch(() => window.alert('Chart failed to initialize'))
     this.transactionInfo.get('senderAmount').valueChanges.subscribe(amount => {
       this.enteredAmount = amount;
     })
     this.isButtonDisabled = false;
-    const canvas = document.getElementById('myChart') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d');
-    const myChart = new Chart(canvas,this.config);
-    this.loadTransactions().then((result: [])=> {
-      myChart.data.datasets[0].data = result
-      myChart.update()
-    })
+    this.loadTransactions()
   }
 
 
@@ -234,67 +144,10 @@ export class TransferPage implements OnInit, OnDestroy {
         let transactions = data.transactions;
         transactions.reverse();
         this.transfers = transactions.filter(transaction => transaction.type == 'transfer')
-        let transferHistory = transactions.filter(transaction => transaction.type == 'transfer')
-        let mappedArray = transferHistory.map(this.transferHistoryMapping)
-        let chartedArray = this.transferHistoryCharting(mappedArray);
-        let labels = this.getLabels();
-        let final = this.getData(chartedArray, labels)
-        resolve(final)
+        resolve('Loaded')
       })
     })
   }
-
-  transferHistoryMapping(record){ //Maps backend array to new array passed round in the frontend
-    let day = new Date(record.date)
-    const date = new Date(Date.UTC(day.getFullYear(), day.getMonth(), day.getDate())).getDate();
-    const month = new Date(Date.UTC(day.getFullYear(), day.getMonth(), day.getDate()))
-    return ({date: date + '-' + month.toLocaleDateString('en-US', {month: 'short'}), amount: record.amount})
-  }
-
-  transferHistoryCharting(array){ //Converts mapped backend array to array usable by the chart constructor
-    let newArr = []
-    let dates = array.map( elem => elem.date)
-    for(let i = 0; i < array.length; i++){
-      if(!newArr.some((element) => element.date == dates[i])){
-        newArr.push(array[i])
-      } else if(newArr.some((element) => element.date == dates[i])){
-        let foundArray = newArr.find(element => element.date == dates[i])
-        let newArrAmount = Number(newArr[newArr.indexOf(foundArray)].amount)
-        let oldArrAmount = Number(array[i].amount);
-        let totalAmount = newArrAmount + oldArrAmount;
-        newArr[newArr.indexOf(foundArray)].amount = totalAmount;
-      }
-    }
-    return newArr;
-  }
-
-  getLabels(){ //Get previous 30 days and use as labels in bar chart
-    let newArray = []
-    let today = new Date();
-    for(let daysAgo = 0; daysAgo <=30; daysAgo++){
-      const date = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate() - daysAgo)).getDate();
-      const month = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate() - daysAgo))
-      newArray.unshift(date + '-' + month.toLocaleDateString('en-US', {month: 'short'}))
-    }
-    return newArray;
-  }
-
-  getData(transactionData, datesData){ //Finalizes the formation of data array to be used with in chart
-    let finalArr = [];
-    for(let i= 0; i <= datesData.length - 1; i++){
-      if(transactionData.some((element) => element.date == datesData[i])){
-        let foundArray = transactionData.find(element => element.date == datesData[i])
-        let foundIndex = transactionData.indexOf(foundArray)
-        let foundAmount = transactionData[foundIndex].amount
-        finalArr.push(foundAmount)
-      } else if(!transactionData.some((element) => element.date == datesData[i])){
-        finalArr.push(0)
-      }
-    }
-    return finalArr
-  }
-
-
   getCurrencyIcon(currName) { //Get's currency in UTF-8 encoding
   switch(currName){
     case 'ngn':

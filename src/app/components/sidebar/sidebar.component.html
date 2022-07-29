@@ -31,10 +31,10 @@
 <div class="menu-footer">
 <div class="profile box">
 <div class="profile-pic" (click)="profilePage()">
-<img src="../../../assets/images/user-profile.jpg" class="w-100" />
+<img [src]="profilePicSrc" class="w-100" />
 </div>
 <div class="profile-info">
-<div class="name" (click)="profilePage()">Aaran Doe</div>
+<div class="name" (click)="profilePage()">{{name}}</div>
 <div class="location">New york, USA</div>
 </div>
 <div class="signout-btn"><a (click)="logOut()"><i class="fas fa-sign-out-alt"></i></a></div>

@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   staticUrl: 'http://localhost:3000/',
   baseUrl: 'http://localhost:3000/api',
+  chartUrl: 'https://charts.mongodb.com/charts-onotrade-lsvaw',
+  chartId: '62e34332-5694-4cba-8f9d-5999c2377341',
   firebaseConfig : {
     apiKey: 'AIzaSyBo99pSXx33_J2EHblO5AtNTY1lKaU3n9Y',
     authDomain: 'newlotter-5d30c.firebaseapp.com',
