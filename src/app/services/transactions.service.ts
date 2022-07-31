@@ -106,6 +106,12 @@ export class TransactionsService {
     return this.http.get(url)
   }
 
+  fetchDeposits(){
+    const email = localStorage.getItem('email')
+    const url= this.baseUrl + '/transactions/deposits?email=' + email
+    return this.http.get(url)
+  }
+
 
   fetchWallets(){
     const email = localStorage.getItem('email')

@@ -18,6 +18,10 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
+  getImgSrc(){
+    return this.authSrv.imgSrc
+  }
+
   paymentsPage() {
     this.router.navigate(['payments']);
   }

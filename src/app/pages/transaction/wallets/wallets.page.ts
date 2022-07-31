@@ -63,7 +63,6 @@ export class WalletsPage implements OnInit, OnDestroy {
   loadWallets() {
     this.subs.sink = this.transSrv.fetchWallets().subscribe( (data: {wallets: Wallet []}) => {
       this.wallets = data.wallets
-      console.log(data);
       this.slowNetwork = false
       this.isLoading = false
     })

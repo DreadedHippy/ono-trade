@@ -2,6 +2,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,26 +12,34 @@ import { environment } from 'src/environments/environment';
 export class HeaderComponent implements OnInit {
 
   title: string;
+  random = new Observable(subscriber => {
+    subscriber.next(Math.ceil(Math.random()*10000))
+  })
   profilePicSrc = environment.staticUrl + localStorage.getItem('imageSrc')
 
   constructor(private router: Router, private authSrv: AuthService) { }
 
   ngOnInit() {
-    this.checkTitle()
+    this.checkTitle();
   }
-
 
   dashboardPage(){
     this.router.navigate(['dashboard']);
-   }
-    notificationsPage(){
-   this.router.navigate(['notifications']);
-   }
-   profilePage(){
-     this.router.navigate(['profile']);
-   }
+  }
 
-   checkTitle(){
+  notificationsPage(){
+    this.router.navigate(['notifications']);
+  }
+
+  profilePage(){
+    this.router.navigate(['profile']);
+  }
+
+  getImgSrc(){
+    return this.authSrv.imgSrc
+  }
+
+  checkTitle(){
     const currentUrl = this.router.url
     switch(currentUrl){
       case '/wallets/new':

@@ -18,7 +18,8 @@
           ></a>
           <div class="profile-pic" (click)="profilePage()">
             <img
-              [src]="profilePicSrc"
+              id="imgId"
+              [src]="getImgSrc()"
               class="width-100"
             />
           </div>

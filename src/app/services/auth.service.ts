@@ -28,10 +28,12 @@ export class AuthService {
   client = null;
   firebaseConfig = environment.firebaseConfig;
   users: any;
+  imgSrc = environment.staticUrl + localStorage.getItem('imageSrc') + '?random=' + Math.ceil(Math.random()*1000)
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private tokenTimer: any;
+  private imgUpdated = new Subject<string>();
 
   constructor(
     private http: HttpClient,
@@ -136,7 +138,13 @@ export class AuthService {
   uploadImg(file, cookieString){ //UPLOAD PROFILE PICTURE
     console.log(file)
     localStorage.setItem('imageSrc', cookieString)
+    this.imgSrc = environment.staticUrl + localStorage.getItem('imageSrc') + '?random=' + Math.ceil(Math.random()*1000)
+    this.imgUpdated.next(this.imgSrc)
     return this.http.post(baseUrl + '/upload', file)
+  }
+
+  getImgUpdListener(){
+    return this.imgUpdated.asObservable()
   }
 
 
@@ -243,14 +251,14 @@ export class AuthService {
     localStorage.setItem('expiration', expirationDate.toISOString());
     localStorage.setItem('email', email);
     localStorage.setItem('name', userName);
-    localStorage.setItem('imageSrc', imageSrc)
-
+    localStorage.setItem('imageSrc', imageSrc);
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('email')
+    localStorage.removeItem('imageSrc');
   }
 
   private getAuthData(){
@@ -266,7 +274,7 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ' + duration);
+    // console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);

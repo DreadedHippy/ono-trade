@@ -13,7 +13,7 @@
 
             <div class="ion-padding">Your Address:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
 
-            <input type="number" formControlName="senderAmount" placeholder="Amount"
+            <input type="number" formControlName="senderAmount" placeholder="0.00"
             class="form-control inputFieldTwo" ionFocus="focus()">
 
             <ion-select interface="popover" value="usd"
@@ -35,15 +35,6 @@
             <input type="number" formControlName="receiverAmount"
             class="form-control inputFieldTwo disabled" placeholder="Amount"
             ionFocus="focus()" >
-
-            <ion-select interface="popover"value="ngn"
-            formControlName="receiverCurr" style="color: white;">
-              <ion-select-option value="usd">USD</ion-select-option>
-              <ion-select-option value="ngn">NGN</ion-select-option>
-              <ion-select-option value="cad">CAD</ion-select-option>
-              <ion-select-option value="eur">EUR</ion-select-option>
-            </ion-select>
-
           </div>
           <ion-textarea formControlName="remark" cols="5" rows="3" placeholder="Remark" class="remark"></ion-textarea>
           <button type="submit" class="theme btn btn-primary" [disabled]="isButtonDisabled">Transfer</button>

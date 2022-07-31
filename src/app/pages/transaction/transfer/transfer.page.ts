@@ -43,13 +43,13 @@ export class TransferPage implements OnInit, OnDestroy {
   isButtonDisabled=false
   transactionInfo = new FormGroup({
     senderAddress: new FormControl({value: this.transSrv.depWallet.address, disabled: true}, [Validators.required]), //Wallet adress from server
-    senderAmount: new FormControl(0, Validators.required),
+    senderAmount: new FormControl('', Validators.required),
     testField: new FormControl({value: '', disabled: true}, [Validators.required]),
     senderCurr: new FormControl(this.transSrv.depWallet.currency, Validators.required), //Wallet currency from server
     receiverAddress: new FormControl('', Validators.required),
     receiverAmount: new FormControl({value: 0, disabled: true}, Validators.required),
     receiverCurr: new FormControl('ngn', Validators.required),
-    remark: new FormControl('', Validators.required)
+    remark: new FormControl('')
   });
 
   form: FormGroup;
@@ -127,13 +127,14 @@ export class TransferPage implements OnInit, OnDestroy {
       remark: this.transactionInfo.get('remark').value,
       fromName: this.transSrv.depWallet.name
     }
-    console.log(this.transactionInfo.valid);
     this.isButtonDisabled = true;
-    this.transSrv.makeTransaction(data).then( (result: {message: string}) => {
+    this.transSrv.makeTransaction(data).then((result: {message: string}) => {
       console.log('result', result)
-      this.alertSrv.toast(result.message, 5000)
+      this.alertSrv.toast(result.message, 1000)
       this.router.navigate(['wallets'])
-    });
+    }).catch(err => {
+      console.log('Error', err.message)
+    })
   }
 
 
