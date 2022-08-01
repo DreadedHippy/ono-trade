@@ -68,6 +68,26 @@ export class WalletsPage implements OnInit, OnDestroy {
     })
   }
 
+
+  getCurrencyIcon(currName) { //Get's currency in UTF-8 encoding
+    switch(currName){
+      case 'ngn':
+        return '₦'
+        break;
+      case 'usd':
+        return '$'
+        break;
+      case 'cad':
+        return 'C$'
+        break;
+      case 'eur':
+        return '€'
+        break;
+      default:
+        return ' '
+      }
+    }
+
   slowConnect(){
     setTimeout(() => {
       this.slowNetwork = true

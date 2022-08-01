@@ -89,6 +89,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/transaction/wallets/wallets.module').then( m => m.WalletsPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'market',
+    loadChildren: () => import('./pages/market/market.module').then( m => m.MarketPageModule)
+  },
 ];
 
 @NgModule({

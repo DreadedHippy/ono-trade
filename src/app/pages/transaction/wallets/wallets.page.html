@@ -26,9 +26,9 @@
             <ion-icon class="warnicon" color="warning" name="warning-outline"></ion-icon>
           </ion-card-content>
         </ion-card>
-        <ion-accordion-group color="primary">
+        <ion-accordion-group color="primary" class="theme accordion">
         <ion-accordion *ngFor="let wallet of wallets; index as i" class="transactions-box" style="padding-top: 15px;">
-            <div slot="header">
+            <div slot="header" class="card-header">
               <ion-grid>
                 <ion-row>
                   <ion-col size="2">
@@ -46,14 +46,13 @@
                   </ion-col>
                   <ion-col size="4">
                     <div class="ion-text-end">
-                      <div class="price text-success">{{(wallet.balance).toFixed(2)}}</div>
+                      <div class="price text-success">{{(wallet.balance).toFixed(2) | currency: getCurrencyIcon(wallet.currency)}}</div>
                     </div>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </div>
-
-            <ion-list slot="content" inset="true" lines=" none">
+            <ion-list slot="content" inset="true" lines=" none" class="card-body">
               <ion-item>
                 <ion-label>Currency:</ion-label>
                 <span>{{wallet.currency.toUpperCase()}}</span>

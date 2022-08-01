@@ -30,6 +30,11 @@ public url1 = '';
   walletsPage(){
     this.router.navigate(['wallets']);
   }
+
+  marketPage(){
+    this.router.navigate(['market'])
+  }
+
   ngOnInit() {
 	  this.url1 = this.router.url;
   }

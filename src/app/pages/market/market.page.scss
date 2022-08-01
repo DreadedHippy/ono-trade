@@ -1,0 +1,18 @@
+.inner-card{
+  opacity: 0.8;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.inner-card:hover{
+  opacity: 1;
+}
+
+.inner-card .text{
+  text-align: center;
+  color: white;
+}
+
+ion-icon {
+  font-size: 48px;
+}

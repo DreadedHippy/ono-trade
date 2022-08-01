@@ -1,0 +1,38 @@
+<app-sidebar></app-sidebar>
+<ion-content class="mainbackground">
+  <app-header></app-header>
+  <div class="body">
+    <div class="container">
+        <ion-grid style="background-color: rgba(58, 62, 65, 0.295);">
+          <ion-row>
+            <ion-col size="4" class="ion-padding-top">
+              <p class="text">Filters:</p>
+            </ion-col>
+            <ion-col size="3">
+              <ion-item>
+                <ion-label position="floating">Currency</ion-label>
+                <ion-select interface="popover" value="usd" style="color: white;">
+                  <ion-select-option value="usd" selected="true">USD</ion-select-option>
+                  <ion-select-option value="ngn">NGN</ion-select-option>
+                  <ion-select-option value="cad">CAD</ion-select-option>
+                  <ion-select-option value="eur">EUR</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="4">
+              <ion-item>
+                <ion-label position="floating">Payment Method</ion-label>
+                <ion-select interface="popover" value="paypal" style="color: white;">
+                  <ion-select-option value="zelle" selected="true">Zelle</ion-select-option>
+                  <ion-select-option value="paypal">Paypal</ion-select-option>
+                  <ion-select-option value="paystack">Paystack</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </div>
+  </div>
+
+</ion-content>
+<app-footer></app-footer>
