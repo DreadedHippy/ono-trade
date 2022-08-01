@@ -24,8 +24,10 @@
     <div class="body">
       <div class="profile-box">
         <div class="top img-holder">
-          <div class="pic image-holder">
-            <img [src]="profilePicSrc" width="auto" height="100%"/>
+          <div class="outer-div">
+            <ion-avatar class="avatar">
+              <img [src]="profilePicSrc"/>
+            </ion-avatar>
             <label for="input" class="edit" [hidden]="isEditMode">
               <ion-icon name="camera" size="large" color="secondary">
                 <input type="file" name="image" id="input" (change)="uploadImg($event)"/>

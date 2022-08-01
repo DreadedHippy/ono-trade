@@ -126,15 +126,37 @@ label{
   opacity:1;
 }
 
-.img-holder {position: relative;}
-.img-holder .edit {
-  position: absolute;
-  bottom: 60px; /*your button position*/
-  right: 290px; /*your button position*/
-  opacity: .8;
-  transition: 0.2s;
-}
-
 .img-holder .edit:hover {
   opacity: 1
+}
+
+.avatar{
+  margin: auto;
+}
+
+ion-avatar{
+  width: 100px;
+  height: 100px;
+}
+
+ion-avatar img  {
+  width:100% !important;
+  height : 100% !important;
+  // max-width: 300px !important;  //any size
+  // max-height: 300px !important; //any size
+}
+
+.outer-div{
+  width: 25%;
+  margin: auto;
+  position: relative;
+}
+
+
+.outer-div .edit {
+  position: absolute;
+  bottom: 0px; /*your button position*/
+  right: 8px; /*your button position*/
+  opacity: .8;
+  transition: 0.2s;
 }
