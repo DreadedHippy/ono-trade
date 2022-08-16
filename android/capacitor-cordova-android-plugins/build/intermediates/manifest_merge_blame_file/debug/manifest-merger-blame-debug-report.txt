@@ -1,0 +1,71 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:amazon="http://schemas.amazon.com/apk/res/android"
+3    xmlns:android="http://schemas.android.com/apk/res/android"
+4    package="capacitor.android.plugins" >
+5
+6    <uses-sdk
+7        android:minSdkVersion="21"
+7-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+8        android:targetSdkVersion="30" />
+8-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+9
+10    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+10-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:12:1-76
+10-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:12:18-74
+11    <uses-permission android:name="android.permission.CAMERA" />
+11-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:13:1-60
+11-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:13:18-58
+12    <uses-permission android:name="android.permission.FLASHLIGHT" />
+12-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:14:1-64
+12-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:14:18-62
+13
+14    <uses-feature
+14-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:15:1-79
+15        android:name="android.hardware.camera"
+15-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:15:15-53
+16        android:required="true" />
+16-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:15:54-77
+17
+18    <application>
+18-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:5:1-11:15
+19        <provider
+19-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:1-8:12
+20            android:name="org.apache.cordova.camera.FileProvider"
+20-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:11-64
+21            android:authorities="${applicationId}.cordova.plugin.camera.provider"
+21-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:65-134
+22            android:exported="false"
+22-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:135-159
+23            android:grantUriPermissions="true" >
+23-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:160-194
+24            <meta-data
+24-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:7:3-112
+25                android:name="android.support.FILE_PROVIDER_PATHS"
+25-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:7:14-64
+26                android:resource="@xml/camera_provider_paths" />
+26-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:7:65-110
+27        </provider>
+28
+29        <activity
+29-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:1-302
+30            android:name="com.google.zxing.client.android.CaptureActivity"
+30-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:11-73
+31            android:clearTaskOnLaunch="true"
+31-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:74-106
+32            android:configChanges="orientation|keyboardHidden|screenSize"
+32-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:107-168
+33            android:exported="false"
+33-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:276-300
+34            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+34-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:169-227
+35            android:windowSoftInputMode="stateAlwaysHidden" />
+35-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:228-275
+36        <activity
+36-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:10:1-103
+37            android:name="com.google.zxing.client.android.encode.EncodeActivity"
+37-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:10:11-79
+38            android:label="Share" />
+38-->/home/aizee/Desktop/Projects/kird ionic theme/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:10:80-101
+39    </application>
+40
+41</manifest>
