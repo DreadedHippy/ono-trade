@@ -696,6 +696,10 @@ border-bottom-right-radius: 66px;
 {
 	background:rgba(40, 167, 69,0.2) !important;
 }
+.transactions-box .left .icon.bg-gold
+{
+	background:rgba(236, 145, 26, 0.2) !important;
+}
 .transactions-box .middle
 {
 	display:table-cell;

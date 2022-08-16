@@ -4,8 +4,8 @@
   <div class="body">
     <div class="head-title">
       <div class="container">
-          List of Wallets
-        <ion-button slot="end" size="small" (click)="newWallet()" class="b"><ion-icon name="add"></ion-icon></ion-button>
+        List of Wallets
+        <ion-button slot="end" size="small" (click)="newWallet()"><ion-icon name="add"></ion-icon></ion-button>
       </div>
     </div>
 
@@ -33,8 +33,8 @@
                 <ion-row>
                   <ion-col size="2">
                     <div class="left">
-                      <div class="icon bg-success">
-                        <img src="../../../assets/images/card.svg" class="w-100 card-icon" />
+                      <div [ngClass]="cash.includes(wallet.currency)? 'icon bg-success' : 'icon bg-gold'">
+                        <img [src]="cash.includes(wallet.currency)? '../../../assets/images/card.svg': '../../../assets/images/crypto-card.svg'" class="w-100 card-icon" />
                       </div>
                     </div>
                   </ion-col>

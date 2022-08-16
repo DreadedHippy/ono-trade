@@ -1,13 +1,20 @@
 <app-sidebar></app-sidebar>
-<ion-content class="mainbackground">
+<ion-content [fullscreen]="true" class="mainbackground">
   <app-header></app-header>
+  <div class="main-header"></div>
   <div class="body">
     <div class="blue-card">
       <div class="container">
         <div class="card bg-primary">
           <div class="card-body">
             <div class="accountbalance">
-              {{3456.12 | currency:'₦'}}
+              <p>
+                <ion-chip color="dark">
+                  <ion-label class="ion-text-wrap">
+                    {{3456.12 | currency:'₦'}}
+                  </ion-label>
+                </ion-chip>
+              </p>
               <div class="float-right">
                 <div class="visa-icon">
                   <img
@@ -17,7 +24,7 @@
                 </div>
               </div>
             </div>
-            <div class="balanceinfo">
+            <div class="balanceinfo ion-margin-start">
               <!-- <ion-button (click)="goChartPage()">Chart test</ion-button> -->
               <div class="name">{{name}}</div>
               <div class="cardno">1*** **** **** 7678</div>
@@ -28,9 +35,32 @@
       </div>
     </div>
     <div class="head-title">
+      <div class="container">Features</div>
+    </div>
+    <div class="container">
+      <ion-grid fixed>
+        <ion-row class="ion-margin-horizontal">
+          <ion-col *ngFor="let item of features" size="6" (click)="goToPage(item?.page)" >
+            <ion-card class="ion-text-center">
+              <ion-card-header>
+                <div align="center">
+                  <ion-thumbnail>
+                    <img [src]="item?.src" />
+                  </ion-thumbnail>
+                </div>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-label>{{item?.name}}</ion-label>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="head-title" style="display: none;">
       <div class="container">Market Price</div>
     </div>
-    <div class="chart-box">
+    <div class="chart-box" style="display: none;">
       <div class="container">
         <canvas #barCanvas></canvas>
       </div>

@@ -87,6 +87,9 @@ export class HeaderComponent implements OnInit {
       case '/market/global':
         this.title = 'Global Marketplace';
         break;
+      case '/market/peer/new':
+        this.title = 'New Peer Offer';
+        break;
       default:
         this.title = 'Page';
     }

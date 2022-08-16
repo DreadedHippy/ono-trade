@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transaction, CryptoBuy } from '../models/transaction.model';
+import { Transaction, CryptoBuy, peerOffer, newPeerOffer } from '../models/transaction.model';
 import { environment } from '../../environments/environment';
 import { Wallet } from '../models/wallet.model';
 import { HttpClient } from '@angular/common/http';
@@ -94,6 +94,15 @@ export class TransactionsService {
     transactions: []
   };
 
+  selectedPeerOffer: any
+
+  setpeerOffer(offer: peerOffer){
+    console.log(offer.type)
+    let type = offer.type
+    this.selectedPeerOffer = offer
+    this.route.navigate(['market/peer/' + type])
+  }
+
   useWallet(wallet, type){
     this.depWallet = wallet
     this.route.navigate([type])
@@ -117,6 +126,25 @@ export class TransactionsService {
     const email = localStorage.getItem('email')
     const url = this.baseUrl + '/wallets?email=' + email
     return this.http.get(url)
+  }
+
+  createPeerOffer(offer){
+    let newOffer: newPeerOffer
+    newOffer = {
+      picSrc: localStorage.getItem('imageSrc'),
+      name: localStorage.getItem('name'),
+      timeLimit: offer.get('timeLimit').value,
+      type: offer.get('offerType').value,
+      fiatCurr: offer.get('fiatCurr').value,
+      inStock: offer.get('inStock').value,
+      upperLimit: offer.get('upperLimit').value,
+      lowerLimit: offer.get('lowerLimit').value,
+      price: offer.get('price').value,
+      cryptoCurr: offer.get('cryptoCurr').value,
+      paymentMethods: offer.get('paymentMethods').value
+    }
+
+    console.log(newOffer)
   }
 
 

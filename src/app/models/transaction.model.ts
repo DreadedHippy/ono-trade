@@ -18,3 +18,34 @@ export interface CryptoBuy {
   currency: string;
   paymentAddress: string;
 }
+
+export interface peerOffer{
+  picSrc: string,
+  name: string,
+  ratings: number, //0.0 - 5.0, 5-star scale ---- NO USE FOR RATINGS ON THE OFFER ITSELF
+  tradesCount: number, //Number of trades,
+  timeLimit: number, //Time limit in minutes
+  percentageCompleted: number, //Percentage of trades completed
+  type: string, //what type of offer is made by the trader
+  price: number, //Asking price of the trader in fiat per unit of crypto
+  acceptedCurr: string, //Bank Currency accepted by the Peer offering the crypto
+  inStock: number, //Amount of crypto left in stock
+  cryptoCurr: string, //The Cryptocurrency being offered
+  upperLimit: number, //Maximum amount of crypto that can be bought at a time
+  lowerLimit: number, //Minimum amount of crypto that can be bought a time.
+  paymentMethods: string[]
+}
+
+export interface newPeerOffer{
+  picSrc: string,
+  name: string,
+  timeLimit: number, //Time limit in minutes
+  type: string, //what type of offer is made by the trader
+  price: number, //Asking price of the trader in fiat per unit of crypto
+  fiatCurr: string, //Bank Currency accepted by the Peer offering the crypto
+  inStock: number, //Amount of crypto left in stock
+  cryptoCurr: string, //The Cryptocurrency being offered
+  upperLimit: number, //Maximum amount of crypto that can be bought at a time
+  lowerLimit: number, //Minimum amount of crypto that can be bought a time.
+  paymentMethods: string[]
+}

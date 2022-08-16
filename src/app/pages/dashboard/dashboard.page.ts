@@ -64,6 +64,12 @@ export class DashboardPage implements OnInit {
   public menustatus: any;
   private barChart: Chart;
   name = localStorage.getItem('name')
+  features: any[] = [
+    {id: 1, name: 'Wallets', src: 'assets/icon/purse.png', page: 'wallets'},
+    {id: 2, name: 'History', src: 'assets/icon/clock.png', page: 'history'},
+    {id: 3, name: 'Market', src: 'assets/icon/trading.png', page: 'market'},
+    {id: 4, name: 'Payments', src: 'assets/icon/salary.png', page: 'payments'}
+  ]
 
 
   constructor(private router: Router, private authSrv: AuthService) {}
@@ -88,6 +94,10 @@ export class DashboardPage implements OnInit {
 
   goChartPage(){
     this.router.navigate(['charttest'])
+  }
+
+  goToPage(link){
+    this.router.navigate([link])
   }
 
   ngOnInit() {

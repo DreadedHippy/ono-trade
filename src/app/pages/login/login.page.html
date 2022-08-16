@@ -26,6 +26,8 @@
       <div class="forgot"> <a (click)="forgotpasswordPage()">Forgot your password?</a></div>
   </form>
 </div>
-<div class="footer-link" *ngIf="!isLoading"> Don't have account? <a (click)="registerPage()">Sign up</a></div>
 <ion-spinner *ngIf="isLoading"></ion-spinner>
 </ion-content>
+<ion-footer>
+    <div class="footer-link" *ngIf="!isLoading"> Don't have account? <a (click)="registerPage()">Sign up</a></div>
+</ion-footer>

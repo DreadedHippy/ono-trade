@@ -19,7 +19,7 @@
               </ion-select>
             </ion-item>
           </ion-col>
-          <ion-col size="4">
+          <ion-col size="auto">
             <ion-item>
               <ion-label position="floating">Method</ion-label>
               <ion-select interface="popover" value="ppl" style="color: white;">
@@ -28,6 +28,11 @@
                 <ion-select-option value="pst">Paystack</ion-select-option>
               </ion-select>
             </ion-item>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-button (click)="newPeerOffer()" expand="block">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -40,11 +45,11 @@
           <ion-card-header>
             <ion-card-subtitle>
               <ion-text color="dark">{{offer.name}}</ion-text> -
-              <ion-icon color="gold-secondary" [name]="ratingsStar(offer.ratings)[0]"></ion-icon>
-              <ion-icon color="gold-secondary" [name]="ratingsStar(offer.ratings)[1]"></ion-icon>
-              <ion-icon color="gold-secondary" [name]="ratingsStar(offer.ratings)[2]"></ion-icon>
-              <ion-icon color="gold-secondary" [name]="ratingsStar(offer.ratings)[3]"></ion-icon>
-              <ion-icon color="gold-secondary" [name]="ratingsStar(offer.ratings)[4]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[0]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[1]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[2]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[3]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[4]"></ion-icon>
               <ion-note>{{offer.tradesCount}} Trades | {{offer.percentageCompleted.toFixed(2)}}%</ion-note>
             </ion-card-subtitle>
             <ion-card-subtitle>Price</ion-card-subtitle>
@@ -59,12 +64,15 @@
                   <ion-label><ion-text color="medium">Stock: </ion-text>{{offer.inStock.toLocaleString()}} {{offer.cryptoCurr}} </ion-label>
                 </ion-item>
                 <ion-item>
-                  <ion-label><ion-text color="medium">Limit: </ion-text>{{offer.lowerLimit}} - {{offer.upperLimit}} </ion-label>
+                  <ion-label><ion-text color="medium">Order Limit: </ion-text>{{offer.lowerLimit}} - {{offer.upperLimit}} </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label><ion-text color="medium">Time Limit: </ion-text>{{offer.timeLimit}} minutes</ion-label>
                 </ion-item>
               </ion-col>
               <ion-col size="3">
-                <ion-button expand="block" fill="outline" color="alt-green">
-                  Buy
+                <ion-button expand="block" fill="outline" [color]="offer.type == 'buy'? 'alt-green': 'danger'" (click)="buyPage(offer)">
+                  {{offer.type == 'buy'? 'Buy' : 'Sell'}}
                 </ion-button>
               </ion-col>
             </ion-row>

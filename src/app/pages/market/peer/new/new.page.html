@@ -1,0 +1,106 @@
+<app-sidebar></app-sidebar>
+<ion-content class="mainbackground">
+  <app-header></app-header>
+  <div class="body">
+    <div class="container" style="padding-bottom: 30px;">
+      <form [formGroup]="newPeerOffer" (ngSubmit)="onSubmit()">
+        <ion-item [color]="selectColor == 'sell'? 'primary': 'warning tint'">
+          <ion-label>Offer Type:</ion-label>
+          <ion-select interface="popover" (ionChange)="offerTypeSelect($event)" formControlName="offerType" placeholder="Select offer type">
+            <ion-select-option value="sell">SELL</ion-select-option>
+            <ion-select-option value="buy">BUY</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-item color="step-200" >
+                <ion-label>Crypto Currency</ion-label>
+                <ion-select formControlName="cryptoCurr" interface="popover" multiple="false" placeholder="Select Crypto">
+                  <ion-select-option value="btc">BTC</ion-select-option>
+                  <ion-select-option value="usdc">USDC</ion-select-option>
+                  <ion-select-option value="eth">ETH</ion-select-option>
+                  <ion-select-option value="bat">BAT</ion-select-option>
+                  <ion-select-option value="shib">SHIB</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size="6">
+              <ion-item color="step-200">
+                <ion-label>Fiat Currency</ion-label>
+                <ion-select formControlName="fiatCurr" interface="popover" multiple="false" placeholder="Select Fiat">
+                  <ion-select-option value="usd">USD</ion-select-option>
+                  <ion-select-option value="ngn">NGN</ion-select-option>
+                  <ion-select-option value="cad">CAD</ion-select-option>
+                  <ion-select-option value="eur">EUR</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <!-- TODO: Implement Price Settings, i.e floating and fixed pricing -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>Price Settings</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Fiat/Crypto</ion-label>
+              <ion-input type="number" placeholder="0.00" formControlName="price"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Amount in stock</ion-label>
+              <ion-input type="number" placeholder="0.00" formControlName="inStock"></ion-input>
+            </ion-item>
+          </ion-card-content>
+          <ion-grid fixed>
+            <ion-text color="primary"><h1 style="padding-left: 5px;" >Order Limit</h1></ion-text>
+            <ion-row>
+              <ion-col size="6">
+                <ion-item color="medium">
+                  <ion-label position="floating" >Lower limit<ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input required type="number" formControlName="lowerLimit" placeholder="0.00"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item color="medium">
+                  <ion-label position="floating">Upper limit<ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input required type="number" formControlName="upperLimit" placeholder="0.00"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+        <br>
+        <ion-card color="light" >
+          <ion-item-group>
+            <ion-item-divider>
+              <ion-label>Payment Methods</ion-label>
+            </ion-item-divider>
+            <ion-item color="step-200" >
+              <ion-label position="floating" >Select payment method(s)</ion-label>
+              <ion-select interface="alert" placeholder="Select Crypto" multiple="true"
+              formControlName="paymentMethods" (ionChange)="pmChange($event)" >
+                <ion-select-option value="zel">Zelle</ion-select-option>
+                <ion-select-option value="ppl">Paypal</ion-select-option>
+                <ion-select-option value="pst">PayStack</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-item-group>
+          <br>
+          <ion-item color="tertiary">
+            <ion-label>Payment Time Limit</ion-label>
+            <ion-select placeholder="Set Time" okText="Confirm" formControlName="timeLimit">
+              <ion-select-option value="15">15 Minutes</ion-select-option>
+              <ion-select-option value="30">30 Minutes</ion-select-option>
+              <ion-select-option value="45">45 Minutes</ion-select-option>
+              <ion-select-option value="60">1 hour</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-card>
+        <ion-button type="submit" color="Secondary">Post</ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

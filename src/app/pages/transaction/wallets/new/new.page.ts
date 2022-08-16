@@ -26,7 +26,7 @@ export class NewPage implements OnInit {
     private transactionsSrv: TransactionsService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(){
   }
 
   onCreate(){

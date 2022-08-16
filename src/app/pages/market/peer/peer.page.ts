@@ -1,4 +1,7 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { TransactionsService } from 'src/app/services/transactions.service';
+import { peerOffer } from 'src/app/models/transaction.model';
 
 @Component({
   selector: 'app-peer',
@@ -13,6 +16,7 @@ export class PeerPage implements OnInit {
       name: 'User 1',
       ratings: 4.0, //0.0 - 5.0, 5-star scale
       tradesCount: 900,
+      timeLimit: 15, //Time limit in minutes
       percentageCompleted: 90, //Percentage of trades completed
       type: 'sell', //What type of offer is made by the trader
       price: 1, //Asking price of the trader in bank currency
@@ -30,6 +34,7 @@ export class PeerPage implements OnInit {
       name: 'Ezreal',
       ratings: 4.9, //0.0 - 5.0, 5-star scale
       tradesCount: 728,
+      timeLimit: 15, //Time limit in minutes
       price: 1, //Asking price of the trader in bank currency
       percentageCompleted: 95, //Percentage of trades completed
       type: 'buy', //what type of offer is made by the trader
@@ -47,7 +52,8 @@ export class PeerPage implements OnInit {
       picSrc: 'www.google.com',
       name: 'User 1',
       ratings: 2.7, //0.0 - 5.0, 5-star scale
-      tradesCount: 900,
+      tradesCount: 900, //Number of trades,
+      timeLimit: 15, //Time limit in minutes
       percentageCompleted: 90, //Percentage of trades completed
       type: 'sell', //what type of offer is made by the trader
       price: 1, //Asking price of the trader in bank currency per unit of crypto
@@ -62,7 +68,10 @@ export class PeerPage implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private transSrv: TransactionsService
+  ) {}
 
   ngOnInit() {
   }
@@ -95,6 +104,15 @@ export class PeerPage implements OnInit {
     if(rating >= 1.0){
       return ['star','star-outline','star-outline','star-outline','star-outline']
     }
+  }
+
+  newPeerOffer(){
+    this.router.navigate(['market/peer/new'])
+  }
+
+  buyPage(offer){
+    console.log(offer)
+    this.transSrv.setpeerOffer(offer)
   }
 
 }

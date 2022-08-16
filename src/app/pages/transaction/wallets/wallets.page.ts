@@ -30,6 +30,12 @@ export class WalletsPage implements OnInit, OnDestroy {
   }
 
   prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  cash = [
+    'ngn',
+    'eur',
+    'cad',
+    'usd'
+  ]
 
 
   ngOnInit() {
@@ -84,7 +90,7 @@ export class WalletsPage implements OnInit, OnDestroy {
         return '€'
         break;
       default:
-        return ' '
+        return currName
       }
     }
 
