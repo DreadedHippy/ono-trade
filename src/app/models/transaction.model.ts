@@ -20,8 +20,7 @@ export interface CryptoBuy {
 }
 
 export interface peerOffer{
-  picSrc: string,
-  name: string,
+  name: string, //Name of trader creating offer
   ratings: number, //0.0 - 5.0, 5-star scale ---- NO USE FOR RATINGS ON THE OFFER ITSELF
   tradesCount: number, //Number of trades,
   timeLimit: number, //Time limit in minutes

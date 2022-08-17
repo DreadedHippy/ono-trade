@@ -129,11 +129,13 @@ export class TransactionsService {
   }
 
   createPeerOffer(offer){
-    let newOffer: newPeerOffer
-    newOffer = {
-      picSrc: localStorage.getItem('imageSrc'),
+
+    const url = this.baseUrl + '/peer/create'
+    let email = localStorage.getItem('email');
+    let newOffer = {
       name: localStorage.getItem('name'),
-      timeLimit: offer.get('timeLimit').value,
+      picSrc: localStorage.getItem(''),
+      timeLimit: parseInt(offer.get('timeLimit').value),
       type: offer.get('offerType').value,
       fiatCurr: offer.get('fiatCurr').value,
       inStock: offer.get('inStock').value,
@@ -144,7 +146,13 @@ export class TransactionsService {
       paymentMethods: offer.get('paymentMethods').value
     }
 
-    console.log(newOffer)
+    let offerData = Object.assign(newOffer, email)
+
+    this.http.post(url, offerData).subscribe(response => {
+      console.log('res', response)
+    }, error => {
+      console.log('err', error)
+    })
   }
 
 
