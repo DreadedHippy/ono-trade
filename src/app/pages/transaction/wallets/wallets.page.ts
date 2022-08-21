@@ -10,8 +10,8 @@ import {SubSink} from 'subsink';
   templateUrl: './wallets.page.html',
   styleUrls: ['./wallets.page.scss'],
 })
-export class WalletsPage implements OnInit, OnDestroy {
 
+export class WalletsPage implements OnInit, OnDestroy {
   wallets: Wallet[] = [];
   isLoading = true;
   slowNetwork = false;

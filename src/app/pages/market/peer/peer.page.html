@@ -41,21 +41,21 @@
     <!-- TODO: use transaction-list class from wallet page to design p2p offers -->
     <div class="container">
       <ion-list inset="true" lines="none">
-        <ion-card *ngFor="let offer of offers">
+        <ion-card *ngFor="let offer of peerOffers; index as i">
           <ion-card-header>
             <ion-card-subtitle>
               <ion-text color="dark">{{offer.name}}</ion-text> -
-              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[0]"></ion-icon>
-              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[1]"></ion-icon>
-              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[2]"></ion-icon>
-              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[3]"></ion-icon>
-              <ion-icon color="gold-primary" [name]="ratingsStar(offer.ratings)[4]"></ion-icon>
-              <ion-note>{{offer.tradesCount}} Trades | {{offer.percentageCompleted.toFixed(2)}}%</ion-note>
+              <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[0]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[1]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[2]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[3]"></ion-icon>
+              <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[4]"></ion-icon>
+              <!-- <ion-note>{{offer.tradesCount}} Trades | {{offer.percentageCompleted.toFixed(2)}}%</ion-note> -->
             </ion-card-subtitle>
             <ion-card-subtitle>Price</ion-card-subtitle>
           </ion-card-header>
           <ion-item>
-            <h2 style="padding-right: 4px;" >{{offer.price.toFixed(2)}}</h2> {{offer.acceptedCurr.toUpperCase()}}
+            <h2 style="padding-right: 4px;" >{{offer.price.toFixed(2)}}</h2> {{offer.fiatCurr.toUpperCase()}}
           </ion-item>
           <ion-grid fixed>
             <ion-row>
@@ -71,10 +71,16 @@
                 </ion-item>
               </ion-col>
               <ion-col size="3">
-                <ion-button expand="block" fill="outline" [color]="offer.type == 'buy'? 'alt-green': 'danger'" (click)="buyPage(offer)">
-                  {{offer.type == 'buy'? 'Buy' : 'Sell'}}
+                <ion-button expand="block" fill="outline" [color]="offer.type == 'buy'? 'danger': 'alt-green'" (click)="buyPage(offer)">
+                  {{offer.type == 'buy'? 'Sell' : 'Buy'}}
                 </ion-button>
               </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-item>
+                <ion-label>Payment Methods:</ion-label>
+              </ion-item>
+              <ion-col size="2" *ngFor=" let method of offer.paymentMethods">{{method}}</ion-col>
             </ion-row>
           </ion-grid>
         </ion-card>

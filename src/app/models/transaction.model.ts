@@ -27,7 +27,7 @@ export interface peerOffer{
   percentageCompleted: number, //Percentage of trades completed
   type: string, //what type of offer is made by the trader
   price: number, //Asking price of the trader in fiat per unit of crypto
-  acceptedCurr: string, //Bank Currency accepted by the Peer offering the crypto
+  fiatCurr: string, //Bank Currency accepted by the Peer offering the crypto
   inStock: number, //Amount of crypto left in stock
   cryptoCurr: string, //The Cryptocurrency being offered
   upperLimit: number, //Maximum amount of crypto that can be bought at a time

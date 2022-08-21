@@ -96,9 +96,15 @@ export class TransactionsService {
 
   selectedPeerOffer: any
 
-  setpeerOffer(offer: peerOffer){
+  setPeerOffer(offer: peerOffer){
     console.log(offer.type)
-    let type = offer.type
+    let type
+    if(offer.type == 'sell'){
+      type = 'buy'
+    }
+    if(offer.type == 'buy'){
+      type = 'sell'
+    }
     this.selectedPeerOffer = offer
     this.route.navigate(['market/peer/' + type])
   }
@@ -129,9 +135,8 @@ export class TransactionsService {
   }
 
   createPeerOffer(offer){
-
     const url = this.baseUrl + '/peer/create'
-    let email = localStorage.getItem('email');
+    let email = {email: localStorage.getItem('email')};
     let newOffer = {
       name: localStorage.getItem('name'),
       picSrc: localStorage.getItem(''),
@@ -145,7 +150,6 @@ export class TransactionsService {
       cryptoCurr: offer.get('cryptoCurr').value,
       paymentMethods: offer.get('paymentMethods').value
     }
-
     let offerData = Object.assign(newOffer, email)
 
     this.http.post(url, offerData).subscribe(response => {
@@ -153,6 +157,12 @@ export class TransactionsService {
     }, error => {
       console.log('err', error)
     })
+  }
+
+  getPeerOffers(){
+    let email = localStorage.getItem('email');
+    const url = this.baseUrl + '/peer/offers?email=' + email
+    return this.http.get(url)
   }
 
 

@@ -1,9 +1,14 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>buy</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<app-sidebar></app-sidebar>
+<ion-content class="main-background">
+  <app-header></app-header>
+  <div class="body">
+    <div class="container" style="padding-bottom: 30px;">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>Seller Info</ion-card-subtitle>
+          <ion-card-title>{{offer.name}}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>

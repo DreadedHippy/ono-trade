@@ -1,18 +1,19 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { peerOffer } from 'src/app/models/transaction.model';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-peer',
   templateUrl: './peer.page.html',
   styleUrls: ['./peer.page.scss'],
 })
-export class PeerPage implements OnInit {
+export class PeerPage implements OnInit, OnDestroy {
 
-  offers = [
+  peerOffers: peerOffer[] = []
+  offers: peerOffer[] = [
     {
-      picSrc: 'www.google.com',
       name: 'User 1',
       ratings: 4.0, //0.0 - 5.0, 5-star scale
       tradesCount: 900,
@@ -20,7 +21,7 @@ export class PeerPage implements OnInit {
       percentageCompleted: 90, //Percentage of trades completed
       type: 'sell', //What type of offer is made by the trader
       price: 1, //Asking price of the trader in bank currency
-      acceptedCurr: 'usd', //Bank Currency accepted by the Peer offering the crypto
+      fiatCurr: 'usd', //Bank Currency accepted by the Peer offering the crypto
       inStock: 14000, //Amount of crypto left in stock
       cryptoCurr: 'usdc', //The Cryptocurrency being offered
       upperLimit: 10000, //Maximum amount of crypto that can be bought at a time
@@ -30,7 +31,6 @@ export class PeerPage implements OnInit {
       ]
     },
     {
-      picSrc: 'www.google.com/newman',
       name: 'Ezreal',
       ratings: 4.9, //0.0 - 5.0, 5-star scale
       tradesCount: 728,
@@ -38,7 +38,7 @@ export class PeerPage implements OnInit {
       price: 1, //Asking price of the trader in bank currency
       percentageCompleted: 95, //Percentage of trades completed
       type: 'buy', //what type of offer is made by the trader
-      acceptedCurr: 'ngn', //Bank Currency accepted by the Peer offering the crypto
+      fiatCurr: 'ngn', //Bank Currency accepted by the Peer offering the crypto
       inStock: 300000, //Amount of crypto left in stock
       cryptoCurr: 'eth', //The Cryptocurrency being offered
       upperLimit: 100000, //Maximum amount of crypto that can be bought at a time
@@ -49,7 +49,6 @@ export class PeerPage implements OnInit {
     },
 
     {
-      picSrc: 'www.google.com',
       name: 'User 1',
       ratings: 2.7, //0.0 - 5.0, 5-star scale
       tradesCount: 900, //Number of trades,
@@ -57,7 +56,7 @@ export class PeerPage implements OnInit {
       percentageCompleted: 90, //Percentage of trades completed
       type: 'sell', //what type of offer is made by the trader
       price: 1, //Asking price of the trader in bank currency per unit of crypto
-      acceptedCurr: 'usd', //Bank Currency accepted by the Peer offering the crypto
+      fiatCurr: 'usd', //Bank Currency accepted by the Peer offering the crypto
       inStock: 14000, //Amount of crypto left in stock
       cryptoCurr: 'btc', //The Cryptocurrency being offered
       upperLimit: 10000, //Maximum amount of crypto that can be bought at a time
@@ -67,6 +66,7 @@ export class PeerPage implements OnInit {
       ]
     }
   ]
+  subs = new SubSink()
 
   constructor(
     private router: Router,
@@ -74,6 +74,17 @@ export class PeerPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadOffers()
+  }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe
+  }
+
+  loadOffers(){
+    this.subs.sink = this.transSrv.getPeerOffers().subscribe((response: {offers: peerOffer[]}) => {
+      console.log(response.offers)
+      this.peerOffers = response.offers
+    })
   }
 
   ratingsStar(rating: number){
@@ -111,8 +122,7 @@ export class PeerPage implements OnInit {
   }
 
   buyPage(offer){
-    console.log(offer)
-    this.transSrv.setpeerOffer(offer)
+    this.transSrv.setPeerOffer(offer)
   }
 
 }

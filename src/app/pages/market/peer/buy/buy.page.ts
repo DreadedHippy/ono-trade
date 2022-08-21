@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { peerOffer } from 'src/app/models/transaction.model';
+import { TransactionsService } from 'src/app/services/transactions.service';
 
 @Component({
   selector: 'app-buy',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuyPage implements OnInit {
 
-  constructor() { }
+  constructor(private transSrv: TransactionsService) { }
+  offer: peerOffer
 
   ngOnInit() {
+    this.offer = this.transSrv.selectedPeerOffer
   }
 
 }
