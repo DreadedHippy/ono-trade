@@ -11,9 +11,18 @@ export class BuyPage implements OnInit {
 
   constructor(private transSrv: TransactionsService) { }
   offer: peerOffer
+  cryptoAmt: number
 
   ngOnInit() {
     this.offer = this.transSrv.selectedPeerOffer
+  }
+
+  getCurrIcon(currName){
+    return this.transSrv.getCurrencyIcon(currName)
+  }
+
+  getPaymentMethodName(method){
+    return this.transSrv.getPaymentMathodName(method)
   }
 
 }

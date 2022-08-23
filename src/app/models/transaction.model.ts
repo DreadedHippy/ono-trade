@@ -48,3 +48,10 @@ export interface newPeerOffer{
   lowerLimit: number, //Minimum amount of crypto that can be bought a time.
   paymentMethods: string[]
 }
+
+export interface paymentMethod{
+  name: string,
+  address: string,
+  bank: string,
+  type: string
+}

@@ -93,6 +93,9 @@ export class HeaderComponent implements OnInit {
       case '/market/peer/buy':
         this.title = 'P2P Buy';
         break;
+        case '/payments/new':
+          this.title = 'Add Payment Method';
+          break;
       default:
         this.title = 'Page';
     }

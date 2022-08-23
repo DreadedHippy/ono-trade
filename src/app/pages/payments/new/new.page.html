@@ -1,0 +1,42 @@
+<app-sidebar></app-sidebar>
+<ion-content class="main-background">
+  <app-header></app-header>
+  <div class="container">
+    <ion-card>
+      <ion-card-header style="text-align: center;">
+        <ion-card-title>Enter The Payment Information Below</ion-card-title>
+        <ion-card-subtitle>Make sure to enter correct information so other users may crosscheck for validation</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content style="text-align: center;">
+        <form (ngSubmit)="onCreate()" [formGroup]="paymentInfo" >
+          <ion-item>
+            <ion-label>Payment Type:<ion-text color="danger">*</ion-text> :</ion-label>
+            <ion-select value="zel" placeholder="Select Method" formControlName="type" >
+              <ion-select-option value="zel">Zelle</ion-select-option>
+              <ion-select-option value="ppl">Paypal</ion-select-option>
+              <ion-select-option value="pst">Paystack</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label>Enter Name<ion-text color="danger">*</ion-text> :</ion-label>
+            <ion-input type="text" formControlName="name" placeholder="JOHN ADAM DOE"></ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label>Number/ID<ion-text color="danger">*</ion-text> :</ion-label>
+            <ion-input type="text" formControlName="address" placeholder="1234567890"></ion-input>
+          </ion-item>
+          <br>
+          <ion-item>
+            <ion-label>Bank Name <ion-text style="font-size:small;" color="medium">(optional)</ion-text> :</ion-label>
+            <ion-input type="text" formControlName="bank"></ion-input>
+          </ion-item>
+          <br>
+          <ion-button type="submit">Add</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+    </div>
+</ion-content>
+<app-footer></app-footer>

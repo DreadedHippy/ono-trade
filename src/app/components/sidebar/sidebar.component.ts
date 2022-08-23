@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   name = localStorage.getItem("name")
 
   constructor(private router: Router, private authSrv: AuthService) {}
-  dashboardPage() {
+  dashboardPage(){
     this.router.navigate(['dashboard']);
   }
 
@@ -22,23 +22,23 @@ export class SidebarComponent implements OnInit {
     return this.authSrv.imgSrc
   }
 
-  paymentsPage() {
+  paymentsPage(){
     this.router.navigate(['payments']);
   }
 
-  historyPage() {
+  historyPage(){
     this.router.navigate(['history']);
   }
 
-  settingsPage() {
+  settingsPage(){
     this.router.navigate(['settings']);
   }
 
-  profilePage() {
+  profilePage(){
     this.router.navigate(['profile']);
   }
 
-  logOut() {
+  logOut(){
     this.authSrv.logout();
   }
 

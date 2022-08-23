@@ -4,11 +4,57 @@
   <div class="body">
     <div class="container" style="padding-bottom: 30px;">
       <ion-card>
-        <ion-card-header>
-          <ion-card-subtitle>Seller Info</ion-card-subtitle>
-          <ion-card-title>{{offer.name}}</ion-card-title>
+        <ion-card-header class="card-title">
+          <ion-card-title>Buying <ion-text style="font-weight: bold;" color="danger">{{offer.cryptoCurr.toUpperCase()}}</ion-text> from <ion-text color="primary">{{offer.name}}</ion-text></ion-card-title>
+          <ion-card-subtitle class="stock-text">
+            In Stock: <ion-text color="gold-primary">{{offer.inStock}}</ion-text>
+          </ion-card-subtitle>
         </ion-card-header>
+        <ion-card-content>
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Crypto Amount<ion-text color="danger">*</ion-text>:</ion-label>
+                    <ion-input type="number" placeholder="Enter amount in crypto" [(ngModel)]="cryptoAmt" #cryptoAmount = ngModel></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="5" class="ion-padding">
+                  <ion-text color="dark">
+                    <h2> Fiat Cost: <ion-text color="success">{{cryptoAmt * offer.price | currency: getCurrIcon(offer.fiatCurr)}}</ion-text></h2>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="auto" push="3">
+                  <ion-note>
+                    <ion-chip color="dark">
+                      <ion-label class="ion-text-wrap">
+                        <ion-text color="success">{{offer.price | currency: getCurrIcon(offer.fiatCurr)}}</ion-text>/<ion-text color="danger">{{offer.cryptoCurr.toUpperCase()}}</ion-text>
+                      </ion-label>
+                    </ion-chip>
+                  </ion-note>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item>
+                    <ion-label>Payment Method</ion-label>
+                    <ion-select value="peperoni" interface="popover">
+                      <ion-select-option *ngFor="let method of offer.paymentMethods" [value]="method"> {{getPaymentMethodName(method)}} </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-button expand="full">Make Order</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+        </ion-card-content>
       </ion-card>
     </div>
   </div>
 </ion-content>
+<app-footer></app-footer>

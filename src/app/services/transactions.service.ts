@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transaction, CryptoBuy, peerOffer, newPeerOffer } from '../models/transaction.model';
+import { Transaction, CryptoBuy, peerOffer, newPeerOffer, paymentMethod } from '../models/transaction.model';
 import { environment } from '../../environments/environment';
 import { Wallet } from '../models/wallet.model';
 import { HttpClient } from '@angular/common/http';
@@ -163,6 +163,54 @@ export class TransactionsService {
     let email = localStorage.getItem('email');
     const url = this.baseUrl + '/peer/offers?email=' + email
     return this.http.get(url)
+  }
+
+  getCurrencyIcon(currName) { //Get's currency in UTF-8 encoding
+    switch(currName){
+      case 'ngn':
+        return '₦'
+        break;
+      case 'usd':
+        return '$'
+        break;
+      case 'cad':
+        return 'C$'
+        break;
+      case 'eur':
+        return '€'
+        break;
+      default:
+        return currName;
+    }
+  }
+
+  getPaymentMathodName(method){
+    switch(method){
+      case 'zel':
+        return 'Zelle';
+      case 'ppl':
+        return 'Paypal';
+    }
+  }
+
+  addPaymentMethod(data: paymentMethod){
+    const url = this.baseUrl + '/paymentMethods/new'
+    let email = {email: localStorage.getItem('email')};
+    let newMethod: paymentMethod = Object.assign(data, email)
+    return this.http.post(url, newMethod)
+  }
+
+  getPaymentMethods(){
+    let email = localStorage.getItem('email')
+    const url = this.baseUrl + '/paymentMethods?email=' + email
+    return this.http.get(url);
+  }
+
+  deletePaymentMethod(method){
+    let email = {email: localStorage.getItem('email')}
+    const url = this.baseUrl + '/paymentMethods/delete';
+    const data = Object.assign(email, method)
+    return this.http.post(url, data)
   }
 
 
