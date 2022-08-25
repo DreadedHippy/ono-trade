@@ -19,7 +19,7 @@ export class SidebarComponent implements OnInit {
   }
 
   getImgSrc(){
-    return this.authSrv.imgSrc
+    return this.authSrv.imgSrc;
   }
 
   paymentsPage(){
