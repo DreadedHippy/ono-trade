@@ -49,6 +49,8 @@ export class BuyPage implements OnInit {
       status: 'pending'
     }
 
+    this.transSrv.placeOrder(data)
+
 
   }
 
