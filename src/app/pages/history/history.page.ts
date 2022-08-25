@@ -59,7 +59,7 @@ Chart.register(
 export class HistoryPage implements OnInit {
   @ViewChild('lineCanvas', { static: true }) lineCanvas;
 
-  csstest = 'danger';
+  csstest = 'danger'
 
   transactions = [
     {
