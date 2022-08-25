@@ -1,0 +1,99 @@
+<app-sidebar></app-sidebar>
+<ion-content class="mainbackground">
+  <app-header></app-header>
+  <div class="body">
+    <div class="head-title">
+      <div class="container">
+        List of Wallets
+        <ion-button slot="end" size="small" (click)="newWallet()"><ion-icon name="add"></ion-icon></ion-button>
+      </div>
+    </div>
+
+    <div class="transactionslist">
+      <div class="container">
+        <div class="spinner" *ngIf="isLoading">
+          <ion-spinner color="gold-primary" name="bubbles"></ion-spinner>
+        </div>
+        <div style="text-align: center;">
+          <ion-note *ngIf="slowNetwork && isLoading"> Wallets not loading? Try checking your internet connection</ion-note>
+        </div>
+        <ion-card *ngIf="wallets.length < 1 && !isLoading" style="text-align: center;">
+          <ion-card-header>
+            No wallets found!
+          </ion-card-header>
+          <ion-card-title>Please Create a wallet with the '+' button above</ion-card-title>
+          <ion-card-content>
+            <ion-icon class="warnicon" color="warning" name="warning-outline"></ion-icon>
+          </ion-card-content>
+        </ion-card>
+        <ion-accordion-group color="primary" class="theme accordion">
+        <ion-accordion *ngFor="let wallet of wallets; index as i" class="transactions-box" style="padding-top: 15px;">
+            <div slot="header" class="card-header">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="2">
+                    <div class="left">
+                      <div [ngClass]="cash.includes(wallet.currency)? 'icon bg-success' : 'icon bg-gold'">
+                        <img [src]="cash.includes(wallet.currency)? '../../../assets/images/card.svg': '../../../assets/images/crypto-card.svg'" class="w-100 card-icon" />
+                      </div>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">
+                    <div class="middle">
+                      <div class="title">{{wallet.name}}</div>
+                      <div class="time">{{wallet.address}}</div>
+                    </div>
+                  </ion-col>
+                  <ion-col size="4">
+                    <div class="ion-text-end">
+                      <div class="price text-success">{{(wallet.balance).toFixed(2) | currency: getCurrencyIcon(wallet.currency)}}</div>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </div>
+            <ion-list slot="content" inset="true" lines=" none" class="card-body">
+              <ion-item>
+                <ion-label>Currency:</ion-label>
+                <span>{{wallet.currency.toUpperCase()}}</span>
+              </ion-item>
+              <ion-item>
+                <ion-label>Address:</ion-label>
+                <span>{{wallet.address}}</span>
+              </ion-item>
+              <ion-item>
+                <ion-label>Last Transaction:</ion-label>
+                <span *ngIf="wallet.transactions.length > 0">
+                  <p>{{wallet.transactions}}</p>
+                  <p>{{wallet.transactions}}</p>
+                  <p style="color: yellow;">{{wallet.transactions}}</p>
+                </span>
+              </ion-item>
+              <ion-item>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="3">
+                        <ion-button expand="block" color="success" (click)="depositPage(wallet)">DEPOSIT</ion-button>
+                    </ion-col>
+                    <ion-col size="3">
+                      <ion-button expand="block" color="primary" (click)="transferPage(wallet)">TRANSFER</ion-button>
+                    </ion-col>
+                    <ion-col size="3">
+                      <ion-button expand="block" color="tertiary">BUY</ion-button>
+                    </ion-col>
+                    <ion-col size="3">
+                      <ion-button expand="block" color="warning">SELL</ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+
+              </ion-item>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
+<app-footer></app-footer>

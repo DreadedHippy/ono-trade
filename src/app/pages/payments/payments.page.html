@@ -1,64 +1,87 @@
 <app-sidebar></app-sidebar>
 <ion-content class="mainbackground">
-<div class="header">
-<div class="container">
-<div class="row">
-<div class="col-8"><div class="title"><a (click)="dashboardPage()" class="back-btn"><i class="fas fa-angle-left" ></i></a> Payments</div>
-</div>
-<div class="col-4 text-right"><a class="pulse-animation notification-btn" (click)="notificationsPage()"><i class="far fa-bell"></i></a> <div class="profile-pic" (click)="profilePage()"><img src="../../../assets/images/user-profile.jpg" class="width-100"/></div></div>
-</div>
-</div>
-</div>
-<div class="body">
-<div class="container">
-<div class="scan-btn" (click)="scanCode()">
-<div class="icon"><img src="../../../assets/images/qrcode.png" class="w-100"/>
-</div>
-</div>
-<div class="or-text">OR</div>
-<div class="paymentoptions">
-<ul>
-<li><a href="#"><img src="../../../assets/images/recharge.svg" class="w-100"/></a></li>
-<li><a href="#"><img src="../../../assets/images/transfer.svg" class="w-100"/></a></li>
-<li><a href="#"><img src="../../../assets/images/exchange.svg" class="w-100"/></a></li>
-</ul>
-</div>
-</div>
-<div class="head-title"><div class="container">Recent Transactions</div></div>
-<div class="transactionlist">
-<div class="container">
-<div class="transactions-box">
-<div class="left"><div class="icon bg-danger"><img src="../../../assets/images/mobile.svg" class="w-100"/></div></div>
-<div class="middle">
-<div class="title">Mobile recharge</div>
-<div class="time">2 min ago</div>
-</div>
-<div class="right">
-<div class="price text-danger">-$20</div>
-</div>
-</div>
-<div class="transactions-box">
-<div class="left"><div class="icon bg-success"><img src="../../../assets/images/card.svg" class="w-100 card-icon"/></div></div>
-<div class="middle">
-<div class="title">Money back offer</div>
-<div class="time">50 min ago</div>
-</div>
-<div class="right">
-<div class="price text-success">+$55</div>
-</div>
-</div>
-<div class="transactions-box">
-<div class="left"><div class="icon bg-danger"><img src="../../../assets/images/mobile.svg" class="w-100"/></div></div>
-<div class="middle">
-<div class="title">Mobile recharge</div>
-<div class="time">1 day ago</div>
-</div>
-<div class="right">
-<div class="price text-danger">-$100</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+  <app-header></app-header>
+  <div class="body">
+    <div class="container">
+      <div class="scan-btn" (click)="scanCode()">
+        <div class="icon">
+          <img src="../../../assets/images/qrcode.png" class="w-100" />
+        </div>
+      </div>
+      <div class="or-text">OR</div>
+      <div class="paymentoptions">
+        <ul>
+          <li>
+            <a href="#"
+              ><img src="../../../assets/images/recharge.svg" class="w-100"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img src="../../../assets/images/transfer.svg" class="w-100"
+            /></a>
+          </li>
+          <li>
+            <a href="#"
+              ><img src="../../../assets/images/exchange.svg" class="w-100"
+            /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="head-title">
+      <div class="container ion-padding">Payment Methods
+        <ion-button (click)="addNewMethod()" size="small">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+    <div class="transactionlist">
+      <div class="container">
+        <ion-grid class="transactions-box">
+          <ion-row *ngFor="let method of methods">
+            <ion-col size="3">{{getPaymentMethodName(method.type)}}</ion-col>
+            <ion-col size="3">{{method.bank}}</ion-col>
+            <ion-col size="3">{{method.name}}</ion-col>
+            <ion-col>
+              <ion-button (click)="setSelectedMethod(method)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ion-button id="open-modal" style="display: none;" expand="block">Open</ion-button>
+      <ion-modal #modal trigger="open-modal" [canDismiss]="canDismiss" [presentingElement]="presentingElement">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Confirm Delete</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="modal.dismiss()"><ion-icon name="close"></ion-icon></ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>
+                  <p class="ion-padding-horizontal">Are you sure you want to delete this payment method?</p>
+                </ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col size="6"><ion-button expand="block">No</ion-button></ion-col>
+                    <ion-col size="6"><ion-button color="danger" expand="block" (click)="deletePaymentMethod()">Yes</ion-button></ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </div>
 </ion-content>
 <app-footer></app-footer>

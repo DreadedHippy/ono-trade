@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,29 +10,35 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SidebarComponent implements OnInit {
   public url1 = '';
+  profilePicSrc = environment.staticUrl + localStorage.getItem('imageSrc');
+  name = localStorage.getItem("name")
 
   constructor(private router: Router, private authSrv: AuthService) {}
-  dashboardPage() {
+  dashboardPage(){
     this.router.navigate(['dashboard']);
   }
 
-  paymentsPage() {
+  getImgSrc(){
+    return this.authSrv.imgSrc;
+  }
+
+  paymentsPage(){
     this.router.navigate(['payments']);
   }
 
-  historyPage() {
+  historyPage(){
     this.router.navigate(['history']);
   }
 
-  settingsPage() {
+  settingsPage(){
     this.router.navigate(['settings']);
   }
 
-  profilePage() {
+  profilePage(){
     this.router.navigate(['profile']);
   }
 
-  logOut() {
+  logOut(){
     this.authSrv.logout();
   }
 

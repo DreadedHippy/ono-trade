@@ -1,32 +1,6 @@
 <app-sidebar></app-sidebar>
 <ion-content class="mainbackground">
-  <div class="header">
-    <div class="container">
-      <div class="row">
-        <div class="col-8">
-          <div class="title">
-            <a (click)="dashboardPage()" class="back-btn"
-              ><i class="fas fa-angle-left"></i
-            ></a>
-            History
-          </div>
-        </div>
-        <div class="col-4 text-right">
-          <a
-            class="pulse-animation notification-btn"
-            (click)="notificationsPage()"
-            ><i class="far fa-bell"></i
-          ></a>
-          <div class="profile-pic" (click)="profilePage()">
-            <img
-              src="../../../assets/images/user-profile.jpg"
-              class="width-100"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-header></app-header>
   <div class="search-box">
     <div class="container position-relative">
       <form>
@@ -43,8 +17,10 @@
       </div>
     </div>
   </div>
-  <div class="chart-box">
-    <canvas #lineCanvas></canvas>
+  <div class="container">
+    <div class="chart-box ion-margin">
+      <canvas #lineCanvas></canvas>
+    </div>
   </div>
 
 

@@ -1,8 +1,63 @@
 <div class="footer">
-<ul>
-<li (click)="dashboardPage()"><a class="icon" [ngClass]="url1=='/dashboard' ? 'active ' : ''"><img src="../../../assets/images/menu-home.svg" class="w-100 normal"/><img src="../../../assets/images/menu-home-hover.svg" class="w-100 hover"/></a></li>
-<li (click)="paymentsPage()"><a class="icon" [ngClass]="url1=='/payments' ? 'active ' : ''"><img src="../../../assets/images/menu-scan.svg" class="w-100 normal"/><img src="../../../assets/images/menu-scan-hover.svg" class="w-100 hover"/></a></li>
-<li (click)="historyPage()"><a class="icon" [ngClass]="url1=='/history' ? 'active ' : ''"><img src="../../../assets/images/menu-history.svg" class="w-100 normal"/><img src="../../../assets/images/menu-history-hover.svg" class="w-100 hover"/></a></li>
-<li ><a class="icon menu-btn"><img src="../../../assets/images/menu-more.svg" class="w-100 normal"/><img src="../../../assets/images/menu-more-hover.svg" class="w-100 hover"/></a></li>
-</ul>
+  <ul>
+    <li (click)="dashboardPage()">
+      <a class="icon" [ngClass]="url1 == '/dashboard' ? 'active ' : ''"
+        ><img
+          src="../../../assets/images/menu-home.svg"
+          class="w-100 normal" /><img
+          src="../../../assets/images/menu-home-hover.svg"
+          class="w-100 hover"
+      /></a>
+      <ion-label color="dark">Home</ion-label>
+    </li>
+    <li (click)="paymentsPage()">
+      <a class="icon" [ngClass]="url1 == '/payments' ? 'active ' : ''"
+        ><img
+          src="../../../assets/images/menu-scan.svg"
+          class="w-100 normal" /><img
+          src="../../../assets/images/menu-scan-hover.svg"
+          class="w-100 hover"
+        />
+      </a>
+      <ion-label color="dark">Explore</ion-label>
+    </li>
+
+    <li (click)="historyPage()">
+      <!-- History Page -->
+      <a class="icon" [ngClass]="url1 == '/history' ? 'active ' : ''">
+        <img
+          src="../../../assets/images/menu-history.svg"
+          class="w-100 normal" /><img
+          src="../../../assets/images/menu-history-hover.svg"
+          class="w-100 hover"
+        />
+      </a>
+      <ion-label color="dark">History</ion-label>
+    </li>
+
+    <li (click)="marketPage()">
+      <!-- Market Page -->
+      <a class="icon" [ngClass]="url1 == '/market' ? 'active ' : ''">
+        <img src="../../../assets/images/analytics-outline.svg" class="w-100 normal" />
+        <img src="../../../assets/images/analytics-outline-hover.svg" class="w-100 hover"/>
+      </a>
+      <ion-label color="dark">Market</ion-label>
+    </li>
+
+    <li (click)="walletsPage()">
+      <a class="icon" [ngClass]="url1 == '/wallets' ? 'active ' : ''">
+        <img src="../../../assets/images/wallet-outline.svg" class="w-100 normal" />
+        <img src="../../../assets/images/wallet-outline-hover.svg" class="w-100 hover"/>
+      </a>
+      <ion-label color="dark">Wallets</ion-label>
+    </li>
+    <li class="footer-label">
+      <a class="icon menu-btn">
+        <img src="../../../assets/images/menu-more.svg"class="w-100 normal" />
+        <img src="../../../assets/images/menu-more-hover.svg" class="w-100 hover"/>
+      </a>
+      <ion-label color="dark">Menu</ion-label>
+    </li>
+  </ul>
+
 </div>

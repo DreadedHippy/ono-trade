@@ -74,11 +74,30 @@ const routes: Routes = [
     path: 'verification',
     loadChildren: () => import('./pages/verification/verification.module').then( m => m.VerificationPageModule)
   },
+  {
+    path: 'deposit',
+    loadChildren: () => import('./pages/transaction/deposit/deposit.module').then( m => m.DepositPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'transfer',
+    loadChildren: () => import('./pages/transaction/transfer/transfer.module').then( m => m.TransferPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'wallets',
+    loadChildren: () => import('./pages/transaction/wallets/wallets.module').then( m => m.WalletsPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'market',
+    loadChildren: () => import('./pages/market/market.module').then( m => m.MarketPageModule)
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule],
   providers: [AuthGuard]

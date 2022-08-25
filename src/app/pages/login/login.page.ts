@@ -34,7 +34,6 @@ export class LoginPage implements OnInit {
       this.error();
       return;
     }
-    form.reset();
     this.authService.login(data);
   }
 

@@ -1,0 +1,29 @@
+
+<div class="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+        <div class="title">
+          <a (click)="dashboardPage()" class="back-btn">
+            <i class="fas fa-angle-left"></i>
+          </a>
+          {{title}}
+        </div>
+      </div>
+      <div class="col-4 text-right">
+        <a
+          class="pulse-animation notification-btn"
+          (click)="notificationsPage()"
+          ><i class="far fa-bell"></i
+        ></a>
+        <div class="profile-pic" (click)="profilePage()">
+          <img
+            id="imgId"
+            [src]="getImgSrc()"
+            class="width-100"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

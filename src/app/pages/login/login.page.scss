@@ -29,7 +29,7 @@ margin-top:15px;
 margin-bottom:20px;
 }
 
-.social 
+.social
 {
 margin: 0px;
     margin-top: 0px;
@@ -98,10 +98,6 @@ ul.social li:nth-child(2) a {
    font-weight:400;
    color:#FFF;
    text-align:center;
-   position:fixed;
-   bottom:20px;
-   left:0px;
-   right:0px;
 }
 
 .footer-link a
@@ -110,7 +106,10 @@ ul.social li:nth-child(2) a {
   cursor:pointer;
   text-decoration:none;
 }
-.footer-link a:hover
-{
-   color:#f79e1b;
+.footer-link a:hover{
+  color:#f79e1b;
+}
+
+ion-footer{
+  padding-bottom: 20px
 }

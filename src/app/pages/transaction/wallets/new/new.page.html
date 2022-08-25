@@ -1,0 +1,44 @@
+<app-sidebar></app-sidebar>
+<ion-content class="mainbackground">
+  <app-header></app-header>
+  <div class="body">
+
+    <div class="container">
+      <div class="form-box">
+        <form (ngSubmit)="onCreate()" [formGroup]="walletInfo">
+          <div class="form-group flexContainer">
+
+            <input type="text"  class="form-control" minlength="5"
+            formControlName="walletName"
+            placeholder="Name your wallet"
+            required="true" ionFocus="focus()">
+          </div>
+
+          <!-- Receiver Info -->
+          <div class="form-group flexContainer">
+            <input type="text" formControlName="walletAddress"
+              placeholder="Type in your wallet Adress/Card Number"
+              class="form-control inputField" required="true" ionFocus="focus()"
+            >
+            <br>
+            <!-- TODO: Give all crypto currencies a different color in popover-->
+            <ion-select interface="popover"placeholder="Currency"
+            formControlName="walletCurr" style="color: white;">
+              <ion-select-option value="usd">USD</ion-select-option>
+              <ion-select-option value="ngn">NGN</ion-select-option>
+              <ion-select-option value="cad">CAD</ion-select-option>
+              <ion-select-option value="eur">EUR</ion-select-option>
+              <ion-select-option class="crypto" value="btc">BTC</ion-select-option>
+              <ion-select-option value="usdc">USDC</ion-select-option>
+              <ion-select-option value="eth">ETH</ion-select-option>
+              <ion-select-option value="bat">BAT</ion-select-option>
+              <ion-select-option value="shib">SHIB</ion-select-option>
+            </ion-select>
+          </div>
+            <button type="submit" class="theme btn btn-primary">Create Wallet</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

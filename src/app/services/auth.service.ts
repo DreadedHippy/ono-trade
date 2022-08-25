@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { subscribeOn } from 'rxjs/operators';
 import { User, UserDataRes } from '../models/user.model';
 import { NavController } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { MailService } from './mail.service';
 import { AlertService } from './alert.service';
 import { map } from 'rxjs/operators';
@@ -28,10 +28,12 @@ export class AuthService {
   client = null;
   firebaseConfig = environment.firebaseConfig;
   users: any;
+  imgSrc = environment.staticUrl + localStorage.getItem('imageSrc') + '?random=' + Math.ceil(Math.random()*1000)
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private tokenTimer: any;
+  private imgUpdated = new Subject<string>();
 
   constructor(
     private http: HttpClient,
@@ -114,7 +116,7 @@ export class AuthService {
         this.authStatusListener.next(true);
         const now = new Date();
         const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-        this.saveAuthData(token, expirationDate);
+        this.saveAuthData(token, expirationDate, response.user.email, response.user.username, response.user.imageSrc);
         console.log(expirationDate);
         this.navCtrl.navigateRoot('/dashboard');
         }
@@ -131,6 +133,18 @@ export class AuthService {
     .subscribe(response => {
       console.log(response);
     });
+  }
+
+  uploadImg(file, cookieString){ //UPLOAD PROFILE PICTURE
+    console.log(file)
+    localStorage.setItem('imageSrc', cookieString)
+    this.imgSrc = environment.staticUrl + localStorage.getItem('imageSrc') + '?random=' + Math.ceil(Math.random()*1000)
+    this.imgUpdated.next(this.imgSrc)
+    return this.http.post(baseUrl + '/upload', file)
+  }
+
+  getImgUpdListener(){
+    return this.imgUpdated.asObservable()
   }
 
 
@@ -167,17 +181,7 @@ export class AuthService {
 
   // VERIFY USER
   userverify(key){
-    this.http.get<{message: string; status: string}>(this.baseUrl + '/users/verify?key=' + key)
-    .subscribe(response =>  {
-      window.alert(response.message);
-      if (response.status === 'verified'){
-        this.goHome();
-      }
-      }, error => {
-        this.alertSrv.toast(error.error.message);
-        console.log(error);
-      }
-    );
+    return this.http.get<{message: string; status: string}>(this.baseUrl + '/users/verify?key=' + key)
   }
 
   resetPasswordRequest(email){
@@ -229,15 +233,11 @@ export class AuthService {
       this.isAuthenticated = true;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
-      this.navCtrl.navigateForward('/wallet/history');
+      this.navCtrl.navigateForward('/dashboard');
     }
   }
 
   logout(){
-    this.http.get<{message: string}>(this.baseUrl + '/users/logout')
-    .subscribe(response => {
-      console.log(response.message);
-    });
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
@@ -246,14 +246,19 @@ export class AuthService {
     this.route.navigate(['/login']);
   }
 
-  private saveAuthData(token: string, expirationDate: Date){
+  private saveAuthData(token: string, expirationDate: Date, email: string, userName: string, imageSrc: string ){
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
+    localStorage.setItem('email', email);
+    localStorage.setItem('name', userName);
+    localStorage.setItem('imageSrc', imageSrc);
   }
 
   private clearAuthData(){
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('email')
+    localStorage.removeItem('imageSrc');
   }
 
   private getAuthData(){
@@ -269,12 +274,11 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ' + duration);
+    // console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
   }
-
 
 
 }
