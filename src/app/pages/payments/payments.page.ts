@@ -76,6 +76,10 @@ export class PaymentsPage implements OnInit, OnDestroy {
     document.getElementById('open-modal').click()
   }
 
+  getPaymentMethodName(method){
+    return this.transSrv.getPaymentMathodName(method)
+  }
+
   deletePaymentMethod(){
     this.transSrv.deletePaymentMethod(this.selectedMethod).subscribe(response => {
       console.log(response)

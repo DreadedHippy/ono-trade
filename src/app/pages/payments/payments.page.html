@@ -40,7 +40,7 @@
       <div class="container">
         <ion-grid class="transactions-box">
           <ion-row *ngFor="let method of methods">
-            <ion-col size="3">{{method.type}}</ion-col>
+            <ion-col size="3">{{getPaymentMethodName(method.type)}}</ion-col>
             <ion-col size="3">{{method.bank}}</ion-col>
             <ion-col size="3">{{method.name}}</ion-col>
             <ion-col>

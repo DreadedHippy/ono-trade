@@ -55,3 +55,12 @@ export interface paymentMethod{
   bank: string,
   type: string
 }
+
+export interface placedOrders{
+  fromUser: string,
+  toUser: string,
+  cryptoAmt: number,
+  fiatAmt: number,
+  paymentMethod: string,
+  status: string
+}

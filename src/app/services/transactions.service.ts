@@ -213,5 +213,10 @@ export class TransactionsService {
     return this.http.post(url, data)
   }
 
+  placeOrder(data){
+    const url = this.baseUrl + '/peer/trade'
+    return this.http.post(url, data)
+  }
+
 
 }
