@@ -9,6 +9,18 @@
           <ion-card-subtitle [ngClass]="cryptoAmt > offer.inStock? 'stock-text-invalid': 'stock-text'">
             In Stock: <ion-text color="gold-primary">{{offer.inStock}}</ion-text>
           </ion-card-subtitle>
+          <ion-card-subtitle>
+            <ion-text>
+              <ion-note> From
+                <ion-text color="dark">
+                  {{offer.lowerLimit}} <ion-text color="danger">{{offer.cryptoCurr.toUpperCase()}}</ion-text>
+                </ion-text>
+                to
+                <ion-text color="dark">
+                  {{offer.upperLimit}} <ion-text color="danger">{{offer.cryptoCurr.toUpperCase()}}</ion-text>
+                </ion-text>
+            </ion-note></ion-text>
+          </ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <form (ngSubmit)="onBuyOrderPlaced()" [formGroup]="buyOrder">

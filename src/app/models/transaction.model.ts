@@ -57,8 +57,11 @@ export interface paymentMethod{
 }
 
 export interface placedOrders{
-  fromUser: string,
-  toUser: string,
+  advertiser: string,
+  advertType: string,
+  customer: string,
+  cryptoCurr: string,
+  fiatCurr: string,
   cryptoAmt: number,
   fiatAmt: number,
   paymentMethod: string,

@@ -38,18 +38,31 @@ export class BuyPage implements OnInit {
       this.alertSrv.toast('Please fill all required fields', 1000);
       return;
     }
-    console.log(this.buyOrder.value)
+
+    if(this.cryptoAmt < this.offer.lowerLimit){
+      this.alertSrv.toast('Amount too low', 1000);
+      return;
+    }
+    if(this.cryptoAmt > this.offer.upperLimit){
+      this.alertSrv.toast('Amount exceeds limit', 1000);
+      return;
+    }
     let fiatCost = this.cryptoAmt * this.offer.price
     const data: placedOrders = {
-      fromUser: localStorage.getItem('email'),
-      toUser: this.offer.email,
+      advertiser: this.offer.email,
+      advertType: this.offer.type,
+      customer: localStorage.getItem('email'),
+      cryptoCurr: this.offer.cryptoCurr,
       cryptoAmt: this.cryptoAmt,
+      fiatCurr: this.offer.fiatCurr,
       fiatAmt: fiatCost,
       paymentMethod: this.buyOrder.get('paymentMethod').value,
       status: 'pending'
     }
 
-    this.transSrv.placeOrder(data)
+    this.transSrv.placeOrder(data).subscribe(response => {
+      console.log(response)
+    })
 
 
   }
