@@ -61,11 +61,34 @@
               </ion-row>
               <ion-row>
                 <ion-col size="12">
-                  <ion-button expand="full" type="submit" [disabled]="cryptoAmt > offer.inStock">Make Order</ion-button>
+                  <ion-button expand="full" type="submit" [disabled]="cryptoAmt > offer.inStock" id="orderBtn">Make Order</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </form>
+        </ion-card-content>
+      </ion-card>
+      <ion-card id = "hiddenCard" class="align">
+        <ion-card-header>
+          <ion-card-title>NAME: {{paymentInfo?.name.toUpperCase()}}</ion-card-title>
+          <ion-card-subtitle>ADDRESS:
+            <ion-note color="gold-primary">
+              {{paymentInfo?.address}}
+            </ion-note>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-note>
+            <p>
+              Go into your third party application and make payments using the information
+              given below. Click the button once confirmed
+            </p>
+          </ion-note>
+          <br>
+          <ion-text color="danger">Ony click the button below once payment has been made</ion-text>
+          <ion-button expand="full" color="danger">
+            Payment Made!
+          </ion-button>
         </ion-card-content>
       </ion-card>
     </div>

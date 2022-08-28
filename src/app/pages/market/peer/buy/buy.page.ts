@@ -1,6 +1,6 @@
 import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit } from '@angular/core';
-import { peerOffer, placedOrders } from 'src/app/models/transaction.model';
+import { paymentMethod, peerOffer, placedOrders } from 'src/app/models/transaction.model';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -15,6 +15,7 @@ export class BuyPage implements OnInit {
   constructor(private transSrv: TransactionsService, private alertSrv: AlertService) { }
   offer
   cryptoAmt: number
+  paymentInfo: paymentMethod
 
   buyOrder = new FormGroup({
     orderAmount: new FormControl('', Validators.required),
@@ -59,12 +60,17 @@ export class BuyPage implements OnInit {
       paymentMethod: this.buyOrder.get('paymentMethod').value,
       status: 'pending'
     }
-
-    this.transSrv.placeOrder(data).subscribe(response => {
+    this.transSrv.placeOrder(data).subscribe((response: {paymentInfo: paymentMethod}) => {
       console.log(response)
+      this.paymentInfo = response.paymentInfo
+      document.getElementById("orderBtn").style.display = 'none'
+      this.toggleCard()
     })
+  }
 
-
+  toggleCard(){
+    let card = document.getElementById("hiddenCard");
+    card.classList.toggle('is-show')
   }
 
 

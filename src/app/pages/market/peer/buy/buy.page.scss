@@ -15,3 +15,17 @@
   border-radius: 15px;
   font-size: large;
 }
+
+#hiddenCard {
+  transform: scaleY(0);
+  transition: transform 400ms ease 0ms;
+}
+
+#hiddenCard.is-show {
+  transform: scaleY(1);
+  transition: transform 400ms ease 0ms;
+}
+
+.align{
+  text-align: center;
+}
