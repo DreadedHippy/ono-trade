@@ -16,6 +16,7 @@ export class BuyPage implements OnInit {
   offer
   cryptoAmt: number
   paymentInfo: paymentMethod
+  peerTradeID= '000'
 
   buyOrder = new FormGroup({
     orderAmount: new FormControl('', Validators.required),
@@ -39,7 +40,6 @@ export class BuyPage implements OnInit {
       this.alertSrv.toast('Please fill all required fields', 1000);
       return;
     }
-
     if(this.cryptoAmt < this.offer.lowerLimit){
       this.alertSrv.toast('Amount too low', 1000);
       return;
@@ -60,11 +60,25 @@ export class BuyPage implements OnInit {
       paymentMethod: this.buyOrder.get('paymentMethod').value,
       status: 'pending'
     }
-    this.transSrv.placeOrder(data).subscribe((response: {paymentInfo: paymentMethod}) => {
+    this.transSrv.placeOrder(data).subscribe(
+      (response: {paymentInfo: paymentMethod, peerTradeID: string}) => {
+        console.log(response)
+        this.paymentInfo = response.paymentInfo
+        document.getElementById("orderBtn").style.display = 'none'
+        this.toggleCard()
+        this.buyOrder.disable()
+        console.log(response.peerTradeID) //ID of the created trade instance
+        this.peerTradeID = response.peerTradeID
+      }
+    )
+  }
+
+  customerConfirm(){
+    this.transSrv.customerConfirmOrder(this.peerTradeID, this.offer)
+    .subscribe(response => {
       console.log(response)
-      this.paymentInfo = response.paymentInfo
-      document.getElementById("orderBtn").style.display = 'none'
-      this.toggleCard()
+    }, err => {
+      console.log('An Error Occurred', err)
     })
   }
 

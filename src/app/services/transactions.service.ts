@@ -208,14 +208,20 @@ export class TransactionsService {
 
   deletePaymentMethod(method){
     let email = {email: localStorage.getItem('email')}
+    const data = Object.assign(email, method);
     const url = this.baseUrl + '/paymentMethods/delete';
-    const data = Object.assign(email, method)
+    console.log(url)
     return this.http.post(url, data)
   }
 
   placeOrder(data){
     const url = this.baseUrl + '/peer/trade'
     return this.http.post(url, data)
+  }
+
+  customerConfirmOrder(id, data){
+    const url = this.baseUrl + '/peer/' + id
+    return this.http.patch(url, data)
   }
 
 
