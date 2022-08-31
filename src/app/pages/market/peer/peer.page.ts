@@ -125,4 +125,8 @@ export class PeerPage implements OnInit, OnDestroy {
     this.transSrv.setPeerOffer(offer)
   }
 
+  pendingOffers(){
+    this.router.navigate(['pending'])
+  }
+
 }

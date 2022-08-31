@@ -93,6 +93,10 @@ const routes: Routes = [
     path: 'market',
     loadChildren: () => import('./pages/market/market.module').then( m => m.MarketPageModule)
   },
+  {
+    path: 'pending',
+    loadChildren: () => import('./pages/pending/pending.module').then( m => m.PendingPageModule)
+  },
 ];
 
 @NgModule({

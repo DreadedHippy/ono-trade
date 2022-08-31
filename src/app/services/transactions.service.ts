@@ -224,5 +224,12 @@ export class TransactionsService {
     return this.http.patch(url, data)
   }
 
+  getPendingOffers(){
+    const email = localStorage.getItem('email')
+    const url = this.baseUrl + '/peer/pending?user=' + email
+    console.log(email)
+    return this.http.get(url)
+  }
+
 
 }
