@@ -114,7 +114,8 @@ export class BuyPage implements OnInit {
 
   customerConfirm(){
     this.transSrv.customerConfirmOrder(this.peerTradeID, this.offer)
-    .subscribe(response => {
+    .subscribe((response: {message: string}) => {
+      this.alertSrv.toast(response.message, 1000)
       console.log(response)
     }, err => {
       console.log('An Error Occurred', err)
@@ -123,7 +124,8 @@ export class BuyPage implements OnInit {
 
   cancelOrder(){
     this.transSrv.customerCancelOrder(this.peerTradeID, this.offer)
-    .subscribe(response => {
+    .subscribe((response: {message: string}) => {
+      this.alertSrv.toast(response.message, 1000)
       console.log(response)
     }, err =>{
       console.log('An Error Occurred', err)
