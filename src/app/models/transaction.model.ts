@@ -57,6 +57,7 @@ export interface paymentMethod{
 }
 
 export interface placedOrders{
+  offerID: string,
   advertiser: string,
   advertType: string,
   customer: string,

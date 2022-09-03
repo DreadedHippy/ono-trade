@@ -50,6 +50,7 @@ export class BuyPage implements OnInit {
     }
     let fiatCost = this.cryptoAmt * this.offer.price
     const data: placedOrders = {
+      offerID: this.offer._id,
       advertiser: this.offer.email,
       advertType: this.offer.type,
       customer: localStorage.getItem('email'),
@@ -60,7 +61,7 @@ export class BuyPage implements OnInit {
       paymentMethod: this.buyOrder.get('paymentMethod').value,
       status: 'pending'
     }
-    this.transSrv.placeOrder(data).subscribe(
+    this.transSrv.makeTrade(data).subscribe(
       (response: {paymentInfo: paymentMethod, peerTradeID: string}) => {
         console.log(response)
         this.paymentInfo = response.paymentInfo
@@ -69,9 +70,47 @@ export class BuyPage implements OnInit {
         this.buyOrder.disable()
         console.log(response.peerTradeID) //ID of the created trade instance
         this.peerTradeID = response.peerTradeID
+        const display = document.querySelector('#time');
+        this.startTimer( this.offer.timeLimit * 60, display);
       }
     )
   }
+
+  toggleCard(){
+    let card = document.getElementById("hiddenCard");
+    card.classList.toggle('is-show')
+  }
+
+  startTimer(duration, display) {
+    var start = Date.now(),
+    diff,
+    minutes,
+    seconds;
+    function timer() {
+      // get the number of seconds that have elapsed since
+      // startTimer() was called
+      diff = duration - (((Date.now() - start) / 1000) | 0);
+
+      // does the same job as parseInt truncates the float
+      minutes = (diff / 60) | 0;
+      seconds = (diff % 60) | 0;
+
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      display.textContent = minutes + ":" + seconds;
+
+      if (diff <= 0) {
+        // add one second so that the count down starts at the full duration
+        // example 05:00 not 04:59
+        start = Date.now() + 1000;
+      }
+    };
+    // we don't want to wait a full second before the timer starts
+    timer();
+    setInterval(timer, 1000);
+  }
+
 
   customerConfirm(){
     this.transSrv.customerConfirmOrder(this.peerTradeID, this.offer)
@@ -82,9 +121,13 @@ export class BuyPage implements OnInit {
     })
   }
 
-  toggleCard(){
-    let card = document.getElementById("hiddenCard");
-    card.classList.toggle('is-show')
+  cancelOrder(){
+    this.transSrv.customerCancelOrder(this.peerTradeID, this.offer)
+    .subscribe(response => {
+      console.log(response)
+    }, err =>{
+      console.log('An Error Occurred', err)
+    })
   }
 
 

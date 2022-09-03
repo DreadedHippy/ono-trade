@@ -86,9 +86,23 @@
           </ion-note>
           <br>
           <ion-text color="danger">Ony click the button below once payment has been made</ion-text>
-          <ion-button expand="full" color="danger" (click)="customerConfirm()" >
-            Payment Made!
-          </ion-button>
+          <br>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-button expand="full" color="success" (click)="customerConfirm()">
+                  Payment Made!
+                </ion-button>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button color="danger" expand="full" (click)="cancelOrder()">
+                  Cancel
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <br>
+          <ion-text color="primary" id="time"></ion-text>
         </ion-card-content>
       </ion-card>
     </div>

@@ -214,14 +214,24 @@ export class TransactionsService {
     return this.http.post(url, data)
   }
 
-  placeOrder(data){
+  makeTrade(data){ //Make a p2p trade on an advertised offer
     const url = this.baseUrl + '/peer/trade'
     return this.http.post(url, data)
   }
 
-  customerConfirmOrder(id, data){
-    const url = this.baseUrl + '/peer/' + id
-    return this.http.patch(url, data)
+  customerConfirmOrder(id, offer){
+    let patch =  { status: 'pending-advertiser'}
+    const data = Object.assign(patch, offer)
+    const url = this.baseUrl + '/peer/confirm/' + id
+    return this.http.patch(url, data);
+  }
+
+  customerCancelOrder(id, offer){
+    let patch =  { status: 'cancelled'}
+    console.log('Cancelling Trade')
+    const data = Object.assign(patch, offer)
+    const url = this.baseUrl + '/peer/cancel/' + id
+    return this.http.patch(url, data);
   }
 
   getPendingOffers(){
