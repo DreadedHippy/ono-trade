@@ -85,7 +85,7 @@
             </p>
           </ion-note>
           <br>
-          <ion-text color="danger">Ony click the button below once payment has been made</ion-text>
+          <ion-text color="danger">Only click the button below once payment has been made</ion-text>
           <br>
           <ion-grid>
             <ion-row>
@@ -103,6 +103,20 @@
           </ion-grid>
           <br>
           <ion-text color="primary" id="time"></ion-text>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card id = "advertPendingCard" class="align">
+        <ion-card-header>
+          <ion-card-title>Please wait...</ion-card-title>
+          <ion-card-subtitle>
+            <ion-note color="gold-primary">
+              Waiting for advertiser to confirm transaction
+            </ion-note>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-spinner color="gold-primary"></ion-spinner>
         </ion-card-content>
       </ion-card>
     </div>

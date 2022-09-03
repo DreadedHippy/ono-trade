@@ -76,7 +76,7 @@ export class BuyPage implements OnInit {
     )
   }
 
-  toggleCard(){
+  toggleCard(){ //Toggle the payment confirmation display card
     let card = document.getElementById("hiddenCard");
     card.classList.toggle('is-show')
   }
@@ -120,6 +120,14 @@ export class BuyPage implements OnInit {
     }, err => {
       console.log('An Error Occurred', err)
     })
+    this.toggleAdvertPendingCard();
+  }
+
+  toggleAdvertPendingCard(){
+    let hiddenCard = document.getElementById("hiddenCard");
+    hiddenCard.remove()
+    let advertCard = document.getElementById("advertPendingCard");
+    advertCard.classList.toggle('is-show');
   }
 
   cancelOrder(){

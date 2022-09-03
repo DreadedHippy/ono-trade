@@ -26,6 +26,20 @@
   transition: transform 400ms ease 0ms;
 }
 
+#advertPendingCard {
+  transform: scaleY(0);
+  transition: transform 400ms ease 0ms;
+}
+
+#advertPendingCard.is-show {
+  transform: scaleY(1);
+  transition: transform 400ms ease 0ms;
+}
+
 .align{
   text-align: center;
+}
+
+.shrink{
+  width: 70%
 }
