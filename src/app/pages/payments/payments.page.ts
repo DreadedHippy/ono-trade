@@ -86,7 +86,7 @@ export class PaymentsPage implements OnInit, OnDestroy {
     this.transSrv.deletePaymentMethod(this.selectedMethod)
     .subscribe((response: {message: string}) => {
       console.log(response)
-      this.alertSrv.toast(response.message, 1000)
+      this.alertSrv.toast(response.message, 1000);
     }, err => {
       console.log(err)
     })
