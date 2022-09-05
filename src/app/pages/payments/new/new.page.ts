@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { paymentMethod } from 'src/app/models/transaction.model';
@@ -12,11 +13,14 @@ import { TransactionsService } from 'src/app/services/transactions.service';
 })
 export class NewPage implements OnInit {
 
-  constructor(private alertSrv: AlertService, private transSrv: TransactionsService) { }
+  constructor(
+    private alertSrv: AlertService,
+    private transSrv: TransactionsService,
+    private router: Router) { }
   paymentInfo = new FormGroup({
     name: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
-    bank: new FormControl('', Validators.required),
+    bank: new FormControl(''),
     type: new FormControl('', Validators.required)
   });
 
@@ -36,8 +40,10 @@ export class NewPage implements OnInit {
       type: this.paymentInfo.get('type').value
     }
     console.log(data)
-    this.transSrv.addPaymentMethod(data).subscribe(response => {
+    this.transSrv.addPaymentMethod(data).subscribe((response: {message: string}) => {
       console.log(response)
+      this.alertSrv.toast(response.message, 1000)
+      this.router.navigate(['dashboard'])
     }, err => {console.log('error', err)})
   }
 

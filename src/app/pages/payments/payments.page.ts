@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 import { paymentMethod } from './../../models/transaction.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
@@ -23,6 +24,7 @@ export class PaymentsPage implements OnInit, OnDestroy {
   constructor(
     private barcodeScanner: BarcodeScanner,
     private router: Router,
+    private alertSrv: AlertService,
     private transSrv: TransactionsService
   ) { }
 
@@ -82,8 +84,9 @@ export class PaymentsPage implements OnInit, OnDestroy {
 
   deletePaymentMethod(){
     this.transSrv.deletePaymentMethod(this.selectedMethod)
-    .subscribe(response => {
+    .subscribe((response: {message: string}) => {
       console.log(response)
+      this.alertSrv.toast(response.message, 1000)
     }, err => {
       console.log(err)
     })
