@@ -1,3 +1,4 @@
+import { AlertService } from 'src/app/services/alert.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { dbPlacedOrders } from 'src/app/models/transaction.model';
 import { placedOrders } from 'src/app/models/transaction.model';
@@ -13,7 +14,8 @@ import {SubSink} from 'subsink';
 export class PendingPage implements OnInit, OnDestroy {
 
   constructor(
-    private transSrv: TransactionsService
+    private transSrv: TransactionsService,
+    private alertSrv: AlertService
   ) { }
   allPending: dbPlacedOrders[]
   pendingAdverts: placedOrders[]
@@ -30,6 +32,10 @@ export class PendingPage implements OnInit, OnDestroy {
 
   subs = new SubSink()
   ngOnInit(){
+    this.loadPendingOrders()
+  }
+
+  loadPendingOrders(){
     this.subs.sink = this.transSrv.getPendingOffers().subscribe( (response: {result: dbPlacedOrders[]}) => {
       console.log(response)
       this.allPending = response.result
@@ -53,8 +59,10 @@ export class PendingPage implements OnInit, OnDestroy {
 
   confirmTrade(tradeID){
     this.subs.sink = this.transSrv.advertiserConfirmOrder(tradeID)
-    .subscribe(response => {
+    .subscribe((response: {message: string}) => {
       console.log(response)
+      this.alertSrv.toast(response.message, 1000)
+      this.loadPendingOrders()
     })
   }
 
