@@ -81,5 +81,6 @@ export interface dbPlacedOrders{
   paymentMethod: string,
   status: string,
   createdAt: string,
-  updatedAt: string
+  updatedAt: string,
+  _id: string
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { dbPlacedOrders } from 'src/app/models/transaction.model';
 import { placedOrders } from 'src/app/models/transaction.model';
 import { TransactionsService } from 'src/app/services/transactions.service';
@@ -10,7 +10,7 @@ import {SubSink} from 'subsink';
   templateUrl: './pending.page.html',
   styleUrls: ['./pending.page.scss'],
 })
-export class PendingPage implements OnInit {
+export class PendingPage implements OnInit, OnDestroy {
 
   constructor(
     private transSrv: TransactionsService
@@ -49,6 +49,17 @@ export class PendingPage implements OnInit {
   toDate(arg){
     let rawDate = new Date(arg);
     return rawDate.toLocaleDateString('en-US', this.timeFormat)
+  }
+
+  confirmTrade(tradeID){
+    this.subs.sink = this.transSrv.advertiserConfirmOrder(tradeID)
+    .subscribe(response => {
+      console.log(response)
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
   }
 
 

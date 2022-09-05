@@ -77,7 +77,7 @@ export class PaymentsPage implements OnInit, OnDestroy {
   }
 
   getPaymentMethodName(method){
-    return this.transSrv.getPaymentMathodName(method)
+    return this.transSrv.getPaymentMethodName(method)
   }
 
   deletePaymentMethod(){

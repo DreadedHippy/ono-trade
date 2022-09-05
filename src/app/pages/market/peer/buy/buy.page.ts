@@ -32,7 +32,7 @@ export class BuyPage implements OnInit {
   }
 
   getPaymentMethodName(method){
-    return this.transSrv.getPaymentMathodName(method)
+    return this.transSrv.getPaymentMethodName(method)
   }
 
   onBuyOrderPlaced(){

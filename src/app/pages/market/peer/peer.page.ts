@@ -129,4 +129,12 @@ export class PeerPage implements OnInit, OnDestroy {
     this.router.navigate(['pending'])
   }
 
+  getPaymentMethodName(arg){
+    return this.transSrv.getPaymentMethodName(arg)
+  }
+
+  getMethodColor(method){
+    return this.transSrv.getMethodColor(method)
+  }
+
 }

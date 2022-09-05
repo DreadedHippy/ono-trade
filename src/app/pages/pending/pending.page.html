@@ -23,8 +23,15 @@
             <ion-item color="dark" class="list-item">
               <ion-label>Status: <ion-text [color]="order.status == 'pending'? 'warning': 'pending-advertiser'? 'danger': 'success'" >{{order.status.toUpperCase()}}</ion-text> </ion-label>
             </ion-item>
-            <ion-item color="dark" class="list-item rounded-bottom">
+            <ion-item color="dark" class="list-item">
               <ion-label>Date: <ion-text color="medium">{{ toDate(order.createdAt)}}</ion-text></ion-label>
+            </ion-item>
+            <ion-item class="list-item" color="dark">
+            <ion-button class="confirm-btn"
+            (click)="confirmTrade(order._id)"
+            color="danger"
+            *ngIf="order.advertiser == email && order.status == 'pending-advertiser'"
+            >CONFIRM</ion-button>
             </ion-item>
           </ion-list>
         </ion-card-content>

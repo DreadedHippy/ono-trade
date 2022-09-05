@@ -184,12 +184,26 @@ export class TransactionsService {
     }
   }
 
-  getPaymentMathodName(method){
+  getPaymentMethodName(method){
     switch(method){
       case 'zel':
         return 'Zelle';
       case 'ppl':
         return 'Paypal';
+    }
+  }
+
+
+  getMethodColor(method){
+    switch(method){
+      case 'ppl':
+        return 'berry';
+      case 'zel':
+        return 'secondary';
+      case 'pst':
+        return 'success';
+      default:
+        return 'primary';
     }
   }
 
@@ -222,8 +236,14 @@ export class TransactionsService {
   customerConfirmOrder(id, offer){
     let patch =  { status: 'pending-advertiser'}
     const data = Object.assign(patch, offer)
-    const url = this.baseUrl + '/peer/confirm/' + id
+    const url = this.baseUrl + '/peer/customerConfirm/' + id
     return this.http.patch(url, data);
+  }
+
+  advertiserConfirmOrder(orderID){
+    const url = this.baseUrl + '/peer/advertiserConfirm/'+ orderID;
+    let patch = { status: 'completed'}
+    return this.http.patch(url, patch)
   }
 
   customerCancelOrder(id, offer){

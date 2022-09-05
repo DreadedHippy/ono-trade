@@ -33,7 +33,9 @@
             <ion-button (click)="newPeerOffer()" expand="block">
               <ion-icon name="add"></ion-icon>
             </ion-button>
-            <ion-button (click)="pendingOffers()" expand="block">
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="pendingOffers()" expand="block" color="secondary">
               Pending
             </ion-button>
           </ion-col>
@@ -64,13 +66,13 @@
             <ion-row>
               <ion-col size="9">
                 <ion-item>
-                  <ion-label><ion-text color="medium">Stock: </ion-text>{{offer.inStock.toLocaleString()}} {{offer.cryptoCurr}} </ion-label>
+                  <ion-label><ion-text color="medium">Stock: </ion-text>{{offer.inStock.toLocaleString()}} <ion-text color="success">{{offer.cryptoCurr.toUpperCase()}} </ion-text></ion-label>
                 </ion-item>
                 <ion-item>
                   <ion-label><ion-text color="medium">Order Limit: </ion-text>{{offer.lowerLimit}} - {{offer.upperLimit}} </ion-label>
                 </ion-item>
                 <ion-item>
-                  <ion-label><ion-text color="medium">Time Limit: </ion-text>{{offer.timeLimit}} minutes</ion-label>
+                  <ion-label><ion-text color="medium">Payment Window: </ion-text>{{offer.timeLimit}} minutes</ion-label>
                 </ion-item>
               </ion-col>
               <ion-col size="3">
@@ -83,7 +85,11 @@
               <ion-item>
                 <ion-label>Payment Methods:</ion-label>
               </ion-item>
-              <ion-col size="2" *ngFor=" let method of offer.paymentMethods">{{method}}</ion-col>
+              <ion-col size="2" *ngFor=" let method of offer.paymentMethods">
+                <ion-chip [color]="getMethodColor(method)" mode="ios" outline="true">
+                  <ion-label>{{getPaymentMethodName(method)}}</ion-label>
+                </ion-chip>
+              </ion-col>
             </ion-row>
           </ion-grid>
         </ion-card>
