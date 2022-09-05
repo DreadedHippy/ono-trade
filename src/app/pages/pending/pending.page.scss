@@ -1,0 +1,22 @@
+.align{
+  text-align: center;
+}
+
+.large{
+  font-size: large;
+}
+
+ion-item.list-item{
+  width: 80%;
+  margin: 0px auto;
+}
+
+.rounded-top{
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.rounded-bottom{
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

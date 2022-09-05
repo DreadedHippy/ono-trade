@@ -1,11 +1,36 @@
 <app-sidebar></app-sidebar>
 <ion-content>
   <app-header></app-header>
-  <ion-card>
-    <ion-card-header>
-
-    </ion-card-header>
-  </ion-card>
+  <div class="body">
+    <div class="container">
+      <ion-card>
+        <ion-card-header>
+          <div class="head align">
+            <div class="head-title header large">Pending Orders</div>
+          </div>
+        </ion-card-header>
+        <ion-card-content class="align">
+          <ion-list *ngFor="let order of allPending; index as i ">
+            <ion-item color="dark" class="list-item rounded-top">
+              <ion-label>Advertiser: {{order.advertiser}} </ion-label>
+            </ion-item>
+            <ion-item color="dark" class="list-item">
+              <ion-label>Fiat Amount: <ion-text color="success" >{{order.fiatAmt | currency: getCurrency(order.fiatCurr)}}</ion-text></ion-label>
+            </ion-item>
+            <ion-item color="dark" class="list-item">
+              <ion-label>Crypto Amount: {{order.cryptoAmt}} <ion-text color="danger"> {{order.cryptoCurr.toUpperCase()}} </ion-text> </ion-label>
+            </ion-item>
+            <ion-item color="dark" class="list-item">
+              <ion-label>Status: <ion-text [color]="order.status == 'pending'? 'warning': 'pending-advertiser'? 'danger': 'success'" >{{order.status.toUpperCase()}}</ion-text> </ion-label>
+            </ion-item>
+            <ion-item color="dark" class="list-item rounded-bottom">
+              <ion-label>Date: <ion-text color="medium">{{ toDate(order.createdAt)}}</ion-text></ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 
 </ion-content>
 <app-footer></app-footer>

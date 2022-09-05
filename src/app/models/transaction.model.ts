@@ -68,3 +68,18 @@ export interface placedOrders{
   paymentMethod: string,
   status: string
 }
+
+export interface dbPlacedOrders{
+  offerID: string,
+  advertiser: string,
+  advertType: string,
+  customer: string,
+  cryptoCurr: string,
+  fiatCurr: string,
+  cryptoAmt: number,
+  fiatAmt: number,
+  paymentMethod: string,
+  status: string,
+  createdAt: string,
+  updatedAt: string
+}
