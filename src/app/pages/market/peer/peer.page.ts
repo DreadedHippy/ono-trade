@@ -85,4 +85,8 @@ export class PeerPage implements OnInit, OnDestroy {
     return this.transSrv.getMethodColor(method)
   }
 
+  getCurrencyIcon(currency){
+    return this.transSrv.getCurrencyIcon(currency)
+  }
+
 }
