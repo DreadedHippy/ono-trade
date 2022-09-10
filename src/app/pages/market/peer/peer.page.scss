@@ -52,3 +52,25 @@ ion-col .text{
 ion-note {
   float: right;
 }
+
+.head-card{
+  display: flex;
+  flex-direction: row;
+  background-color: transparent !important;
+}
+
+.spaced{
+  padding-left: 1%;
+  padding-right: 1%;
+  margin: auto 10px;
+}
+
+.avatar-text{
+  width: 1px;
+  height: 1px;
+  line-height: 1px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  background: rgb(216, 10, 10)
+}

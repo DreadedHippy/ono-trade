@@ -3,44 +3,28 @@
   <app-header></app-header>
   <div class="body">
     <div class="container" style="padding-bottom: 30px;">
-      <ion-grid style="background-color: rgba(199, 99, 18, 0.377); border-radius: 8px;">
-        <ion-row>
-          <ion-col size="auto" class="ion-padding-top" offsetMd="2" offsetLg="2">
-            <p class="text">Filters:</p>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-item>
-              <ion-label position="floating">Currency</ion-label>
-              <ion-select interface="popover" value="usd" style="color: white;">
-                <ion-select-option value="usd" selected="true">USD</ion-select-option>
-                <ion-select-option value="ngn">NGN</ion-select-option>
-                <ion-select-option value="cad">CAD</ion-select-option>
-                <ion-select-option value="eur">EUR</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-item>
-              <ion-label position="floating">Method</ion-label>
-              <ion-select interface="popover" value="ppl" style="color: white;">
-                <ion-select-option value="zel">Zelle</ion-select-option>
-                <ion-select-option value="ppl">Paypal</ion-select-option>
-                <ion-select-option value="pst">Paystack</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          <ion-col size="auto">
-            <ion-button (click)="newPeerOffer()" expand="block">
-              <ion-icon name="add"></ion-icon>
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button (click)="pendingOffers()" expand="block" color="secondary">
-              Pending
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-card class="head-card" style="text-align: center;">
+        <ion-card-header class="spaced">
+          <ion-card-title>Filters:</ion-card-title>
+        </ion-card-header>
+        <ion-select class="spaced" interface="popover" value="ppl" style="color: white;">
+          <ion-select-option value="zel">Zelle</ion-select-option>
+          <ion-select-option value="ppl">Paypal</ion-select-option>
+          <ion-select-option value="pst">Paystack</ion-select-option>
+        </ion-select>
+        <ion-select interface="popover" class="spaced" value="usd" style="color: white;">
+          <ion-select-option value="usd" selected="true">USD</ion-select-option>
+          <ion-select-option value="ngn">NGN</ion-select-option>
+          <ion-select-option value="cad">CAD</ion-select-option>
+          <ion-select-option value="eur">EUR</ion-select-option>
+        </ion-select>
+        <ion-button class="spaced" (click)="newPeerOffer()" expand="block">
+          <ion-icon name="add"></ion-icon>
+        </ion-button>
+        <ion-button class="spaced" (click)="pendingOffers()" expand="block" color="secondary">
+          Pending
+        </ion-button>
+      </ion-card>
     </div>
 
     <!-- TODO: use transaction-list class from wallet page to design p2p offers -->
@@ -49,7 +33,10 @@
         <ion-card *ngFor="let offer of peerOffers; index as i">
           <ion-card-header>
             <ion-card-subtitle>
-              <ion-text color="dark">{{offer.name}}</ion-text> -
+              <ion-chip style="padding-left: 0px;">
+                <ion-chip style="margin-left: 0px; margin-right: 10px;" color="gold-primary">{{offer.name.charAt(0)}}</ion-chip>
+                <ion-label>{{offer.name}}</ion-label>
+              </ion-chip>-
               <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[0]"></ion-icon>
               <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[1]"></ion-icon>
               <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[2]"></ion-icon>
@@ -82,9 +69,6 @@
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-item>
-                <ion-label>Payment Methods:</ion-label>
-              </ion-item>
               <ion-col size="2" *ngFor=" let method of offer.paymentMethods">
                 <ion-chip [color]="getMethodColor(method)" mode="ios" outline="true">
                   <ion-label>{{getPaymentMethodName(method)}}</ion-label>
