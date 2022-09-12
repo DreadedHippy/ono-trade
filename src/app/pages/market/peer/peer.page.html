@@ -34,7 +34,7 @@
           <ion-card-header>
             <ion-card-subtitle>
               <ion-chip style="padding-left: 0px;">
-                <ion-chip style="margin-left: 0px; margin-right: 10px;" color="gold-primary">{{offer.name.charAt(0)}}</ion-chip>
+                <ion-chip style="margin-left: 0px; margin-right: 10px;" color="warning">{{offer.name.charAt(0)}}</ion-chip>
                 <ion-label>{{offer.name}}</ion-label>
               </ion-chip>-
               <ion-icon color="gold-primary" [name]="ratingsStar(4.5)[0]"></ion-icon>
@@ -49,8 +49,8 @@
           <ion-item>
             <h2 style="padding-right: 4px;" >{{offer.price.toFixed(2) | currency: getCurrencyIcon(offer.fiatCurr)}}/<ion-text color="success">{{offer.cryptoCurr.toUpperCase()}}</ion-text></h2>
           </ion-item>
-          <ion-grid fixed>
-            <ion-row>
+          <ion-grid fixed class="ion-no-padding ion-no-margin" >
+            <ion-row class="ion-no-padding ion-no-margin">
               <ion-col size="9">
                 <ion-item>
                   <ion-label><ion-text color="medium">Stock: </ion-text>{{offer.inStock.toLocaleString()}} <ion-text color="success">{{offer.cryptoCurr.toUpperCase()}} </ion-text></ion-label>
