@@ -1,0 +1,45 @@
+.card-title{
+  text-align: center;
+}
+
+.stock-text{
+  background-color: rgba(196, 164, 96, 0.151);
+  color: white;
+  border-radius: 15px;
+  font-size: large;
+}
+
+.stock-text-invalid{
+  background-color: rgba(255, 0, 0, 0.267);
+  color: white;
+  border-radius: 15px;
+  font-size: large;
+}
+
+#hiddenCard {
+  transform: scaleY(0);
+  transition: transform 400ms ease 0ms;
+}
+
+#hiddenCard.is-show {
+  transform: scaleY(1);
+  transition: transform 400ms ease 0ms;
+}
+
+#advertPendingCard {
+  transform: scaleY(0);
+  transition: transform 400ms ease 0ms;
+}
+
+#advertPendingCard.is-show {
+  transform: scaleY(1);
+  transition: transform 400ms ease 0ms;
+}
+
+.align{
+  text-align: center;
+}
+
+.shrink{
+  width: 70%
+}

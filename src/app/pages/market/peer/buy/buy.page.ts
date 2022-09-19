@@ -82,7 +82,7 @@ export class BuyPage implements OnInit {
   }
 
   startTimer(duration, display) {
-    var start = Date.now(),
+    let start = Date.now(),
     diff,
     minutes,
     seconds;

@@ -190,6 +190,8 @@ export class TransactionsService {
         return 'Zelle';
       case 'ppl':
         return 'Paypal';
+      case 'pst' :
+        return 'Paystack';
     }
   }
 

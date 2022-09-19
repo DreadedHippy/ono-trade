@@ -47,13 +47,20 @@
             <ion-card-subtitle>Price</ion-card-subtitle>
           </ion-card-header>
           <ion-item>
-            <h2 style="padding-right: 4px;" >{{offer.price.toFixed(2) | currency: getCurrencyIcon(offer.fiatCurr)}}/<ion-text color="success">{{offer.cryptoCurr.toUpperCase()}}</ion-text></h2>
+            <h2 style="padding-right: 4px;">
+              {{ offer.type == 'sell'? (offer.price.toFixed(2) | currency: getCurrencyIcon(offer.fiatCurr))
+            : (1/offer.price).toString() + offer.cryptoCurr.toUpperCase()}}/
+              <ion-text color="success">
+                {{offer.type == 'sell'? offer.cryptoCurr.toUpperCase() : offer.fiatCurr.toUpperCase()}}
+              </ion-text></h2>
           </ion-item>
           <ion-grid fixed class="ion-no-padding ion-no-margin" >
             <ion-row class="ion-no-padding ion-no-margin">
               <ion-col size="9">
                 <ion-item>
-                  <ion-label><ion-text color="medium">Stock: </ion-text>{{offer.inStock.toLocaleString()}} <ion-text color="success">{{offer.cryptoCurr.toUpperCase()}} </ion-text></ion-label>
+                  <ion-label><ion-text color="medium">Stock: </ion-text>{{offer.inStock.toLocaleString()}} <ion-text color="success">
+                    {{ offer.type == 'sell'? offer.cryptoCurr.toUpperCase() : offer.fiatCurr.toUpperCase()}}
+                  </ion-text></ion-label>
                 </ion-item>
                 <ion-item>
                   <ion-label><ion-text color="medium">Order Limit: </ion-text>{{offer.lowerLimit}} - {{offer.upperLimit}} </ion-label>

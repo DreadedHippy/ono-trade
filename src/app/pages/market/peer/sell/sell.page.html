@@ -1,9 +1,125 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sell</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-sidebar></app-sidebar>
+<ion-content class="main-background">
+  <app-header></app-header>
+  <div class="body">
+    <div class="container" style="padding-bottom: 30px;">
+      <ion-card>
+        <ion-card-header class="card-title">
+          <ion-card-title>Selling <ion-text style="font-weight: bold;" color="danger">{{offer.cryptoCurr.toUpperCase()}}</ion-text> to <ion-text color="primary">{{offer.name}}</ion-text></ion-card-title>
+          <ion-card-subtitle [ngClass]="fiatAmt > offer.inStock? 'stock-text-invalid': 'stock-text'">
+            In Stock: <ion-text color="gold-primary">{{offer.inStock | currency: getCurrIcon(offer.fiatCurr)}}</ion-text>
+          </ion-card-subtitle>
+          <ion-card-subtitle>
+            <ion-text>
+              <ion-note> From
+                <ion-text color="dark">
+                  {{offer.lowerLimit}} <ion-text color="success">{{offer.fiatCurr.toUpperCase()}}</ion-text>
+                </ion-text>
+                to
+                <ion-text color="dark">
+                  {{offer.upperLimit}} <ion-text color="success">{{offer.fiatCurr.toUpperCase()}}</ion-text>
+                </ion-text>
+            </ion-note></ion-text>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <form (ngSubmit)="onSellOrderPlaced()" [formGroup]="sellOrder">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="floating">Fiat Amount<ion-text color="danger">*</ion-text>:</ion-label>
+                    <ion-input type="number" formControlName="orderAmount" placeholder="Enter amount in crypto" [(ngModel)]="fiatAmt"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="5" class="ion-padding">
+                  <ion-text color="dark">
+                    <h2> Crypto Amount: <ion-text color="success">{{(fiatAmt / offer.price).toString()+' '+offer.cryptoCurr.toUpperCase()}}</ion-text></h2>
+                  </ion-text>
+                </ion-col>
+                <ion-col size="auto">
+                  <ion-note>
+                    <ion-chip color="dark">
+                      <ion-label class="ion-text-wrap">
+                        <ion-text color="success">{{offer.price | currency: getCurrIcon(offer.fiatCurr)}}</ion-text>/<ion-text color="danger">{{offer.cryptoCurr.toUpperCase()}}</ion-text>
+                      </ion-label>
+                    </ion-chip>
+                  </ion-note>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <!-- <ion-item>
+                    <ion-label>Payment Method</ion-label>
+                    <ion-select interface="popover" formControlName="paymentMethod">
+                      <ion-select-option *ngFor="let method of offer.paymentMethods" [value]="method"> {{getPaymentMethodName(method)}} </ion-select-option>
+                    </ion-select>
+                  </ion-item> -->
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-button expand="full" type="submit" [disabled]="fiatAmt > offer.inStock" id="orderBtn">Make Order</ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </ion-card-content>
+      </ion-card>
+      <ion-card id = "hiddenCard" class="align">
+        <ion-card-header>
+          <ion-card-title>NAME: {{paymentInfo?.name.toUpperCase()}}</ion-card-title>
+          <ion-card-subtitle>ADDRESS:
+            <ion-note color="gold-primary">
+              {{paymentInfo?.address}}
+            </ion-note>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-note>
+            <p>
+              Go into your third party application and make payments using the information
+              given below. Click the button once confirmed
+            </p>
+          </ion-note>
+          <br>
+          <ion-text color="danger">Only click the button below once payment has been made</ion-text>
+          <br>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-button expand="full" color="success" (click)="customerConfirm()">
+                  Payment Made!
+                </ion-button>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button color="danger" expand="full" (click)="cancelOrder()">
+                  Cancel
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <br>
+          <ion-text color="primary" id="time"></ion-text>
+        </ion-card-content>
+      </ion-card>
 
-<ion-content>
-
+      <ion-card id = "advertPendingCard" class="align">
+        <ion-card-header>
+          <ion-card-title>Please wait...</ion-card-title>
+          <ion-card-subtitle>
+            <ion-note color="gold-primary">
+              Waiting for advertiser to confirm transaction
+            </ion-note>
+          </ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-spinner color="gold-primary"></ion-spinner>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 </ion-content>
+<app-footer></app-footer>
