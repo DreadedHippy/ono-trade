@@ -58,7 +58,8 @@ export class SellPage implements OnInit {
       fiatCurr: this.offer.fiatCurr,
       fiatAmt: this.fiatAmt,
       paymentMethod: 'onotrade-funding',
-      status: 'pending'
+      status: 'pending',
+      timeLimit: this.offer.timeLimit
     }
     this.transSrv.makeTrade(data).subscribe(
       (response) => {

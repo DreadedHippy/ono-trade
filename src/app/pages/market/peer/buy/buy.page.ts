@@ -59,7 +59,8 @@ export class BuyPage implements OnInit {
       fiatCurr: this.offer.fiatCurr,
       fiatAmt: fiatCost,
       paymentMethod: this.buyOrder.get('paymentMethod').value,
-      status: 'pending'
+      status: 'pending',
+      timeLimit: this.offer.timeLimit
     }
     this.transSrv.makeTrade(data).subscribe(
       (response: {paymentInfo: paymentMethod, peerTradeID: string}) => {

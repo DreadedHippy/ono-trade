@@ -39,13 +39,33 @@ export class PendingPage implements OnInit, OnDestroy {
     this.subs.sink = this.transSrv.getPendingOffers().subscribe( (response: {result: dbPlacedOrders[]}) => {
       console.log(response)
       this.allPending = response.result
+      this.allPending.reverse()
       this.pendingAdverts = response.result.filter( order => {
         order.advertiser == this.email
       })
       this.pendingOrders = response.result.filter( order => {
         order.customer == this.email
       })
+      this.updateExpiredOrders(this.allPending)
     })
+  }
+
+  updateExpiredOrders(allPendingOrders){
+    let orders = [...allPendingOrders]
+    let expiredOrders = orders.filter(isExpired)
+
+    function isExpired(order){
+      let now = new Date()
+      let dateCreated = new Date(order.createdAt)
+      let timeLimit = order.timeLimit * 60 * 1000 //Time Limit in MilliSeconds
+      let validTime = dateCreated.getTime() + timeLimit
+
+      if(now.getTime() - validTime > 0 ){
+        return true
+      }
+      else false
+    }
+    console.log('Expired', [expiredOrders])
   }
 
   getCurrency(currency){

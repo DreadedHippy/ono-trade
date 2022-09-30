@@ -66,7 +66,8 @@ export interface placedOrders{
   cryptoAmt: number,
   fiatAmt: number,
   paymentMethod: string,
-  status: string
+  status: string,
+  timeLimit: number
 }
 
 export interface dbPlacedOrders{
@@ -82,5 +83,6 @@ export interface dbPlacedOrders{
   status: string,
   createdAt: string,
   updatedAt: string,
-  _id: string
+  _id: string,
+  timeLimit: number
 }
