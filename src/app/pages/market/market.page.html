@@ -4,40 +4,47 @@
   <app-header></app-header>
   <div class="body">
     <div class="container">
-      <ion-card class="title-card"style="text-align: center;">
-        <ion-card-header >
-          <ion-card-title>Onotrade Trading Options</ion-card-title>
-        </ion-card-header>
-      </ion-card>
-      <ion-card class="flex-container">
+      <div>
+        <ion-card class="title-card">
+          <ion-card-header >
+            <ion-card-title>Onotrade Trading Options</ion-card-title>
+          </ion-card-header>
+        </ion-card>
         <ion-card class="inner-card" (click)="peerTrade()">
-          <ion-card-content>
-            <ion-text color="dark">
-              Trade with other users of the onotrade app in a secure environment and
-              tons of available trade options.
-            </ion-text>
-          </ion-card-content>
-          <ion-card-header color="primary">
+          <!-- P2P Page Button Header -->
+          <ion-card-header color="primary btn-design">
               <div style="text-align: center;">
                 <ion-icon name="people-circle-sharp" color="dark" class="icon bg-gold"></ion-icon>
               </div>
-            <ion-card-title class="text">P2P</ion-card-title>
+            <ion-card-subtitle class="text">P2P</ion-card-subtitle>
           </ion-card-header>
-        </ion-card>
-        <ion-card class="inner-card" (click)="globalTrade()">
-          <ion-card-content>
+
+          <!-- P2P Page Button Content -->
+          <ion-card-content class="vertical-align">
             <ion-text color="dark">
-              Trade directly on the Onotrade Marketplace without involvement of third-parties
+              Trade with other users of the onotrade app in a secure environment
             </ion-text>
           </ion-card-content>
-          <ion-card-header color="success">
-              <div style="text-align: center;">
-                <ion-icon name="cart-outline" class="icon bg-gold" color="dark"></ion-icon>
-              </div>
-            <ion-card-title class="text">Market</ion-card-title>
-          </ion-card-header>
         </ion-card>
-      </ion-card>
+
+        <!-- MARKET Page Button -->
+        <ion-card class="inner-card" (click)="globalTrade()">
+          <!-- Market Page Button Header -->
+          <ion-card-header color="success btn-design">
+            <div style="text-align: center;">
+              <ion-icon name="cart-outline" class="icon bg-gold" color="dark"></ion-icon>
+            </div>
+            <ion-card-subtitle class="text">Market</ion-card-subtitle>
+          </ion-card-header>
+
+          <!-- Market page button text -->
+          <ion-card-content class="vertical-align">
+            <ion-text color="dark">
+              Trade directly on the Onotrade Marketplace
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+      </div>
       <!-- <ion-card class="transactions-box">
         <ion-grid>
           <ion-row>

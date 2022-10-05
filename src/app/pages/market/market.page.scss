@@ -1,10 +1,8 @@
 .inner-card{
-  opacity: 0.8;
-  width: 35%;
   cursor: pointer;
   transition: 0.3s;
   background-color: rgba(255, 255, 255, 0.062);
-  margin: 10px auto;
+  margin: 30px auto;
   display: flex;
   flex-direction: row;
 }
@@ -25,12 +23,36 @@
 .inner-card .text{
   text-align: center;
   color: white;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 ion-icon {
-  font-size: 48px;
+  font-size: 40px;
+  color: white;
 }
 
 .title-card{
   background-color: transparent !important;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.733);
+  border-radius: 8px;
+  height: 80%
 }
+
+  ion-card{
+
+    height: 80px;
+
+    ion-card-content.vertical-align{
+      margin: auto 30px;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    ion-card-header.btn-design{
+      width: 100px;
+      border-radius: 8px
+    }
+
+  }
