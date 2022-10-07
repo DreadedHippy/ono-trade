@@ -2,6 +2,17 @@
 <ion-content class="mainbackground">
   <app-header></app-header>
   <div class="body">
+    <ion-card class="options-card">
+      <ion-item button color="gold-primary" class="card-item" (click)="onClick()">
+        <ion-label>ALL</ion-label>
+      </ion-item>
+      <ion-item button color="secondary" class="card-item" (click)="onClick()">
+        <ion-label>SPOT</ion-label>
+      </ion-item>
+      <ion-item button color="success" class="card-item" (click)="onClick()">
+        <ion-label>FUNDING</ion-label>
+      </ion-item>
+    </ion-card>
     <div class="head-title">
       <div class="container">
         List of Wallets

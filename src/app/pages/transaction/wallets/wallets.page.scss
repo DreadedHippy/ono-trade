@@ -157,3 +157,21 @@ ion-spinner {
 button-add{
   float: right;
 }
+
+
+ion-card.options-card{
+  background-color: transparent !important;
+  text-align: center;
+  border: 2px solid rgba(255, 255, 255, 0.733);
+  border-radius: 8px;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  ion-item.card-item{
+    width: 100%;
+    text-align: center;
+    font-weight: 600;
+  }
+}

@@ -52,6 +52,10 @@ export class TransferPage implements OnInit, OnDestroy {
     remark: new FormControl('')
   });
 
+  transactionInfoFunding = new FormGroup({
+    senderAmount: new FormControl('', Validators.required),
+  })
+
   form: FormGroup;
 
   isLoading = false;
@@ -67,6 +71,7 @@ export class TransferPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    document.getElementById('fundingForm').style.display = "none"
     document.getElementById('mongoChart').style.display = "none"
     this.chart.render(document.getElementById('mongoChart'))
       .then(() => {this.chart.setFilter( {fromId: this.walletId} ).then(() => {
@@ -76,30 +81,23 @@ export class TransferPage implements OnInit, OnDestroy {
     this.transactionInfo.get('senderAmount').valueChanges.subscribe(amount => {
       this.enteredAmount = amount;
     })
+    this.transactionInfoFunding.get('senderAmount').valueChanges.subscribe(amount => {
+      this.enteredAmount = amount;
+    })
     this.isButtonDisabled = false;
     this.loadTransactions()
   }
 
 
-  ionViewDidEnter(){
-    this.loadTransactions()
-  }
+  ionViewDidEnter() {this.loadTransactions()}
 
-  ngOnDestroy(){
-    this.subs.unsubscribe()
-  }
+  ngOnDestroy() {this.subs.unsubscribe()}
 
-  dashboardPage(){
-    this.router.navigate(['dashboard']);
-  }
+  dashboardPage(){this.router.navigate(['dashboard'])}
 
-  notificationsPage(){
-    this.router.navigate(['notifications']);
-  }
+  notificationsPage(){this.router.navigate(['notifications'])}
 
-  profilePage(){
-    this.router.navigate(['profile']);
-  }
+  profilePage(){this.router.navigate(['profile'])}
 
   toDate(arg){ //CONVERT RAW DATE TO REGULAR, UNDERSTANDABLE DATE
     let rawDate = new Date(arg)
@@ -168,5 +166,28 @@ export class TransferPage implements OnInit, OnDestroy {
   toCurrency(num){ //SETS TO TWO DECIMAL PLACE
     return num.toFixed(2);
     // [value]="(receiverAmountInput.value * marketPrices[receiverCurrency.value] * 1/marketPrices[senderCurrency.value]).toFixed(2)
+  }
+
+  toFunding(){ //Displays form for transferring to funding wallet
+    //TODO: create form for funding wallet
+    document.getElementById('externalForm').style.display = 'none';
+    document.getElementById('fundingForm').style.display = 'block';
+  }
+
+  toExternal(){ //Displays form for transferring to third party
+    //TODO: create form for external wallet
+    document.getElementById('externalForm').style.display = 'block';
+    document.getElementById('fundingForm').style.display = 'none'
+    this.enteredAmount = 0
+    this.transactionInfo.patchValue({senderAmount: 0});
+    this.transactionInfoFunding.patchValue({senderAmount: 0});
+  }
+
+  onTransferFunding(){ //Sends information to backend about funding wallet transfer
+    //TODO: Add a method to transfer to funding wallet
+    console.log('Not Implemented');
+    this.enteredAmount = 0
+    this.transactionInfo.patchValue({senderAmount: 0});
+    this.transactionInfoFunding.patchValue({senderAmount: 0});
   }
 }

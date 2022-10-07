@@ -3,14 +3,21 @@
   <app-header></app-header>
   <div class="body">
     <div class="container" style="padding-bottom: 50px;">
-
+      <div class="flex-container">
+        <ion-button expand="full" (click)="toFunding()">
+          To Funding
+        </ion-button>
+        <ion-button color="secondary" expand="full" (click)="toExternal()">
+          To External
+        </ion-button>
+      </div>
       <div [ngClass]="(walletBal > enteredAmount)? 'balbox' : 'balboxErr'">
         <h4 style="text-align: center;">Balance: {{(walletBal - enteredAmount).toFixed(2)}}</h4>
       </div>
-      <div class="form-box">
+
+      <div class="form-box" id="externalForm">
         <form (ngSubmit)="onTransfer()" *ngIf="!isLoading" [formGroup]="transactionInfo">
           <div class="form-group flexContainer">
-
             <div class="ion-padding">Your Address:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
 
             <input type="number" formControlName="senderAmount" placeholder="0.00"
@@ -40,6 +47,21 @@
           <button type="submit" class="theme btn btn-primary" [disabled]="isButtonDisabled">Transfer</button>
         </form>
       </div>
+
+      <div class="form-box" id="fundingForm">
+        <form (ngSubmit)="onTransferFunding()" [formGroup]="transactionInfoFunding">
+          <ion-item>
+            <ion-label>Amount</ion-label>
+            <ion-input
+            required
+            formControlName="senderAmount"
+            type="number"
+            placeholder="0.00"></ion-input>
+          </ion-item>
+          <ion-button type="submit">Transfer</ion-button>
+        </form>
+      </div>
+
     </div>
     <!-- Transfer History Chart -->
     <div class="container">

@@ -113,4 +113,8 @@ export class WalletsPage implements OnInit, OnDestroy {
     this.router.navigate(['wallets/new'])
   }
 
+  onClick(){
+    console.log('clicked')
+  }
+
 }
