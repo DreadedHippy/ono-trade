@@ -86,3 +86,9 @@ export interface dbPlacedOrders{
   _id: string,
   timeLimit: number
 }
+
+export interface Funding{
+  email: string;
+  amount: number;
+  currency: string;
+}

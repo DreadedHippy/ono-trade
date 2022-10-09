@@ -30,7 +30,8 @@ export class TransferPage implements OnInit, OnDestroy {
   historyData: []
   walletBal: number = this.transSrv.depWallet.balance;
   enteredAmount: number = 0;
-  transfers: Transaction [] = []
+  transfers: Transaction [] = [];
+  currency = this.transSrv.depWallet.currency
 
   timeFormat: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -71,13 +72,17 @@ export class TransferPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    document.getElementById('fundingForm').style.display = "none"
+    document.getElementById('fundingForm').style.display = "none" //Hide funding wallet form
+
+    // hide mongoDB chart until finish Loading
     document.getElementById('mongoChart').style.display = "none"
     this.chart.render(document.getElementById('mongoChart'))
       .then(() => {this.chart.setFilter( {fromId: this.walletId} ).then(() => {
         document.getElementById('mongoChart').style.display = "block"})
       })
       .catch(() => window.alert('Chart failed to initialize'))
+
+    //Change entered amount according to amount on either form input
     this.transactionInfo.get('senderAmount').valueChanges.subscribe(amount => {
       this.enteredAmount = amount;
     })
@@ -147,12 +152,8 @@ export class TransferPage implements OnInit, OnDestroy {
       })
     })
   }
-  getCurrencyIcon(currName) { //Get's currency in UTF-8 encoding
-  switch(currName){
-    case 'ngn':
-      return '₦'
-      break;
-    }
+  getCurrencyIcon(currName) { //Get's currency icon in UTF-8 encoding
+    return this.transSrv.getCurrencyIcon(currName)
   }
 
   scanCode(){
@@ -172,6 +173,8 @@ export class TransferPage implements OnInit, OnDestroy {
     //TODO: create form for funding wallet
     document.getElementById('externalForm').style.display = 'none';
     document.getElementById('fundingForm').style.display = 'block';
+    this.transactionInfo.patchValue({senderAmount: ''});
+    this.transactionInfoFunding.patchValue({senderAmount: ''});
   }
 
   toExternal(){ //Displays form for transferring to third party
@@ -179,15 +182,23 @@ export class TransferPage implements OnInit, OnDestroy {
     document.getElementById('externalForm').style.display = 'block';
     document.getElementById('fundingForm').style.display = 'none'
     this.enteredAmount = 0
-    this.transactionInfo.patchValue({senderAmount: 0});
-    this.transactionInfoFunding.patchValue({senderAmount: 0});
+    this.transactionInfo.patchValue({senderAmount: ''});
+    this.transactionInfoFunding.patchValue({senderAmount: ''});
   }
 
   onTransferFunding(){ //Sends information to backend about funding wallet transfer
     //TODO: Add a method to transfer to funding wallet
     console.log('Not Implemented');
-    this.enteredAmount = 0
-    this.transactionInfo.patchValue({senderAmount: 0});
-    this.transactionInfoFunding.patchValue({senderAmount: 0});
+    let data = {
+      amount: this.transactionInfoFunding.get('senderAmount').value,
+      currency: this.transSrv.depWallet.currency
+    }
+    this.transSrv.transferToFunding(data).subscribe(
+      response => {
+        console.log(response)
+      }, err => {
+        console.log(err)
+      }
+    )
   }
 }

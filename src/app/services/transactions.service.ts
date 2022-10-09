@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Transaction, CryptoBuy, peerOffer, newPeerOffer, paymentMethod } from '../models/transaction.model';
+import { Transaction, CryptoBuy, peerOffer, Funding, newPeerOffer, paymentMethod } from '../models/transaction.model';
 import { environment } from '../../environments/environment';
 import { Wallet } from '../models/wallet.model';
 import { HttpClient } from '@angular/common/http';
@@ -261,6 +261,18 @@ export class TransactionsService {
     const url = this.baseUrl + '/peer/pending?user=' + email
     console.log(email)
     return this.http.get(url)
+  }
+
+  transferToFunding(data){
+    const email = localStorage.getItem('email');
+    const url = this.baseUrl + '/transactions/funding';
+    const funding: Funding = {
+      email: email,
+      amount: data.amount,
+      currency: data.currency
+    };
+    return this.http.post(url, funding)
+
   }
 
 

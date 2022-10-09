@@ -17,6 +17,8 @@
 
       <div class="form-box" id="externalForm">
         <form (ngSubmit)="onTransfer()" *ngIf="!isLoading" [formGroup]="transactionInfo">
+          <!-- To External Wallet -->
+
           <div class="form-group flexContainer">
             <div class="ion-padding">Your Address:</div><input type="text" class="form-control inputField" id="senderAddress" formControlName="senderAddress" required="true" ionFocus="focus()">
 
@@ -48,6 +50,7 @@
         </form>
       </div>
 
+      <!-- To third Party Wallet -->
       <div class="form-box" id="fundingForm">
         <form (ngSubmit)="onTransferFunding()" [formGroup]="transactionInfoFunding">
           <ion-item>
@@ -57,6 +60,9 @@
             formControlName="senderAmount"
             type="number"
             placeholder="0.00"></ion-input>
+            <ion-chip color="dark" mode="md" outline="true">
+              <ion-label>{{ currency.toUpperCase() }}</ion-label>
+            </ion-chip>
           </ion-item>
           <ion-button type="submit">Transfer</ion-button>
         </form>
