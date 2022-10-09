@@ -3,13 +3,13 @@
   <app-header></app-header>
   <div class="body">
     <ion-card class="options-card">
-      <ion-item button color="gold-primary" class="card-item" (click)="onClick()">
+      <ion-item button color="gold-primary" class="card-item" (click)="showWallets('all')">
         <ion-label>ALL</ion-label>
       </ion-item>
-      <ion-item button color="secondary" class="card-item" (click)="onClick()">
+      <ion-item button color="secondary" class="card-item" (click)="showWallets('spot')">
         <ion-label>SPOT</ion-label>
       </ion-item>
-      <ion-item button color="success" class="card-item" (click)="onClick()">
+      <ion-item button color="success" class="card-item" (click)="showWallets('funding')">
         <ion-label>FUNDING</ion-label>
       </ion-item>
     </ion-card>
@@ -73,12 +73,14 @@
                 <span>{{wallet.address}}</span>
               </ion-item>
               <ion-item>
+                <h2 class="last-info">Last Transaction</h2>
+              </ion-item>
+              <ion-item *ngIf="wallet.transactions.length > 0">
                 <ion-label>Last Transaction:</ion-label>
-                <span *ngIf="wallet.transactions.length > 0">
-                  <p>{{wallet.transactions}}</p>
-                  <p>{{wallet.transactions}}</p>
-                  <p style="color: yellow;">{{wallet.transactions}}</p>
-                </span>
+                <hr>
+                  <p>Amount: {{getAmount(wallet.transactions[wallet.transactions.length - 1])}}</p>
+                  <p>From Wallet: {{getFromID(wallet.transactions[wallet.transactions.length - 1])}}</p>
+                  <p style="color: yellow;">Date: {{toDate(wallet.transactions[wallet.transactions.length - 1])}}</p>
               </ion-item>
               <ion-item>
                 <ion-grid>

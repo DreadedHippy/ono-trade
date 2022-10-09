@@ -8,6 +8,7 @@ import { Transaction } from 'src/app/models/transaction.model';
 import { SubSink } from 'subsink';
 import ChartsEmbedSDK from '@mongodb-js/charts-embed-dom'
 import { environment } from 'src/environments/environment';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-transfer',
@@ -68,7 +69,8 @@ export class TransferPage implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private barcodeScanner: BarcodeScanner,
     private transSrv: TransactionsService,
-    private alertSrv: AlertService
+    private alertSrv: AlertService,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -166,11 +168,9 @@ export class TransferPage implements OnInit, OnDestroy {
 
   toCurrency(num){ //SETS TO TWO DECIMAL PLACE
     return num.toFixed(2);
-    // [value]="(receiverAmountInput.value * marketPrices[receiverCurrency.value] * 1/marketPrices[senderCurrency.value]).toFixed(2)
   }
 
   toFunding(){ //Displays form for transferring to funding wallet
-    //TODO: create form for funding wallet
     document.getElementById('externalForm').style.display = 'none';
     document.getElementById('fundingForm').style.display = 'block';
     this.transactionInfo.patchValue({senderAmount: ''});
@@ -178,7 +178,6 @@ export class TransferPage implements OnInit, OnDestroy {
   }
 
   toExternal(){ //Displays form for transferring to third party
-    //TODO: create form for external wallet
     document.getElementById('externalForm').style.display = 'block';
     document.getElementById('fundingForm').style.display = 'none'
     this.enteredAmount = 0
@@ -187,15 +186,29 @@ export class TransferPage implements OnInit, OnDestroy {
   }
 
   onTransferFunding(){ //Sends information to backend about funding wallet transfer
-    //TODO: Add a method to transfer to funding wallet
+    let date = new Date;
+    let transaction: Transaction = {
+      type: 'transfer',
+      date: date.toISOString(),
+      fromId: this.transSrv.depWallet._id,
+      fromAddress: this.transSrv.depWallet.address,
+      toAddress: 'fundingWallet',
+      currency: this.transSrv.depWallet.currency,
+      amount: this.transactionInfoFunding.get('senderAmount').value,
+      remark: '',
+      fromName: this.transSrv.depWallet.name
+    }
     console.log('Not Implemented');
     let data = {
       amount: this.transactionInfoFunding.get('senderAmount').value,
-      currency: this.transSrv.depWallet.currency
+      currency: this.transSrv.depWallet.currency,
+      transaction: transaction
     }
     this.transSrv.transferToFunding(data).subscribe(
-      response => {
-        console.log(response)
+      (response: {message: string}) => {
+        console.log( response )
+        this.router.navigate(['wallets'])
+        this.alertSrv.toast(response.message, 1000)
       }, err => {
         console.log(err)
       }

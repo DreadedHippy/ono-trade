@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Transaction, CryptoBuy, peerOffer, Funding, newPeerOffer, paymentMethod } from '../models/transaction.model';
+import { Transaction, CryptoBuy, peerOffer, newPeerOffer, paymentMethod } from '../models/transaction.model';
 import { environment } from '../../environments/environment';
-import { Wallet } from '../models/wallet.model';
+import { Wallet, Funding } from '../models/wallet.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -266,12 +266,13 @@ export class TransactionsService {
   transferToFunding(data){
     const email = localStorage.getItem('email');
     const url = this.baseUrl + '/transactions/funding';
-    const funding: Funding = {
+    const fundingData = {
       email: email,
       amount: data.amount,
-      currency: data.currency
+      currency: data.currency,
+      transaction: data.transaction
     };
-    return this.http.post(url, funding)
+    return this.http.post(url, fundingData)
 
   }
 

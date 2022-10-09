@@ -6,3 +6,11 @@ export interface Wallet {
   balance:number,
   transactions: []
 }
+
+
+export interface Funding{
+  email: string;
+  amount: number;
+  currency: string;
+  transactions: [];
+}
