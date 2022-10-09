@@ -73,15 +73,23 @@
                 <span>{{wallet.address}}</span>
               </ion-item>
               <ion-item>
-                <h2 class="last-info">Last Transaction</h2>
+                <h3 class="last-info">Last Transaction</h3>
               </ion-item>
-              <ion-item *ngIf="wallet.transactions.length > 0">
-                <ion-label>Last Transaction:</ion-label>
-                <hr>
-                  <p>Amount: {{getAmount(wallet.transactions[wallet.transactions.length - 1])}}</p>
-                  <p>From Wallet: {{getFromID(wallet.transactions[wallet.transactions.length - 1])}}</p>
-                  <p style="color: yellow;">Date: {{toDate(wallet.transactions[wallet.transactions.length - 1])}}</p>
-              </ion-item>
+              <div *ngIf="wallet.transactions.length > 0">
+                <ion-item>
+                  <ion-label>
+                    Amount: {{getAmount(wallet.transactions[wallet.transactions.length - 1])}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label>
+                    From Wallet: {{getFromID(wallet.transactions[wallet.transactions.length - 1])}}
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label color="gold-primary" >Date: {{toDate(wallet.transactions[wallet.transactions.length - 1])}}</ion-label>
+                </ion-item>
+              </div>
               <ion-item>
                 <ion-grid>
                   <ion-row>
