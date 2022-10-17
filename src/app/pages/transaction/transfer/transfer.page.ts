@@ -210,7 +210,7 @@ export class TransferPage implements OnInit, OnDestroy {
         this.router.navigate(['wallets'])
         this.alertSrv.toast(response.message, 1000)
       }, err => {
-        console.log(err)
+        console.log("Oops, An Error Occured")
       }
     )
   }

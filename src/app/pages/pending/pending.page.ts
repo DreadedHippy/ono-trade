@@ -17,6 +17,7 @@ export class PendingPage implements OnInit, OnDestroy {
     private transSrv: TransactionsService,
     private alertSrv: AlertService
   ) { }
+
   allPending: dbPlacedOrders[]
   pendingAdverts: placedOrders[]
   pendingOrders: placedOrders[]
@@ -65,7 +66,9 @@ export class PendingPage implements OnInit, OnDestroy {
       }
       else false
     }
-    console.log('Expired', [expiredOrders])
+
+    //TODO: Add order expiry
+    console.log('Expired', expiredOrders)
   }
 
   getCurrency(currency){

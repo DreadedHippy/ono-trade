@@ -21,4 +21,17 @@ export class UtilityService {
     let rawDate = new Date(arg)
     return rawDate.toLocaleDateString('en-US', this.timeFormat)
   }
+
+  getMethodColor(method){
+    switch(method){
+      case 'ppl':
+        return 'berry';
+      case 'zel':
+        return 'secondary';
+      case 'pst':
+        return 'success';
+      default:
+        return 'primary';
+    }
+  }
 }

@@ -48,33 +48,51 @@ export class BuyPage implements OnInit {
       this.alertSrv.toast('Amount exceeds limit', 1000);
       return;
     }
-    let fiatCost = this.cryptoAmt * this.offer.price
-    const data: placedOrders = {
-      offerID: this.offer._id,
-      advertiser: this.offer.email,
-      advertType: this.offer.type,
-      customer: localStorage.getItem('email'),
-      cryptoCurr: this.offer.cryptoCurr,
-      cryptoAmt: this.cryptoAmt,
-      fiatCurr: this.offer.fiatCurr,
-      fiatAmt: fiatCost,
-      paymentMethod: this.buyOrder.get('paymentMethod').value,
-      status: 'pending',
-      timeLimit: this.offer.timeLimit
-    }
-    this.transSrv.makeTrade(data).subscribe(
-      (response: {paymentInfo: paymentMethod, peerTradeID: string}) => {
+
+    let fiatCost = this.cryptoAmt * this.offer.price;
+
+    this.transSrv.checkFundingBal(this.offer.fiatCurr, fiatCost).subscribe(
+      (response: {message: string, isEligible: boolean}) => {
         console.log(response)
-        this.paymentInfo = response.paymentInfo
-        document.getElementById("orderBtn").style.display = 'none'
-        this.toggleCard()
-        this.buyOrder.disable()
-        console.log(response.peerTradeID) //ID of the created trade instance
-        this.peerTradeID = response.peerTradeID
-        const display = document.querySelector('#time');
-        this.startTimer( this.offer.timeLimit * 60, display);
+        if(!response.isEligible){
+          this.alertSrv.toast(response.message, 1000);
+          return;
+        }
+        placeOrder()
       }
     )
+
+
+    let placeOrder = () =>{
+      const data: placedOrders = {
+        offerID: this.offer._id,
+        advertiser: this.offer.email,
+        advertType: this.offer.type,
+        customer: localStorage.getItem('email'),
+        cryptoCurr: this.offer.cryptoCurr,
+        cryptoAmt: this.cryptoAmt,
+        fiatCurr: this.offer.fiatCurr,
+        fiatAmt: fiatCost,
+        paymentMethod: this.buyOrder.get('paymentMethod').value,
+        status: 'pending',
+        timeLimit: this.offer.timeLimit
+      }
+      this.transSrv.makeTrade(data).subscribe(
+        (response: {paymentInfo: paymentMethod, peerTradeID: string}) => {
+          console.log(response)
+          this.paymentInfo = response.paymentInfo
+          document.getElementById("orderBtn").style.display = 'none'
+          this.toggleCard()
+          this.buyOrder.disable()
+          console.log(response.peerTradeID) //ID of the created trade instance
+          this.peerTradeID = response.peerTradeID
+          const display = document.querySelector('#time');
+          this.startTimer( this.offer.timeLimit * 60, display);
+        }, err => {
+          console.log('An error:', err)
+        }
+      )
+    }
   }
 
   toggleCard(){ //Toggle the payment confirmation display card

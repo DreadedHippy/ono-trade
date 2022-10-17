@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  title: string;
+  title: string
   random = new Observable(subscriber => {
     subscriber.next(Math.ceil(Math.random()*10000))
   })

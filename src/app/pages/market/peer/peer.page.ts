@@ -1,3 +1,4 @@
+import { UtilityService } from './../../../services/utility.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TransactionsService } from 'src/app/services/transactions.service';
@@ -18,7 +19,8 @@ export class PeerPage implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private transSrv: TransactionsService
+    private transSrv: TransactionsService,
+    private utilSrv: UtilityService
   ) {}
 
   ngOnInit() {
@@ -82,7 +84,7 @@ export class PeerPage implements OnInit, OnDestroy {
   }
 
   getMethodColor(method){
-    return this.transSrv.getMethodColor(method)
+    return this.utilSrv.getMethodColor(method)
   }
 
   getCurrencyIcon(currency){

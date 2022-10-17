@@ -195,20 +195,6 @@ export class TransactionsService {
     }
   }
 
-
-  getMethodColor(method){
-    switch(method){
-      case 'ppl':
-        return 'berry';
-      case 'zel':
-        return 'secondary';
-      case 'pst':
-        return 'success';
-      default:
-        return 'primary';
-    }
-  }
-
   addPaymentMethod(data: paymentMethod){
     const url = this.baseUrl + '/paymentMethods/new'
     let email = {email: localStorage.getItem('email')};
@@ -216,13 +202,13 @@ export class TransactionsService {
     return this.http.post(url, newMethod)
   }
 
-  getPaymentMethods(){
+  getPaymentMethods(){ //Retrieve Users' payment method
     let email = localStorage.getItem('email')
     const url = this.baseUrl + '/paymentMethods?email=' + email
     return this.http.get(url);
   }
 
-  deletePaymentMethod(method){
+  deletePaymentMethod(method){ //When A User deletes a payment method
     let email = {email: localStorage.getItem('email')}
     const data = Object.assign(email, method);
     const url = this.baseUrl + '/paymentMethods/delete';
@@ -235,20 +221,20 @@ export class TransactionsService {
     return this.http.post(url, data)
   }
 
-  customerConfirmOrder(id, offer){
+  customerConfirmOrder(id, offer){ //When customer confirms order
     let patch =  { status: 'pending-advertiser'}
     const data = Object.assign(patch, offer)
     const url = this.baseUrl + '/peer/customerConfirm/' + id
     return this.http.patch(url, data);
   }
 
-  advertiserConfirmOrder(orderID){
+  advertiserConfirmOrder(orderID){ //When advertiser confirms/validates order
     const url = this.baseUrl + '/peer/advertiserConfirm/'+ orderID;
     let patch = { status: 'completed'}
     return this.http.patch(url, patch)
   }
 
-  customerCancelOrder(id, offer){
+  customerCancelOrder(id, offer){ //When a customer cancels an order
     let patch =  { status: 'cancelled'}
     console.log('Cancelling Trade')
     const data = Object.assign(patch, offer)
@@ -256,14 +242,25 @@ export class TransactionsService {
     return this.http.patch(url, data);
   }
 
-  getPendingOffers(){
+  checkFundingBal(fiatCurrency, amount){ //Check Balance of user's funding wallet
+    const url = this.baseUrl + '/peer/checkFundingBal';
+    const email = localStorage.getItem('email');
+    const data = {
+      email: email,
+      currency: fiatCurrency,
+      amount: amount
+    }
+    return this.http.post(url, data);
+  }
+
+  getPendingOffers(){ //Retrieve all pending offers
     const email = localStorage.getItem('email')
     const url = this.baseUrl + '/peer/pending?user=' + email
     console.log(email)
     return this.http.get(url)
   }
 
-  transferToFunding(data){
+  transferToFunding(data){  //Transfer To funding wallet
     const email = localStorage.getItem('email');
     const url = this.baseUrl + '/transactions/funding';
     const fundingData = {
